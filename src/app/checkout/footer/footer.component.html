@@ -1,0 +1,19 @@
+<div class="checkout-footer">
+  <div class="column">
+    <button *ngIf="buttons.includes('backToCart')" class="btn btn-outline-secondary" routerLink="/cart">
+      <i class="icon-arrow-left"></i><span class="hidden-xs-down">&nbsp;Volver al carrito</span>
+    </button>
+    <button *ngIf="buttons.includes('back')" class="btn btn-outline-secondary" (click)="onBack($event)">
+      <i class="icon-arrow-left"></i>
+      <span class="hidden-xs-down">&nbsp;Volver</span>
+    </button>
+  </div>
+  <div class="column">
+    <button *ngIf="buttons.includes('continue')" class="btn btn-primary" href="" (click)="onContinue($event)" [disabled]="!continueEnabled">
+      <span class="hidden-xs-down">Continuar&nbsp;</span><i class="icon-arrow-right"></i>
+    </button>
+    <button *ngIf="buttons.includes('completeOrder')" class="btn btn-primary" href="" (click)="onCompleteOrder($event)">
+      <span class="hidden-xs-down">Completar orden</span><span class="d-sm-none">Completar</span>
+    </button>
+  </div>
+</div>

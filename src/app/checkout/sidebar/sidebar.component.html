@@ -1,0 +1,23 @@
+
+<aside class="sidebar">
+  <div class="padding-top-2x hidden-lg-up"></div>
+  <!-- Order Summary Widget-->
+  <section class="widget widget-order-summary">
+    <h3 class="widget-title">Resumen del pedido</h3>
+    <table class="table">
+      <tr>
+        <td>Subtotal del carrito:</td>
+        <td class="text-medium">{{cartSubtotal | currency}}</td>
+      </tr>
+      <tr>
+        <td>Envío:</td>
+        <td class="text-medium">{{shipping | currency}}</td>
+      </tr>
+      <tr>
+        <td>Total de la orden:</td>
+        <td class="text-lg text-medium">{{orderTotal | currency}}</td>
+      </tr>
+    </table>
+  </section>
+</aside>
+

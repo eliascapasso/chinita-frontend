@@ -1,0 +1,105 @@
+<!-- Site Footer-->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6">
+        <!-- Contact Info-->
+        <section class="widget widget-light-skin">
+          <h3 class="widget-title">Póngase en contacto con nosotros</h3>
+          <p class="text-white">Teléfono: {{ telefono }}</p>
+          <p>
+            <a class="navi-link-light" [href]="'mailto:' + correo" target="_blank">{{ correo }}</a>
+          </p>
+          <a class="social-button shape-circle sb-facebook sb-light-skin" [href]="facebook" target="_blank">
+            <i class="socicon-facebook"></i>
+          </a>
+          <a class="social-button shape-circle sb-twitter sb-light-skin" [href]="twitter" target="_blank">
+            <i class="socicon-twitter"></i>
+          </a>
+          <a class="social-button shape-circle sb-instagram sb-light-skin" [href]="instagram" target="_blank">
+            <i class="socicon-instagram"></i>
+          </a>
+          <a class="social-button shape-circle sb-google-plus sb-light-skin" [href]="linkedin" target="_blank">
+            <i class="socicon-linkedin"></i>
+          </a>
+          <a class="social-button shape-circle sb-google-plus sb-light-skin" [href]="wsp" target="_blank">
+            <i class="socicon-whatsapp"></i>
+          </a>
+        </section>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <!-- Mobile App Buttons-->
+        <section class="widget widget-light-skin">
+          <h3 class="widget-title">Nuestra aplicación móvil</h3>
+          <a class="market-button apple-button mb-light-skin" [href]="appstore" target="_blank">
+            <span class="mb-subtitle">Descarga en la</span>
+            <span class="mb-title">App Store</span>
+          </a>
+          <a class="market-button google-button mb-light-skin" [href]="playstore" target="_blank">
+            <span class="mb-subtitle">Descarga en</span>
+            <span class="mb-title">Google Play</span>
+          </a>
+        </section>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <!-- About Us-->
+        <section class="widget widget-links widget-light-skin">
+          <h3 class="widget-title">Sobre nosotros</h3>
+          <ul>
+            <li>
+              <a href="#">Sobre la tienda</a>
+            </li>
+            <li>
+              <a href="#">Nuestra historia</a>
+            </li>
+            <li>
+              <a href="#">Servicios</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <!-- Account / Shipping Info-->
+        <section class="widget widget-links widget-light-skin">
+          <h3 class="widget-title">Cuenta &amp; Información de envío</h3>
+          <ul>
+            <li>
+              <a href="#">Tu cuenta</a>
+            </li>
+            <li>
+              <a href="#">Tarifas y políticas de envío</a>
+            </li>
+            <li>
+              <a href="#">Reembolsos y reemplazos</a>
+            </li>
+            <li>
+              <a href="#">Impuestos</a>
+            </li>
+            <li>
+              <a href="#">Información de entrega</a>
+            </li>
+            <li>
+              <a href="#">Programa de Afiliados</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+    <hr class="hr-light mt-2 margin-bottom-2x">
+    <div class="row">
+      <div class="col-md-7 padding-bottom-1x">
+        <!-- Payment Methods-->
+        <div class="margin-bottom-1x" style="max-width: 615px;">
+          <img src="img/payment_methods.png" alt="Payment Methods">
+        </div>
+      </div>
+      <div class="col-md-5 padding-bottom-1x">
+      </div>
+    </div>
+    <!-- Copyright-->
+    <p class="footer-copyright">© Todos los derechos reservados. Hecho con &nbsp;
+      <i class="icon-heart text-danger"></i>
+      <a [href]="instagram" target="_blank"> &nbsp;por Capasso Elias Nicolas</a>
+    </p>
+  </div>
+</footer>

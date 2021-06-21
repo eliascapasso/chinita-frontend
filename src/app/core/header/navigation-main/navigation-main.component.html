@@ -1,0 +1,25 @@
+<!-- Main Navigation-->
+<nav class="site-menu">
+    <ul>
+        <li routerLinkActive="active">
+            <a routerLink="/home" href="">
+                <span>Inicio</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/products" href="">
+                <span>Productos</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/cart" href="">
+                <span>Carrito</span>
+            </a>
+        </li>
+        <li *ngIf="user && user.roles.admin" routerLinkActive="active">
+            <a routerLink="/admin/add" href="">
+                <span>Agregar producto</span>
+            </a>
+        </li>
+    </ul>
+</nav>
