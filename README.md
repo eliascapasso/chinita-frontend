@@ -2,7 +2,7 @@
 
 - Capasso Elias Nicolas
 
-Check out this project online at [http://shop.andre-abt.com](http://shop.andre-abt.com)
+Check out this project online at [https://nickeliferous-carri.000webhostapp.com/](https://nickeliferous-carri.000webhostapp.com/)
 Note: The pixelated product images are there because of image licensing reasons.
 
 ## Installation
@@ -36,7 +36,7 @@ Runs a webpack-development server. Navigate to `http://localhost:4200/`. The app
 
 ### Checkout the shop
 
-Point your browser to localhost:4200. In any case the dev build is not working, there is an already built app available on http://shop.andre-abt.com for checking out. Deeplinking for the Angular router is handled via .htaccess config.
+Point your browser to localhost:4200. In any case the dev build is not working, there is an already built app available on https://nickeliferous-carri.000webhostapp.com/ for checking out. Deeplinking for the Angular router is handled via .htaccess config.
 
 ### Run unit tests
 
