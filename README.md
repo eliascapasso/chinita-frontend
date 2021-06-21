@@ -44,15 +44,11 @@ Point your browser to localhost:4200. In any case the dev build is not working, 
 ng test
 ```
 
-Executes the unit tests via [Karma](https://karma-runner.github.io).
-
 ### Running end-to-end tests
 
 ```bash
 ng e2e
 ```
-
-Executes the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ### Build app for prod
 
@@ -156,26 +152,10 @@ So we decided to implement basic shop functionality for now and base the project
 - All displayed prices are handled via a PriceComponent to simplify currency display/formatting
 - Search with Typeahead functionality (Unfortunately, FireBase has very limited  functionality for full text search. For a real application, local search would be the better option)
 
-### Custom Express/MongoDB Backend
-
-Implementation started with a custom MEAN-architecture, which used a mLab-database.
-We switched to «serverless» with Firebase due to several reasons:
-
-- Backend not in the scope of this front-end-project and the CAS-FEE-task.
-- Firebase provides complete functionality set
-- Failure of knowledge-transfer between developers
-- mLab blocked in the HSR-network
-
-The unfinished project can be found under: [CAS-FEE-PROJEKT-2-CUSTOM-MEAN-BACKEND](https://github.com/chzellweger/CAS-FEE-PROJEKT-2-CUSTOM-MEAN-BACKEND)
-
 ### Special Mentions
 
 - All product data changes are propagated in real time to all clients without reloading, via Firebase Real Time Data Base and reactive programming with RxJs (try rating a product or update a property in the CRUD-module)
 - Off Canvas Navigation is handled via Service, several CSS classes needs to be applied to different components
-
-## UX-Test
-
-UX-Tests are documented in [ux-testing/ux-test.md](./ux-testing/ux-test.md).
 
 ## Possible future features and updates
 
