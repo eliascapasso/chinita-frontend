@@ -14,6 +14,7 @@ import { User } from '../../../models/user.model';
 export class NavigationMainComponent implements OnInit, OnDestroy {
   public user: User;
   private authSubscription: Subscription;
+  public isProducts: boolean = false;
 
   constructor(public authService: AuthService) {}
 
@@ -25,5 +26,9 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
+  }
+
+  changeNav(isProducts){
+    this.isProducts = isProducts
   }
 }

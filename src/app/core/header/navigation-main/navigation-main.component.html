@@ -1,24 +1,64 @@
 <!-- Main Navigation-->
 <nav class="site-menu">
     <ul>
-        <li routerLinkActive="active">
+        <li routerLinkActive="active" (click)="changeNav(false)">
             <a routerLink="/home" href="">
                 <span>Inicio</span>
             </a>
         </li>
-        <li routerLinkActive="active">
+        <li routerLinkActive="active" (click)="changeNav(true)">
             <a routerLink="/products" href="">
                 <span>Productos</span>
             </a>
         </li>
-        <li routerLinkActive="active">
+        <li routerLinkActive="active" (click)="changeNav(false)">
             <a routerLink="/cart" href="">
                 <span>Carrito</span>
             </a>
         </li>
-        <li *ngIf="user && user.roles.admin" routerLinkActive="active">
+        <li *ngIf="user && user.roles.admin" routerLinkActive="active" (click)="changeNav(false)">
             <a routerLink="/admin/add" href="">
                 <span>Agregar producto</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- //////////////////   IMPLEMENTAR ENUMERADOS   ////////////// -->
+    <!-- Categories -->
+    <ul *ngIf="isProducts">
+        <li routerLinkActive="active">
+            <a routerLink="/products" [queryParams]="{'category': 'BLAZERS'}" href="">
+                <span>Blazers</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/products" [queryParams]="{'category': 'SWEATERS'}" href="">
+                <span>Sweaters</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/products" [queryParams]="{'category': 'CAMISAS'}" href="">
+                <span>Camisas</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/products" [queryParams]="{'category': 'REMERAS'}" href="">
+                <span>Remeras</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/products" [queryParams]="{'category': 'JEANS'}" href="">
+                <span>Jeans</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/products" [queryParams]="{'category': 'POLLERAS'}" href="">
+                <span>Polleras</span>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/products" [queryParams]="{'category': 'VESTIDOS'}" href="">
+                <span>Vestidos</span>
             </a>
         </li>
     </ul>
