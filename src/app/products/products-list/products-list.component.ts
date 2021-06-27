@@ -78,42 +78,42 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     });
   }
 
-  //////// IMPLEMENTAR ENUMERADOS Y CORREGIR VALIDACIONES  ////////
+  //////// IMPLEMENTAR OBTENER CATEGORIAS ////////
   filterWithCat(products, category) {
     for (let product of <any[]>products) {
       switch (category) {
         case "BLAZERS":
-          if (product.categories.Bags) {
+          if (product.categories.BLAZERS) {
             this.products.push(product);
           }
           break;
         case "SWEATERS":
-          if (product.categories.category) {
+          if (product.categories.SWEATERS) {
             this.products.push(product);
           }
           break;
         case "CAMISAS":
-          if (product.categories.Jewelry) {
+          if (product.categories.CAMISAS) {
             this.products.push(product);
           }
           break;
         case "REMERAS":
-          if (product.categories.Backpacks) {
+          if (product.categories.REMERAS) {
             this.products.push(product);
           }
           break;
         case "JEANS":
-          if (product.categories.Glasses) {
+          if (product.categories.JEANS) {
             this.products.push(product);
           }
           break;
         case "POLLERAS":
-          if (product.categories.Clothes) {
+          if (product.categories.POLLERAS) {
             this.products.push(product);
           }
           break;
         case "VESTIDOS":
-          if (product.categories.Shoes) {
+          if (product.categories.VESTIDOS) {
             this.products.push(product);
           }
           break;
