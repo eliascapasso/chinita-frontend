@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../account/shared/auth.service';
 
 import { User } from '../../../models/user.model';
+import { ProductService } from '../../../products/shared/product.service';
 
 @Component({
   selector: 'app-navigation-main',
@@ -15,13 +16,16 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
   public user: User;
   private authSubscription: Subscription;
   public isProducts: boolean = false;
+  public categories: string[] = [];
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, public productService: ProductService) {}
 
   ngOnInit() {
     this.authService.user.subscribe((user) => {
       this.user = user;
     });
+
+    this.getCategories();
   }
 
   ngOnDestroy() {
@@ -29,6 +33,12 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
   }
 
   changeNav(isProducts){
-    this.isProducts = isProducts
+    this.isProducts = isProducts;
+  }
+
+  getCategories(){
+    this.productService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
   }
 }

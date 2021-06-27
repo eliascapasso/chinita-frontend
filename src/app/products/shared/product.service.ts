@@ -45,6 +45,13 @@ export class ProductService {
     };
   }
 
+  public getCategories(): Observable<any[]> {
+    return this.angularFireDatabase
+      .list<any>('categories')
+      .valueChanges()
+      .pipe(map((arr) => arr.reverse()), catchError(this.handleError<any[]>(`getCategories`)));
+  }
+
   public getProducts(): Observable<Product[]> {
     return this.angularFireDatabase
       .list<Product>('products', (ref) => ref.orderByChild('date'))

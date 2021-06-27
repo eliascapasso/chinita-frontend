@@ -13,10 +13,6 @@ import { Product } from '../../models/product.model';
 
 // we send and receive categories as {key:true},
 // but for the input field we need
-// a product with categories of type string
-export class DomainProduct extends Product {
-  categories: string;
-}
 
 @Component({
   selector: 'app-add-edit',
@@ -28,7 +24,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
   private formSubscription: Subscription;
   @ViewChild('photos', { static: true }) photos;
   public productForm: FormGroup;
-  public product: DomainProduct;
+  public product: Product;
   public mode: 'edit' | 'add';
   public id;
   public percentage: Observable<number>;
@@ -102,7 +98,6 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   private constructProduct() {
     const product = this.constructMockProduct();
-    product.categories = this.categoriesFromObjectToString(product.categories);
     this.syncProduct(product);
     this.initForm();
   }
@@ -112,9 +107,6 @@ export class AddEditComponent implements OnInit, OnDestroy {
       .getProduct(id)
       .subscribe((product) => {
         if (product) {
-          product.categories = this.categoriesFromObjectToString(
-            product.categories
-          );
           this.syncProduct(product);
           this.initForm();
         }
@@ -203,10 +195,9 @@ export class AddEditComponent implements OnInit, OnDestroy {
     return new Product();
   }
 
-  private constructProductToSubmit(product: DomainProduct): Product {
+  private constructProductToSubmit(product: Product): Product {
     return {
-      ...product,
-      categories: this.categoriesFromStringToObject(product.categories)
+      ...product
     };
   }
 
@@ -217,22 +208,6 @@ export class AddEditComponent implements OnInit, OnDestroy {
       id = randomId;
     }
     return id;
-  }
-
-  private categoriesFromObjectToString(categories: {}): string | null {
-    // categories: { key: true, key: true} || {}
-    if (Object.keys(categories).length === 0) {
-      return 'ejemplo, categoria';
-    }
-    return Object.keys(categories).reduce(
-      (result, currentProduct, index, inputArray) => {
-        if (index < inputArray.length - 1) {
-          return result + currentProduct + ',';
-        }
-        return result + currentProduct;
-      },
-      ''
-    );
   }
 
   private categoriesFromStringToObject(categories: string): {} {

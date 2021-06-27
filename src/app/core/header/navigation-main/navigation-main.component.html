@@ -23,42 +23,11 @@
         </li>
     </ul>
 
-    <!-- //////////////////   OBTENER CATEGORIAS   ////////////// -->
     <!-- Categories -->
     <ul *ngIf="isProducts">
-        <li routerLinkActive="active">
-            <a routerLink="/products" [queryParams]="{'category': 'BLAZERS'}" href="">
-                <span>Blazers</span>
-            </a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="/products" [queryParams]="{'category': 'SWEATERS'}" href="">
-                <span>Sweaters</span>
-            </a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="/products" [queryParams]="{'category': 'CAMISAS'}" href="">
-                <span>Camisas</span>
-            </a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="/products" [queryParams]="{'category': 'REMERAS'}" href="">
-                <span>Remeras</span>
-            </a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="/products" [queryParams]="{'category': 'JEANS'}" href="">
-                <span>Jeans</span>
-            </a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="/products" [queryParams]="{'category': 'POLLERAS'}" href="">
-                <span>Polleras</span>
-            </a>
-        </li>
-        <li routerLinkActive="active">
-            <a routerLink="/products" [queryParams]="{'category': 'VESTIDOS'}" href="">
-                <span>Vestidos</span>
+        <li routerLinkActive="active" *ngFor="let category of categories">
+            <a routerLink="/products" [queryParams]="{'category': category}" href="">
+                <span>{{ category }}</span>
             </a>
         </li>
     </ul>

@@ -21,12 +21,13 @@ import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
-  products: Product[];
+  products: Product[] = [];
   productsPaged: Product[];
   pager: any = {};
   user: User;
   productsLoading: boolean;
   currentPagingPage: number;
+  noProducts: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -61,16 +62,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   getProducts() {
     this.route.queryParams.subscribe((params) => {
-      var category = "";
-      category = params["category"];
-
+      var category = params["category"];
       this.productsLoading = true;
+
       this.productService
         .getProducts()
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((products) => {
-          this.products = [];
-          console.log(products);
           this.filterWithCat(products, category);
           this.setPage(this.currentPagingPage);
           this.productsLoading = false;
@@ -78,49 +76,21 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     });
   }
 
-  //////// IMPLEMENTAR OBTENER CATEGORIAS ////////
   filterWithCat(products, category) {
-    for (let product of <any[]>products) {
-      switch (category) {
-        case "BLAZERS":
-          if (product.categories.BLAZERS) {
-            this.products.push(product);
-          }
-          break;
-        case "SWEATERS":
-          if (product.categories.SWEATERS) {
-            this.products.push(product);
-          }
-          break;
-        case "CAMISAS":
-          if (product.categories.CAMISAS) {
-            this.products.push(product);
-          }
-          break;
-        case "REMERAS":
-          if (product.categories.REMERAS) {
-            this.products.push(product);
-          }
-          break;
-        case "JEANS":
-          if (product.categories.JEANS) {
-            this.products.push(product);
-          }
-          break;
-        case "POLLERAS":
-          if (product.categories.POLLERAS) {
-            this.products.push(product);
-          }
-          break;
-        case "VESTIDOS":
-          if (product.categories.VESTIDOS) {
-            this.products.push(product);
-          }
-          break;
-        default:
+    this.products = [];
+    this.noProducts = false;
+    if (category == undefined || category == "") {
+      this.products = products;
+    } else {
+      for (let product of <any[]>products) {
+        if (product.categories.includes(category)) {
           this.products.push(product);
+        }
       }
     }
+
+    this.products.length == 0 ? (this.noProducts = true) : "";
+    this.products.length == 0 ? (this.products = products) : "";
   }
 
   onDisplayModeChange(mode: string, e: Event) {

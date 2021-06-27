@@ -11,7 +11,7 @@ export class Product {
     public reduction: number = 0,
     public imageURLs: string[] = [],
     public imageRefs: string[] = [],
-    public categories: {} = {},
+    public categories: string[] = [],
     public ratings: {} = {},
     public currentRating: number = 0,
     public sale: boolean = false
