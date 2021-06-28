@@ -1,5 +1,5 @@
 <app-page-title
-  title="Productos"
+  [title]="title"
   [children]="[{ title: 'Productos' }]"
 ></app-page-title>
 
@@ -151,5 +151,5 @@
 
 <!-- NO PRODUCTS -->
 <div style="text-align: center;" *ngIf="noProducts">
-    <label>No products</label>
+    <label>Sin productos</label>
 </div>

@@ -28,6 +28,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
   productsLoading: boolean;
   currentPagingPage: number;
   noProducts: boolean = false;
+  title: string = "Productos";
 
   constructor(
     private productService: ProductService,
@@ -81,7 +82,9 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     this.noProducts = false;
     if (category == undefined || category == "") {
       this.products = products;
+      this.title = "Productos";
     } else {
+      this.title = category;
       for (let product of <any[]>products) {
         if (product.categories.includes(category)) {
           this.products.push(product);

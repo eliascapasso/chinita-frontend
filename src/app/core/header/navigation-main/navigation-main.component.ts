@@ -15,7 +15,6 @@ import { ProductService } from '../../../products/shared/product.service';
 export class NavigationMainComponent implements OnInit, OnDestroy {
   public user: User;
   private authSubscription: Subscription;
-  public isProducts: boolean = false;
   public categories: string[] = [];
 
   constructor(public authService: AuthService, public productService: ProductService) {}
@@ -30,10 +29,6 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
-  }
-
-  changeNav(isProducts){
-    this.isProducts = isProducts;
   }
 
   getCategories(){
