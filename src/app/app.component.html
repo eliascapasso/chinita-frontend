@@ -1,6 +1,10 @@
 <div class="main-wrapper" [ngClass]="{'offcanvas-open': offcanvasService.offcanvasNavigationOpen | async}">
-    <app-navigation-off-canvas></app-navigation-off-canvas>
-    <app-top-bar></app-top-bar>
-    <app-header></app-header>
-    <app-content></app-content>
+    <div class="fixed-header">
+        <app-navigation-off-canvas></app-navigation-off-canvas>
+        <app-top-bar></app-top-bar>
+        <app-header></app-header>
+    </div>
+    <div class="container">
+        <app-content></app-content>
+    </div>
 </div>

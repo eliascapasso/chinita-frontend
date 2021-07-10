@@ -1,4 +1,3 @@
-<!-- Off-Canvas Mobile Menu-->
 <div
   class="offcanvas-container"
   id="mobile-menu"
@@ -10,9 +9,6 @@
     routerLink="/account/profile"
     (click)="onNavigationClick()"
   >
-    <!-- <div class="user-ava">
-      <img src="img/user-ava-md.jpg" alt="Daniel Adams">
-    </div> -->
     <div class="user-info">
       <span class="text-sm text-white opacity-60"
         >Ha iniciado sesión como:</span
@@ -20,7 +16,6 @@
       <h6 class="user-name">
         {{ user.email }}<span *ngIf="user.roles.admin"> (Admin)</span>
       </h6>
-      <!-- <span class="text-sm text-white opacity-60">290 Reward points</span> -->
     </div>
   </a>
   <nav class="offcanvas-menu">
@@ -60,6 +55,14 @@
           </a>
         </span>
       </li>
+
+      <!-- Categories -->
+      <li routerLinkActive="active" class="nav submenu" *ngFor="let category of categories">
+        <a routerLink="/products" [queryParams]="{'category': category}" (click)="onNavigationClick()" style="font-size: small; text-align: end;">
+            <span>{{ category }}</span>
+        </a>
+    </li>
+
       <li routerLinkActive="active">
         <span>
           <a routerLink="/cart" (click)="onNavigationClick()">

@@ -109,6 +109,11 @@
 
 .image-wrapper {
 
+  img{
+    border-style: solid;
+    width: 400px;
+  }
+
   &.loading {
     min-height: 400px;
     background: url('../../../../img/loading.gif') center center no-repeat;
