@@ -1,12 +1,12 @@
 .container {
-  padding-top: 150px;
+  padding-top: 130px;
   width: 100%;
+  height: 100%;
   z-index: -1 !important;
   position: sticky;
 }
+
 .fixed-header {
   width: 100%;
   position: fixed;
-  padding: 0px 0;
-  top: 0;
 }

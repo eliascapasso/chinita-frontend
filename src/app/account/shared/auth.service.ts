@@ -4,10 +4,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 import { Observable ,  of } from 'rxjs';
-import { take ,  takeUntil ,  switchMap, map } from 'rxjs/operators';
+import { take ,  switchMap, map } from 'rxjs/operators';
 
 import { MessageService } from '../../messages/message.service';
-import { User, Roles } from '../../models/user.model';
+import { User } from '../../models/user.model';
 
 @Injectable()
 export class AuthService {

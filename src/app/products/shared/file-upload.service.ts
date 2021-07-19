@@ -16,7 +16,7 @@ export class FileUploadService {
 
   constructor(public storage: AngularFireStorage) {}
 
-  public startUpload(data) {
+  public async startUpload(data) {
       // The File object
       const file = data.files.item(0);
 
@@ -35,7 +35,13 @@ export class FileUploadService {
       // the percentage
       this.percentage$ = this.task$.percentageChanges();
 
-      return this.task$;
+      var task = await this.task$;
+
+      var result = {
+        task: task,
+        downloadURL: this.storage.ref(task.ref.fullPath).getDownloadURL()
+      }
+      return result;
   }
 
   public deleteFile(files: string[]) {

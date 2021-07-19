@@ -14,7 +14,7 @@
         >Ha iniciado sesión como:</span
       >
       <h6 class="user-name">
-        {{ user.email }}<span *ngIf="user.roles.admin"> (Admin)</span>
+        {{ user.lastName }} {{ user.firstName }}<span *ngIf="user.roles.admin"> (Admin)</span>
       </h6>
     </div>
   </a>

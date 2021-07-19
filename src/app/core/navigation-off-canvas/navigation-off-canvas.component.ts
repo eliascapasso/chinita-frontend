@@ -31,7 +31,7 @@ export class NavigationOffCanvasComponent implements OnInit, OnDestroy {
       this.user = user;
     });
 
-    this.getCategories()
+    this.getCategories();
   }
 
   getCategories(){

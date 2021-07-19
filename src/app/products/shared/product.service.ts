@@ -1,17 +1,21 @@
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  from as fromPromise,
+  of,
+} from "rxjs";
+import { Injectable } from "@angular/core";
 
-import {combineLatest as observableCombineLatest,  Observable ,  from as fromPromise ,  of } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { catchError, tap, switchMap, map } from "rxjs/operators";
 
-import { catchError ,  tap, switchMap, map } from 'rxjs/operators';
+import { AngularFireDatabase } from "angularfire2/database";
+import { AuthService } from "../../account/shared/auth.service";
+import { FileUploadService } from "./file-upload.service";
+import { MessageService } from "../../messages/message.service";
+import { ProductRatingService } from "./product-rating.service";
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import { AuthService } from '../../account/shared/auth.service';
-import { FileUploadService } from './file-upload.service';
-import { MessageService } from '../../messages/message.service';
-import { ProductRatingService } from './product-rating.service';
-
-import { Product } from '../../models/product.model';
-import { ProductsUrl } from './productsUrl';
+import { Product } from "../../models/product.model";
+import { ProductsUrl } from "./productsUrl";
 
 @Injectable()
 export class ProductService {
@@ -27,7 +31,7 @@ export class ProductService {
 
   /** Log a ProductService message with the MessageService */
   private log(message: string) {
-    this.messageService.add('ProductService: ' + message);
+    this.messageService.add("ProductService: " + message);
   }
 
   /**
@@ -36,7 +40,7 @@ export class ProductService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
       this.log(`${operation} failed: ${error.message}`);
@@ -47,16 +51,22 @@ export class ProductService {
 
   public getCategories(): Observable<any[]> {
     return this.angularFireDatabase
-      .list<any>('categories')
+      .list<any>("categories")
       .valueChanges()
-      .pipe(map((arr) => arr.reverse()), catchError(this.handleError<any[]>(`getCategories`)));
+      .pipe(
+        map((arr) => arr.reverse()),
+        catchError(this.handleError<any[]>(`getCategories`))
+      );
   }
 
   public getProducts(): Observable<Product[]> {
     return this.angularFireDatabase
-      .list<Product>('products', (ref) => ref.orderByChild('date'))
+      .list<Product>("products", (ref) => ref.orderByChild("date"))
       .valueChanges()
-      .pipe(map((arr) => arr.reverse()), catchError(this.handleError<Product[]>(`getProducts`)));
+      .pipe(
+        map((arr) => arr.reverse()),
+        catchError(this.handleError<Product[]>(`getProducts`))
+      );
   }
 
   public getProductsQuery(
@@ -65,11 +75,8 @@ export class ProductService {
     limitToFirst: number
   ): Observable<Product[]> {
     return this.angularFireDatabase
-      .list<Product>('products', (ref) =>
-        ref
-          .orderByChild(byChild)
-          .equalTo(equalTo)
-          .limitToFirst(limitToFirst)
+      .list<Product>("products", (ref) =>
+        ref.orderByChild(byChild).equalTo(equalTo).limitToFirst(limitToFirst)
       )
       .valueChanges()
       .pipe(catchError(this.handleError<Product[]>(`getProductsQuery`)));
@@ -77,11 +84,11 @@ export class ProductService {
 
   public findProducts(term): Observable<any> {
     return this.angularFireDatabase
-      .list<Product>('products', (ref) =>
+      .list<Product>("products", (ref) =>
         ref
-          .orderByChild('name')
+          .orderByChild("name")
           .startAt(term)
-          .endAt(term + '\uf8ff')
+          .endAt(term + "\uf8ff")
       )
       .valueChanges()
       .pipe(catchError(this.handleError<Product[]>(`getProductsQuery`)));
@@ -89,28 +96,31 @@ export class ProductService {
 
   public getProductsByDate(limitToLast: number): Observable<Product[]> {
     return this.angularFireDatabase
-      .list<Product>('products', (ref) =>
-        ref.orderByChild('date').limitToLast(limitToLast)
+      .list<Product>("products", (ref) =>
+        ref.orderByChild("date").limitToLast(limitToLast)
       )
       .valueChanges()
-        .pipe(
-          map((arr) => arr.reverse()),
-          catchError(this.handleError<Product[]>(`getProductsByDate`))
-        );
+      .pipe(
+        map((arr) => arr.reverse()),
+        catchError(this.handleError<Product[]>(`getProductsByDate`))
+      );
   }
 
   public getProductsByRating(limitToLast: number): Observable<Product[]> {
     return this.angularFireDatabase
-      .list<Product>('products', (ref) =>
-        ref.orderByChild('currentRating').limitToLast(limitToLast)
+      .list<Product>("products", (ref) =>
+        ref.orderByChild("currentRating").limitToLast(limitToLast)
       )
       .valueChanges()
-      .pipe(map((arr) => arr.reverse()), catchError(this.handleError<Product[]>(`getProductsByRating`)));
+      .pipe(
+        map((arr) => arr.reverse()),
+        catchError(this.handleError<Product[]>(`getProductsByRating`))
+      );
   }
 
   public getFeaturedProducts(): Observable<any[]> {
     return this.angularFireDatabase
-      .list<Product>('featured')
+      .list<Product>("featured")
       .snapshotChanges()
       .pipe(
         switchMap(
@@ -121,15 +131,15 @@ export class ProductService {
           },
           (actionsFromSource, resolvedProducts) => {
             resolvedProducts.map((product, i) => {
-              product['imageFeaturedUrl'] = actionsFromSource[
-                i
-              ].payload.val().imageFeaturedUrl;
+              product["imageFeaturedUrl"] =
+                actionsFromSource[i].payload.val().imageFeaturedUrl;
               return product;
             });
             return resolvedProducts;
           }
         ),
-        catchError(this.handleError<Product[]>(`getFeaturedProducts`)));
+        catchError(this.handleError<Product[]>(`getFeaturedProducts`))
+      );
   }
 
   public getProduct(id: any): Observable<Product | null> {
@@ -142,7 +152,9 @@ export class ProductService {
           if (result) {
             return of(result);
           } else {
-            this.messageService.addError(`No se ha encontrado ningún producto con id=${id}`);
+            this.messageService.addError(
+              `No se ha encontrado ningún producto con id=${id}`
+            );
             return of(null);
           }
         }),
@@ -159,9 +171,11 @@ export class ProductService {
 
     const dbOperation = this.uploadService
       .startUpload(data)
-      .then((task) => {
-        data.product.imageURLs[0] = task.downloadURL;
-        data.product.imageRefs[0] = task.ref.fullPath;
+      .then((result) => {
+        result.downloadURL.subscribe((url) => {
+          data.product.imageURLs[0] = url;
+        });
+        data.product.imageRefs[0] = result.task.ref.fullPath;
 
         return data;
       })
@@ -199,19 +213,27 @@ export class ProductService {
   public addProduct(data: { product: Product; files: FileList }) {
     const dbOperation = this.uploadService
       .startUpload(data)
-      .then((task) => {
-        data.product.imageURLs.push(task.downloadURL);
-        data.product.imageRefs.push(task.ref.fullPath);
+      .then(
+        (result) => {
+          result.downloadURL.subscribe((url) => {
+            data.product.imageURLs.push(url);
+            data.product.imageRefs.push(result.task.ref.fullPath);
 
-        return this.angularFireDatabase
-          .list('products')
-          .set(data.product.id.toString(), data.product);
-      }, (error) => error)
+            console.log(data.product);
+
+            return this.angularFireDatabase
+              .list("products")
+              .set(data.product.id.toString(), data.product);
+          });
+        },
+        (error) => error
+      )
       .then((response) => {
         this.log(`Producto añadido ${data.product.name}`);
         return data.product;
       })
       .catch((error) => {
+        console.error(`Error al agregar, producto ${data.product.name}`, error);
         this.messageService.addError(
           `Error al agregar, producto ${data.product.name}`
         );
@@ -229,10 +251,10 @@ export class ProductService {
     return this.angularFireDatabase
       .object<Product>(url)
       .remove()
-      .then(() => this.log('Eliminación exitosa' + product.name))
+      .then(() => this.log("Eliminación exitosa " + product.name))
       .catch((error) => {
-        this.messageService.addError('Eliminación fallida ' + product.name);
-        this.handleError('eliminar producto');
+        this.messageService.addError("Eliminación fallida " + product.name);
+        this.handleError("eliminar producto");
       });
   }
 }
