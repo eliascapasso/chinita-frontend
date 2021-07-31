@@ -1,5 +1,5 @@
-@import '~scss/helpers/variables';
-@import '~scss/helpers/mixins';
+@import "~scss/helpers/variables";
+@import "~scss/helpers/mixins";
 
 .product-card {
   display: block;
@@ -13,7 +13,7 @@
 
   .product-badge {
     display: inline-block;
-    position: absolute;
+    position: initial;
     top: 15px;
     left: 20px;
     z-index: 1;
@@ -47,7 +47,7 @@
     text-align: center;
 
     > a {
-      transition: color .3s;
+      transition: color 0.3s;
       color: $product-title-color;
       text-decoration: none;
 
@@ -90,7 +90,9 @@
           font-size: 1.2em;
         }
 
-        &.active { color: $brand-danger; }
+        &.active {
+          color: $brand-danger;
+        }
       }
     }
   }
@@ -100,7 +102,6 @@
   }
 
   @media (min-width: $screen-sm) {
-
     &.product-list {
       display: table;
       width: 100%;
@@ -128,7 +129,6 @@
         }
 
         .product-buttons {
-
           padding: {
             top: 20px;
             bottom: 0;
@@ -149,9 +149,18 @@
   }
 }
 
-
 :host ::ng-deep .rating-stars {
   position: absolute;
   top: 15px;
   right: 18px;
+}
+
+.zoom{
+  /* Aumentamos la anchura y altura durante 2 segundos */
+  transition: width 0.7s, height 0.7s, transform 0.7s;
+}
+.zoom:hover{
+  /* tranformamos el elemento al pasar el mouse por encima al doble de
+     su tamaño con scale(2). */
+  transform : scale(1.7);
 }

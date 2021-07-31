@@ -111,6 +111,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
       this.pager.endIndex + 1
     );
     this.uiService.currentPagingPage$.next(page);
+    window.scrollTo(0, 0);
   }
 
   onSort(sortBy: string) {
