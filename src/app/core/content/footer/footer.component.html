@@ -6,36 +6,90 @@
         <!-- Contact Info-->
         <section class="widget widget-light-skin">
           <h3 class="widget-title">Póngase en contacto con nosotros</h3>
-          <p class="text-white">Teléfono: {{ telefono }}</p>
-          <p>
-            <a class="navi-link-light" [href]="'mailto:' + correo" target="_blank">{{ correo }}</a>
+          <p
+            class="text-white"
+            *ngIf="telefono != '' && telefono != null && telefono != undefined"
+          >
+            Teléfono: {{ telefono }}
           </p>
-          <a class="social-button shape-circle sb-facebook sb-light-skin" [href]="facebook" target="_blank">
+          <p>
+            <a
+              class="navi-link-light"
+              [href]="'mailto:' + correo"
+              target="_blank"
+              *ngIf="correo != '' && correo != null && correo != undefined"
+              >{{ correo }}</a
+            >
+          </p>
+          <a
+            class="social-button shape-circle sb-facebook sb-light-skin"
+            [href]="facebook"
+            target="_blank"
+            *ngIf="facebook != '' && facebook != null && facebook != undefined"
+          >
             <i class="socicon-facebook"></i>
           </a>
-          <a class="social-button shape-circle sb-twitter sb-light-skin" [href]="twitter" target="_blank">
+          <a
+            class="social-button shape-circle sb-twitter sb-light-skin"
+            [href]="twitter"
+            target="_blank"
+            *ngIf="twitter != '' && twitter != null && twitter != undefined"
+          >
             <i class="socicon-twitter"></i>
           </a>
-          <a class="social-button shape-circle sb-instagram sb-light-skin" [href]="instagram" target="_blank">
+          <a
+            class="social-button shape-circle sb-instagram sb-light-skin"
+            [href]="instagram"
+            target="_blank"
+            *ngIf="
+              instagram != '' && instagram != null && instagram != undefined
+            "
+          >
             <i class="socicon-instagram"></i>
           </a>
-          <a class="social-button shape-circle sb-google-plus sb-light-skin" [href]="linkedin" target="_blank">
+          <a
+            class="social-button shape-circle sb-google-plus sb-light-skin"
+            [href]="linkedin"
+            target="_blank"
+            *ngIf="linkedin != '' && linkedin != null && linkedin != undefined"
+          >
             <i class="socicon-linkedin"></i>
           </a>
-          <a class="social-button shape-circle sb-google-plus sb-light-skin" [href]="wsp" target="_blank">
+          <a
+            class="social-button shape-circle sb-google-plus sb-light-skin"
+            [href]="wsp"
+            target="_blank"
+            *ngIf="wsp != '' && wsp != null && wsp != undefined"
+          >
             <i class="socicon-whatsapp"></i>
           </a>
         </section>
       </div>
-      <div class="col-lg-3 col-md-6">
+      <div
+        class="col-lg-3 col-md-6"
+        *ngIf="
+          (appstore != '' && appstore != null && appstore != undefined) ||
+          (playstore != '' && playstore != null && playstore != undefined)
+        "
+      >
         <!-- Mobile App Buttons-->
         <section class="widget widget-light-skin">
           <h3 class="widget-title">Nuestra aplicación móvil</h3>
-          <a class="market-button apple-button mb-light-skin" [href]="appstore" target="_blank">
+          <a
+            class="market-button apple-button mb-light-skin"
+            [href]="appstore"
+            target="_blank"
+            *ngIf="appstore != '' && appstore != null && appstore != undefined"
+          >
             <span class="mb-subtitle">Descarga en la</span>
             <span class="mb-title">App Store</span>
           </a>
-          <a class="market-button google-button mb-light-skin" [href]="playstore" target="_blank">
+          <a
+            class="market-button google-button mb-light-skin"
+            [href]="playstore"
+            target="_blank"
+            *ngIf="playstore != '' && playstore != null && playstore != undefined"
+          >
             <span class="mb-subtitle">Descarga en</span>
             <span class="mb-title">Google Play</span>
           </a>
@@ -85,19 +139,19 @@
         </section>
       </div>
     </div>
-    <hr class="hr-light mt-2 margin-bottom-2x">
+    <hr class="hr-light mt-2 margin-bottom-2x" />
     <div class="row">
       <div class="col-md-7 padding-bottom-1x">
         <!-- Payment Methods-->
-        <div class="margin-bottom-1x" style="max-width: 615px;">
-          <img src="img/payment_methods.png" alt="Payment Methods">
+        <div class="margin-bottom-1x" style="max-width: 615px">
+          <img src="img/payment_methods.png" alt="Payment Methods" />
         </div>
       </div>
-      <div class="col-md-5 padding-bottom-1x">
-      </div>
+      <div class="col-md-5 padding-bottom-1x"></div>
     </div>
     <!-- Copyright-->
-    <p class="footer-copyright">© Todos los derechos reservados. Hecho con &nbsp;
+    <p class="footer-copyright">
+      © Todos los derechos reservados. Hecho con &nbsp;
       <i class="icon-heart text-danger"></i>
       <a [href]="instagram" target="_blank"> &nbsp;por Capasso Elias Nicolas</a>
     </p>

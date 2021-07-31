@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { environment } from '../../../environments/environment';
+import { environment } from "../../../environments/environment";
+import { ContactService } from "../shared/contact.service";
 
 @Component({
   selector: "app-top-bar",
@@ -15,15 +16,17 @@ export class TopBarComponent {
   public linkedin: string = "";
   public wsp: string = "";
 
-  constructor() {}
+  constructor(public contactService: ContactService) {}
 
   ngOnInit() {
-    this.telefono = environment.telefono;
-    this.correo = environment.correo;
-    this.wsp = environment.wsp;
-    this.facebook = environment.facebook;
-    this.instagram = environment.instagram;
-    this.twitter = environment.twitter;
-    this.linkedin = environment.linkedin;
+    this.contactService.getContact().subscribe((contact) => {
+      this.telefono = contact.telefono;
+      this.correo = contact.correo;
+      this.wsp = contact.wsp;
+      this.facebook = contact.facebook;
+      this.instagram = contact.instagram;
+      this.twitter = contact.twitter;
+      this.linkedin = contact.linkedin;
+    });
   }
 }

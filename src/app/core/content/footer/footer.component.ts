@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { Component, OnInit } from "@angular/core";
+import { environment } from "../../../../environments/environment";
+import { ContactService } from "../../shared/contact.service";
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  selector: "app-footer",
+  templateUrl: "./footer.component.html",
+  styleUrls: ["./footer.component.scss"],
 })
 export class FooterComponent implements OnInit {
   public telefono: string = "";
@@ -17,18 +18,19 @@ export class FooterComponent implements OnInit {
   public linkedin: string = "";
   public wsp: string = "";
 
-  constructor() {}
+  constructor(public contactService: ContactService) {}
 
   ngOnInit() {
-    this.telefono = environment.telefono;
-    this.correo = environment.correo;
-    this.playstore = environment.playstore;
-    this.appstore = environment.appstore;
-    this.wsp = environment.wsp;
-    this.facebook = environment.facebook;
-    this.instagram = environment.instagram;
-    this.twitter = environment.twitter;
-    this.linkedin = environment.linkedin;
+    this.contactService.getContact().subscribe((contact) => {
+      this.telefono = contact.telefono;
+      this.correo = contact.correo;
+      this.wsp = contact.wsp;
+      this.facebook = contact.facebook;
+      this.instagram = contact.instagram;
+      this.twitter = contact.twitter;
+      this.linkedin = contact.linkedin;
+      this.playstore = contact.playstore;
+      this.appstore = contact.appstore;
+    });
   }
-
 }

@@ -29,6 +29,7 @@ import { UiService } from '../products/shared/ui.service';
 import { ProductsCacheService } from '../products/shared/products-cache.service';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
+import { ContactService } from './shared/contact.service';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
         AuthService,
         OffcanvasService,
         PromoService,
+        ContactService,
         UiService
     ]
 })

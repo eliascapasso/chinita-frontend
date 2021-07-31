@@ -1,24 +1,59 @@
-  <!-- Topbar-->
-  <div class="topbar">
-    <div class="topbar-column">
-      <a class="hidden-md-down" [href]="'mailto:' + correo">
-        <i class="icon-mail"></i>&nbsp; {{ correo }}</a>
-      <a class="hidden-md-down" href="tel:+41792414544">
-        <i class="icon-bell"></i>&nbsp; {{ telefono }}</a>
-      <a class="social-button sb-facebook shape-none sb-dark" [href]="facebook" target="_blank">
-        <i class="socicon-facebook"></i>
-      </a>
-      <a class="social-button sb-twitter shape-none sb-dark" [href]="twitter" target="_blank">
-        <i class="socicon-twitter"></i>
-      </a>
-      <a class="social-button sb-instagram shape-none sb-dark" [href]="instagram" target="_blank">
-        <i class="socicon-instagram"></i>
-      </a>
-      <a class="social-button sb-instagram shape-none sb-dark" [href]="linkedin" target="_blank">
-        <i class="socicon-linkedin"></i>
-      </a>
-      <a class="social-button sb-pinterest shape-none sb-dark" [href]="wsp" target="_blank">
-        <i class="socicon-whatsapp"></i>
-      </a>
-    </div>
+<!-- Topbar-->
+<div class="topbar">
+  <div class="topbar-column">
+    <a
+      class="hidden-md-down"
+      [href]="'mailto:' + correo"
+      *ngIf="correo != '' && correo != null && correo != undefined"
+    >
+      <i class="icon-mail"></i>&nbsp; {{ correo }}</a
+    >
+    <a
+      class="hidden-md-down"
+      [href]="'tel:' + telefono"
+      *ngIf="telefono != '' && telefono != null && telefono != undefined"
+    >
+      <i class="icon-bell"></i>&nbsp; {{ telefono }}</a
+    >
+    <a
+      class="social-button sb-facebook shape-none sb-dark"
+      [href]="facebook"
+      target="_blank"
+      *ngIf="facebook != '' && facebook != null && facebook != undefined"
+    >
+      <i class="socicon-facebook"></i>
+    </a>
+    <a
+      class="social-button sb-twitter shape-none sb-dark"
+      [href]="twitter"
+      target="_blank"
+      *ngIf="twitter != '' && twitter != null && twitter != undefined"
+    >
+      <i class="socicon-twitter"></i>
+    </a>
+    <a
+      class="social-button sb-instagram shape-none sb-dark"
+      [href]="instagram"
+      target="_blank"
+      *ngIf="instagram != '' && instagram != null && instagram != undefined"
+    >
+      <i class="socicon-instagram"></i>
+    </a>
+    <a
+      class="social-button sb-instagram shape-none sb-dark"
+      [href]="linkedin"
+      target="_blank"
+      *ngIf="linkedin != '' && linkedin != null && linkedin != undefined"
+    >
+      <i class="socicon-linkedin"></i>
+    </a>
+    <a
+      class="social-button sb-pinterest shape-none sb-dark"
+      [href]="wsp"
+      target="_blank"
+      *ngIf="wsp != '' && wsp != null && wsp != undefined"
+    >
+      <i class="socicon-whatsapp"></i>
+    </a>
   </div>
+</div>
