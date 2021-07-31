@@ -2,7 +2,7 @@ import { browser, by, element } from 'protractor';
 
 export class ProductsPage {
   navigateTo() {
-    return browser.get('/products');
+    return browser.get('/productos');
   }
 
   getTitleText() {

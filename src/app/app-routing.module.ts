@@ -16,11 +16,11 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { CompleteComponent } from './checkout/complete/complete.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductsListComponent },
-  { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'cart', component: CartComponent },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
+  { path: 'inicio', component: HomeComponent },
+  { path: 'productos', component: ProductsListComponent },
+  { path: 'productos/:id', component: ProductDetailComponent },
+  { path: 'carrito', component: CartComponent },
   { path: 'admin/add', component: AddEditComponent, canActivate: [AdminGuard] },
   {
     path: 'admin/edit/:id',

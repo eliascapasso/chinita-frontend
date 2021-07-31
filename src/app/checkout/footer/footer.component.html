@@ -1,6 +1,6 @@
 <div class="checkout-footer">
   <div class="column">
-    <button *ngIf="buttons.includes('backToCart')" class="btn btn-outline-secondary" routerLink="/cart">
+    <button *ngIf="buttons.includes('backToCart')" class="btn btn-outline-secondary" routerLink="/carrito">
       <i class="icon-arrow-left"></i><span class="hidden-xs-down">&nbsp;Volver al carrito</span>
     </button>
     <button *ngIf="buttons.includes('back')" class="btn btn-outline-secondary" (click)="onBack($event)">

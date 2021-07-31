@@ -63,7 +63,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
   getProducts() {
     this.route.queryParams.subscribe((params) => {
-      var category = params["category"];
+      var category = params["categoria"];
       this.productsLoading = true;
 
       this.productService

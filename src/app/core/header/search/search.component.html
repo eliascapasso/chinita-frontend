@@ -8,7 +8,7 @@
   <div class="search-results">
     <ul *ngIf="products && products.length > 0">
       <li *ngFor="let product of products">
-        <a routerLink="/products/{{product.id}}" (click)="onCloseSearch()">{{product.name}}</a>
+        <a routerLink="/productos/{{product.id}}" (click)="onCloseSearch()">{{product.name}}</a>
       </li>
     </ul>
   </div>

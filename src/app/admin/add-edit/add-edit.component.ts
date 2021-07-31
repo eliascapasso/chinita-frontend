@@ -159,7 +159,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
       (savedProduct: Product) => {
         if (savedProduct.id) {
           this.product = null;
-          this.router.navigate(['/products']);
+          this.router.navigate(['/productos']);
         }
       },
       (error) => {
@@ -173,7 +173,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
     this.productSubscription.unsubscribe();
     this.productService.updateProduct({ product, files }).subscribe(
       (response: Product) => {
-        this.router.navigate(['/products/' + response.id]);
+        this.router.navigate(['/productos/' + response.id]);
       },
       (error) => this.log.addError('No se pudo actualizar el producto')
     );
@@ -183,7 +183,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
     if (this.mode === 'edit') {
       this.productSubscription.unsubscribe();
       this.productService.deleteProduct(this.product).then((res) => {
-        this.router.navigate(['/products']);
+        this.router.navigate(['/productos']);
       });
     } else {
       this.log.addError(`No se puede eliminar un nuevo producto`);

@@ -13,12 +13,12 @@
       <tr *ngFor="let item of items; let i = index">
         <td>
           <div class="product-item">
-            <a class="product-thumb" routerLink="/products/{{item.product.id}}">
+            <a class="product-thumb" routerLink="/productos/{{item.product.id}}">
               <img [src]="item.product.imageURLs[0]" alt="{{item.product.name}}">
             </a>
             <div class="product-info">
               <h4 class="product-title">
-                <a routerLink="/products/{{item.product.id}}">{{item.product.name}}
+                <a routerLink="/productos/{{item.product.id}}">{{item.product.name}}
                   <small>x {{item.amount}}</small>
                 </a>
               </h4>
@@ -27,7 +27,7 @@
         </td>
         <td class="text-center text-lg text-medium">{{ (item.product.price * item.amount) | currency }}</td>
         <td class="text-center">
-          <a class="btn btn-outline-primary btn-sm" routerLink="/cart">Edit</a>
+          <a class="btn btn-outline-primary btn-sm" routerLink="/carrito">Edit</a>
         </td>
       </tr>
     </tbody>

@@ -43,14 +43,14 @@
       </li>
       <li routerLinkActive="active">
         <span>
-          <a routerLink="/home" (click)="onNavigationClick()">
+          <a routerLink="/inicio" (click)="onNavigationClick()">
             <span>Inicio</span>
           </a>
         </span>
       </li>
       <li routerLinkActive="active" class="nav submenu">
         <span>
-          <a routerLink="/products" (click)="onNavigationClick()">
+          <a routerLink="/productos" (click)="onNavigationClick()">
             <span>Productos</span>
           </a>
         </span>
@@ -58,14 +58,14 @@
 
       <!-- Categories -->
       <li routerLinkActive="active" class="nav submenu" *ngFor="let category of categories">
-        <a routerLink="/products" [queryParams]="{'category': category}" (click)="onNavigationClick()" style="font-size: small; text-align: end;">
+        <a routerLink="/productos" [queryParams]="{'categoria': category}" (click)="onNavigationClick()" style="font-size: small; text-align: end;">
             <span>{{ category }}</span>
         </a>
     </li>
 
       <li routerLinkActive="active">
         <span>
-          <a routerLink="/cart" (click)="onNavigationClick()">
+          <a routerLink="/carrito" (click)="onNavigationClick()">
             <span>Carrito</span>
           </a>
         </span>
