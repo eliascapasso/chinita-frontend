@@ -69,13 +69,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   private getProduct(): void {
     this.productLoading = true;
-
-    const id = +this.route.snapshot.paramMap.get('id');
-
+    const id = + this.route.snapshot.paramMap.get('id');
+    
     this.productService
       .getProduct(id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((product: Product) => {
+        console.log(product);
         if (product) {
           this.product = product;
           this.setupProduct();
@@ -116,7 +116,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   private setupProduct() {
     if (this.product) {
-      this.checkCategories();
+      //this.checkCategories();
       this.checkRatings();
       this.activeImageUrl = this.product.imageURLs[0];
       this.activeImageIndex = 0;

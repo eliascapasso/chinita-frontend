@@ -26,15 +26,8 @@
               type="number"
               id="id"
               value="0"
+              disabled
             />
-            <div
-              *ngIf="
-                !productForm.get('id').valid && productForm.get('id').touched
-              "
-              class="form-control-feedback"
-            >
-              Introduzca un número como id para su producto.
-            </div>
           </div>
         </div>
 
@@ -141,7 +134,13 @@
         <div class="form-group row">
           <label class="col-2 col-form-label" for="photos">Imagen</label>
           <div class="col-10">
-            <input class="" type="file" id="photos" #photos [disabled]="mode=='edit'"/>
+            <input
+              class=""
+              type="file"
+              id="photos"
+              #photos
+              [disabled]="mode == 'edit'"
+            />
           </div>
         </div>
 

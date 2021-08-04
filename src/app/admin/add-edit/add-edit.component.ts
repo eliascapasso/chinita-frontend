@@ -112,7 +112,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   private setProduct() {
     this.route.params.subscribe((params: Params) => {
-      this.id = +this.route.snapshot.paramMap.get("id");
+      this.id = + this.route.snapshot.paramMap.get("id");
       // if we have an id, we're in edit mode
       if (this.id) {
         this.mode = "edit";
