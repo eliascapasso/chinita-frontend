@@ -44,6 +44,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.initFormEmpty();
+
     this.productService.getCategories().subscribe((categories) => {
       for (let i = 0; i < categories.length; i++) {
         this.dropdownListCategories.push({
@@ -110,21 +112,29 @@ export class AddEditComponent implements OnInit, OnDestroy {
     this.onFormChanges();
   }
 
-  private setProduct() {
-    this.route.params.subscribe((params: Params) => {
-      this.id = + this.route.snapshot.paramMap.get("id");
-      // if we have an id, we're in edit mode
-      if (this.id) {
-        this.mode = "edit";
-        this.getProduct(this.id);
-        this.initForm();
-      } else {
-        // else we are in add mode
-        this.mode = "add";
-        this.constructProduct();
-        this.initForm();
-      }
+  initFormEmpty() {
+    this.productForm = new FormGroup({
+      name: new FormControl("", Validators.required),
+      id: new FormControl("", Validators.required),
+      date: new FormControl("", Validators.required),
+      categories: new FormControl([], Validators.required),
+      description: new FormControl("", Validators.required),
+      price: new FormControl("", Validators.required),
+      priceNormal: new FormControl("", Validators.required),
     });
+  }
+
+  private setProduct() {
+    this.id = +this.route.snapshot.paramMap.get("id");
+    // if we have an id, we're in edit mode
+    if (this.id) {
+      this.mode = "edit";
+      this.getProduct(this.id);
+    } else {
+      // else we are in add mode
+      this.mode = "add";
+      this.constructProduct();
+    }
   }
 
   private constructProduct() {
@@ -188,6 +198,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   private addProduct(product: Product, files: FileList) {
     product.categories = this.categoriesToArrayString();
+    product.name = product.name.toUpperCase();
     this.productService.addProduct({ product, files }).subscribe(
       (savedProduct: Product) => {
         if (savedProduct.id) {
@@ -204,6 +215,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   private updateProduct(product: Product, files?: FileList) {
     this.productSubscription.unsubscribe();
+    product.name = product.name.toUpperCase();
     product.categories = this.categoriesToArrayString();
     this.productService.updateProduct({ product, files }).subscribe(
       (response: Product) => {
@@ -260,8 +272,11 @@ export class AddEditComponent implements OnInit, OnDestroy {
     }
 
     for (let i = 0; i < this.dropdownListCategories.length; i++) {
-      for(let j = 0; j < this.selectedItemsCategories.length; j++){
-        if(this.selectedItemsCategories[j].item_text != this.dropdownListCategories[i].item_text){
+      for (let j = 0; j < this.selectedItemsCategories.length; j++) {
+        if (
+          this.selectedItemsCategories[j].item_text !=
+          this.dropdownListCategories[i].item_text
+        ) {
           newDropDown.push({
             item_id: newDropDown.length + 1,
             item_text: this.dropdownListCategories[i].item_text,

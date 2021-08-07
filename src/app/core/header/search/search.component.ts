@@ -46,6 +46,7 @@ export class SearchComponent implements OnInit {
     let term = event.target.value;
     if (term.length > 0) {
       term = term.charAt(0).toUpperCase() + term.slice(1);
+      console.log(term);
       this.term$.next(term);
     } else {
       this.products = [];

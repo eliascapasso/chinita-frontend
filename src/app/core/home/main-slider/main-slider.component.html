@@ -1,5 +1,3 @@
-
-<!-- DESCOMENTAR -->
 <section class="hero-slider" style="background-image: url(img/fondo.jpg);">
 
   <ngx-siema *ngIf="items && items.length > 0" [options]="options" class="large-controls dots-inside">
@@ -17,8 +15,8 @@
             <a class="btn btn-primary scale-up delay-1" routerLink="/productos/{{ item.id }}">Comprar ahora</a>
           </div>
           <div class="col-md-6 padding-bottom-2x mb-3">
-            <div class="image-wrapper" [ngClass]="{'loading': !imagesLoaded.includes(item.imageFeaturedurl)}">
-              <img [hidden]="!imagesLoaded.includes(item.imageFeaturedurl)" class="d-block mx-auto" src="{{ item.imageFeaturedUrl }}" alt="{{ item.name }}" (load)="onImageLoad($event)">
+            <div class="image-wrapper" [ngClass]="{'loading': !imagesLoaded.includes(item.imageURLs)}">
+              <img [hidden]="!imagesLoaded.includes(item.imageURLs)" style="width: 270px;" class="d-block mx-auto" src="{{ item.imageURLs }}" alt="{{ item.name }}" (load)="onImageLoad($event)">
             </div>
           </div>
         </div>
@@ -29,10 +27,10 @@
   <button type="button" class="hero-slider-prev" (click)="prev()"></button>
   <button type="button" class="hero-slider-next" (click)="next()"></button>
 
-  <div class="hero-slider-dots">
+  <!-- <div class="hero-slider-dots">
     <div *ngFor="let item of items; let i = index" class="hero-slider-dot" (click)="goTo(i)" [ngClass]="{active: currentSlide === i}">
       <span></span>
     </div>
-  </div>
+  </div> -->
 
 </section>
