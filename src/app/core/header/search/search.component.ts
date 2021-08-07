@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
         debounceTime(400),
         distinctUntilChanged(),
         filter((term) => term.length > 0),
-        switchMap((term) => this.search(term))
+        switchMap((term) => this.search(term.toUpperCase()))
       )
       .subscribe((results) => {
         this.products = results;
@@ -45,8 +45,6 @@ export class SearchComponent implements OnInit {
   public onSearchInput(event) {
     let term = event.target.value;
     if (term.length > 0) {
-      term = term.charAt(0).toUpperCase() + term.slice(1);
-      console.log(term);
       this.term$.next(term);
     } else {
       this.products = [];

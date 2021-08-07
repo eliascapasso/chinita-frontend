@@ -164,8 +164,7 @@ export class ProductService {
 
   public updateProduct(data: { product: Product; files: FileList }) {
     const url = `${this.productsUrl}/${data.product.id}`;
-
-    if (!data.files.length) {
+    if (data.files.length != 0) {
       return this.updateProductWithoutNewImage(data.product, url);
     }
 
@@ -218,8 +217,6 @@ export class ProductService {
           result.downloadURL.subscribe((url) => {
             data.product.imageURLs.push(url);
             data.product.imageRefs.push(result.task.ref.fullPath);
-
-            console.log(data.product);
 
             return this.angularFireDatabase
               .list("products")

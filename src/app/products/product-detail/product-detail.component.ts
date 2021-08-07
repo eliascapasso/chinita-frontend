@@ -75,7 +75,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       .getProduct(id)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((product: Product) => {
-        console.log(product);
         if (product) {
           this.product = product;
           this.setupProduct();

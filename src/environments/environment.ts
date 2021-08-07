@@ -23,4 +23,5 @@ export const environment = {
     appId: "1:927400481935:web:77118240db1484ea598cfa",
     measurementId: "G-3TCBS0C504",
   },
+  sharedUrl: "/shared"
 };

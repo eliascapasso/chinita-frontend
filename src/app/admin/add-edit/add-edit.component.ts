@@ -33,6 +33,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
   dropdownListCategories = [];
   selectedItemsCategories = [];
   dropdownSettingsCategories: IDropdownSettings = {};
+  categories;
 
   constructor(
     private router: Router,
@@ -45,30 +46,39 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initFormEmpty();
+    this.initCategories();
+  }
 
+  initCategories() {
+    let $this = this;
     this.productService.getCategories().subscribe((categories) => {
-      for (let i = 0; i < categories.length; i++) {
-        this.dropdownListCategories.push({
-          item_id: i + 1,
-          item_text: categories[i],
-        });
-      }
-
-      this.dropdownSettingsCategories = {
-        singleSelection: false,
-        idField: "item_id",
-        textField: "item_text",
-        selectAllText: "Seleccionar todo",
-        unSelectAllText: "Borrar todo",
-        noDataAvailablePlaceholderText: "No existen categorías",
-        itemsShowLimit: 4,
-        allowSearchFilter: true,
-        closeDropDownOnSelection: true,
-        searchPlaceholderText: "Buscar",
-      };
-
-      this.setProduct();
+      $this.categories = categories;
+      $this.loadCategories(categories);
+      $this.setProduct();
     });
+  }
+
+  loadCategories(categories) {
+    this.dropdownListCategories = [];
+    for (let i = 0; i < categories.length; i++) {
+      this.dropdownListCategories.push({
+        item_id: i + 1,
+        item_text: categories[i],
+      });
+    }
+
+    this.dropdownSettingsCategories = {
+      singleSelection: false,
+      idField: "item_id",
+      textField: "item_text",
+      selectAllText: "Seleccionar todo",
+      unSelectAllText: "Borrar todo",
+      noDataAvailablePlaceholderText: "No existen categorías",
+      itemsShowLimit: 4,
+      allowSearchFilter: true,
+      closeDropDownOnSelection: true,
+      searchPlaceholderText: "Buscar",
+    };
   }
 
   onItemSelect(item: any) {
@@ -134,6 +144,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
       // else we are in add mode
       this.mode = "add";
       this.constructProduct();
+      this.loadCategories(this.categories);
     }
   }
 

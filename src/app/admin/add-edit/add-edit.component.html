@@ -95,15 +95,6 @@
               (onSelectAll)="onSelectAll($event)"
             >
             </ng-multiselect-dropdown>
-            <div
-              *ngIf="
-                !productForm.get('categories').valid &&
-                productForm.get('categories').touched
-              "
-              class="form-control-feedback"
-            >
-              Ingrese al menos una categoría para su producto.
-            </div>
           </div>
         </div>
 

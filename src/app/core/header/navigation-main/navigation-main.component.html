@@ -24,7 +24,7 @@
     </ul>
 
     <!-- Categories -->
-    <ul style="background-color: white; border-top: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec">
+    <ul style="background-color: white; border-bottom: 1px solid #e1e7ec">
         <li routerLinkActive="active" *ngFor="let category of categories">
             <a routerLink="/productos" [queryParams]="{'categoria': category}" href="">
                 <span>{{ category }}</span>
