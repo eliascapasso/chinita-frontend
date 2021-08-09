@@ -1,9 +1,13 @@
-@import '~scss/helpers/variables';
-@import '~scss/helpers/mixins';
+@import "~scss/helpers/variables";
+@import "~scss/helpers/mixins";
 
 @keyframes fadeOut {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 // Hero Slider
@@ -23,100 +27,113 @@
   }
 }
 
-
 .hero-slider {
-    position: relative;
+  position: relative;
 }
 
 .hero-slider-prev,
 .hero-slider-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: #ffffff;
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    border: 1px solid #e1e7ec;
-    color: #374250;
-    cursor: pointer;
-    opacity: 0.7;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: #ffffff;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  border: 1px solid #e1e7ec;
+  color: #374250;
+  cursor: pointer;
+  opacity: 0.7;
 
-    &:hover {
-      opacity: 1;
-    }
+  &:hover {
+    opacity: 1;
+  }
 
-    @media screen and (max-width: 992px) {
-      display: none;
-    }
+  @media screen and (max-width: 992px) {
+    display: none;
+  }
 }
 
 .hero-slider-prev {
-    left: 15px;
+  left: 15px;
 
-    &::before {
-      font: {
-        family: feather;
-        size: 19px;
-      }
-      color: #374250;
-      content: '\e094';
+  &::before {
+    font: {
+      family: feather;
+      size: 19px;
     }
+    color: #374250;
+    content: "\e094";
+  }
 }
 
 .hero-slider-next {
-    right: 15px;
+  right: 15px;
 
-    &::before {
-        font-family: feather;
-        font-size: 19px;
-        color: #374250;
-        content: '\e095';
-    }
+  &::before {
+    font-family: feather;
+    font-size: 19px;
+    color: #374250;
+    content: "\e095";
+  }
 }
 
 .hero-slider-dots {
-    position: absolute;
-    bottom: 0;
-    margin: 0;
-    text-align: center;
-    transform: translateX(-50%);
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
-    background-color: #606975;
-    display: inline-block;
-    left: 50%;
-    width: auto;
-    padding: 10px 22px 14px;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  text-align: center;
+  transform: translateX(-50%);
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  background-color: #606975;
+  display: inline-block;
+  left: 50%;
+  width: auto;
+  padding: 10px 22px 14px;
 }
 
 .hero-slider-dot {
-    cursor: pointer;
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    margin: 0 6px;
-    transition: opacity .25s;
-    border-radius: 50%;
-    background-color: #ffffff;
-    opacity: 0.5;
+  cursor: pointer;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 6px;
+  transition: opacity 0.25s;
+  border-radius: 50%;
+  background-color: #ffffff;
+  opacity: 0.5;
 
-    &.active {
-        opacity: 1;
-    }
+  &.active {
+    opacity: 1;
+  }
 }
 
 .image-wrapper {
-
-  img{
+  img {
     border-style: solid;
     width: 400px;
   }
 
   &.loading {
     min-height: 400px;
-    background: url('../../../../img/loading.gif') center center no-repeat;
+    background: url("../../../../img/loading.gif") center center no-repeat;
   }
 }
 
+.edit-background {
+  margin-top: 50px;
+  margin-bottom: -20px;
+  color: white;
+
+  input[type="file"] {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    cursor: pointer;
+  }
+}

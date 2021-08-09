@@ -3,6 +3,7 @@ import { NgxSiemaOptions, NgxSiemaService } from 'ngx-siema';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SharedService } from '../../../shared/shared.service';
 
 @Component({
   selector: 'app-main-slider',
@@ -14,6 +15,7 @@ export class MainSliderComponent implements OnInit, OnDestroy {
   @Input() public items: any[];
   public currentSlide: number;
   public imagesLoaded: string[];
+  public backgroundImage: string;
 
   public options: NgxSiemaOptions = {
     selector: '.siema',
@@ -32,11 +34,18 @@ export class MainSliderComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(private ngxSiemaService: NgxSiemaService) {}
+  constructor(private ngxSiemaService: NgxSiemaService, private sharedService: SharedService) {}
 
   ngOnInit() {
     this.currentSlide = 0;
     this.imagesLoaded = [];
+    this.sharedService.getObject("FONDO").subscribe(result => {
+      this.backgroundImage = result.imageURLs;
+    });
+  }
+
+  updateBackground(event){
+    this.sharedService.updateObject({type: "FONDO", file: event.target.files[0]})
   }
 
   public prev() {

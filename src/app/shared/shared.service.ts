@@ -45,8 +45,8 @@ export class SharedService {
     };
   }
 
-  public getProduct(id: any): Observable<any | null> {
-    const url = `${this.sharedUrl}/${id}`;
+  public getObject(type: any): Observable<any | null> {
+    const url = `${this.sharedUrl}/${type}`;
     return this.angularFireDatabase
       .object<any>(url)
       .valueChanges()
@@ -56,90 +56,44 @@ export class SharedService {
             return of(result);
           } else {
             this.messageService.addError(
-              `No se ha encontrado ningún producto con id=${id}`
+              `No se ha encontrado ningún objeto con id=${type}`
             );
             return of(null);
           }
         }),
-        catchError(this.handleError<any>(`getProduct id=${id}`))
+        catchError(this.handleError<any>(`getObject id=${type}`))
       );
   }
 
-  public updateObject(data: { object: any; files: FileList }) {
+  public updateObject(data: { type: any; file: any }) {
     const dbOperation = this.uploadService
-      .startUpload(data)
+      .uploadSharedFile(data)
       .then(
         (result) => {
           result.downloadURL.subscribe((url) => {
-            data.object.imageURLs.push(url);
-            data.object.imageRefs.push(result.task.ref.fullPath);
-
-            console.log(data.object);
+            let object = {
+              imageURLs: url,
+              imageRefs: result.task.ref.fullPath
+            }
 
             return this.angularFireDatabase
-              .list("products")
-              .set(data.object.id.toString(), data.object);
+              .list("shared")
+              .update(data.type, object);
           });
         },
-        (error) => error
+        (error) => {
+          console.error(error);
+        }
       )
       .then((response) => {
-        this.log(`Producto añadido ${data.object.name}`);
-        return data.object;
+        this.log(`Objeto añadido ${data.type}`);
+        return data.type;
       })
       .catch((error) => {
-        console.error(`Error al agregar, producto ${data.object.name}`, error);
+        console.error(`Error al agregar, objeto ${data.type}`, error);
         this.messageService.addError(
-          `Error al agregar, producto ${data.object.name}`
+          `Error al agregar, objeto ${data.type}`
         );
-        this.handleError(error);
-        return error;
-      });
-    return fromPromise(dbOperation);
-  }
-
-  public updateProduct(data: { product: any; files: FileList }) {
-    const url = `${this.sharedUrl}/${data.product.id}`;
-
-    if (!data.files.length) {
-      return this.updateProductWithoutNewImage(data.product, url);
-    }
-
-    const dbOperation = this.uploadService
-      .startUpload(data)
-      .then((result) => {
-        result.downloadURL.subscribe((url) => {
-          data.product.imageURLs[0] = url;
-        });
-        data.product.imageRefs[0] = result.task.ref.fullPath;
-
-        return data;
-      })
-      .then((dataWithImagePath) => {
-        return this.angularFireDatabase
-          .object<any>(url)
-          .update(data.product);
-      })
-      .then((response) => {
-        this.log(`Producto modificado ${data.product.name}`);
-        return data.product;
-      })
-      .catch((error) => {
-        this.handleError(error);
-        return error;
-      });
-    return fromPromise(dbOperation);
-  }
-
-  private updateProductWithoutNewImage(product: any, url: string) {
-    const dbOperation = this.angularFireDatabase
-      .object<any>(url)
-      .update(product)
-      .then((response) => {
-        this.log(`Producto modificado ${product.name}`);
-        return product;
-      })
-      .catch((error) => {
         this.handleError(error);
         return error;
       });

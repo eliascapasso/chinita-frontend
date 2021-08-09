@@ -44,6 +44,25 @@ export class FileUploadService {
       return result;
   }
 
+  public async uploadSharedFile(data: { type: any; file: any }){
+    // The storage path
+    const path = `shared/${data.type}`;
+
+    // The main task
+    this.task$ = this.storage.upload(path, data.file);
+
+    // the percentage
+    this.percentage$ = this.task$.percentageChanges();
+
+    var task = await this.task$;
+
+    var result = {
+      task: task,
+      downloadURL: this.storage.ref(task.ref.fullPath).getDownloadURL()
+    }
+    return result;
+  }
+
   public deleteFile(files: string[]) {
     if (files) {
       return files.map((filePath) => {
