@@ -65,7 +65,7 @@ export class SharedService {
       );
   }
 
-  public updateObject(data: { type: any; file: any }) {
+  public updateObjectWithFile(data: { type: any; file: any }) {
     const dbOperation = this.uploadService
       .uploadSharedFile(data)
       .then(
@@ -73,8 +73,8 @@ export class SharedService {
           result.downloadURL.subscribe((url) => {
             let object = {
               imageURLs: url,
-              imageRefs: result.task.ref.fullPath
-            }
+              imageRefs: result.task.ref.fullPath,
+            };
 
             return this.angularFireDatabase
               .list("shared")
@@ -91,12 +91,14 @@ export class SharedService {
       })
       .catch((error) => {
         console.error(`Error al agregar, objeto ${data.type}`, error);
-        this.messageService.addError(
-          `Error al agregar, objeto ${data.type}`
-        );
+        this.messageService.addError(`Error al agregar, objeto ${data.type}`);
         this.handleError(error);
         return error;
       });
     return fromPromise(dbOperation);
+  }
+
+  public updateObject(data: { type: any; object: any }): Promise<void> {
+    return this.angularFireDatabase.object("contact").update(data.object);
   }
 }

@@ -2,7 +2,7 @@
   class="hero-slider"
   [style.background-image]="'url(' + backgroundImage + ')'"
 >
-  <div style="text-align: center; cursor: pointer" class="col-md-12">
+  <div style="text-align: center; cursor: pointer" class="col-md-12" *ngIf="user && user.roles.admin">
     <div class="btn btn-primary scale-up delay-1 edit-background">
       <label for="fondo">Cambiar fondo</label>
       <input (input)="updateBackground($event)" type="file" id="fondo" />

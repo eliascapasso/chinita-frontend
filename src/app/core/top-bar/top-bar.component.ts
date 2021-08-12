@@ -1,5 +1,9 @@
 import { Component } from "@angular/core";
-import { environment } from "../../../environments/environment";
+import { Subscription } from "rxjs";
+import { AuthService } from "../../account/shared/auth.service";
+import { MessageService } from "../../messages/message.service";
+import { User } from "../../models/user.model";
+import { SharedService } from "../../shared/shared.service";
 import { ContactService } from "../shared/contact.service";
 
 @Component({
@@ -16,9 +20,26 @@ export class TopBarComponent {
   public linkedin: string = "";
   public wsp: string = "";
 
-  constructor(public contactService: ContactService) {}
+  private userSubscription: Subscription;
+  public user: User;
+  display: boolean = false;
+
+  constructor(
+    public contactService: ContactService,
+    private sharedService: SharedService,
+    private authService: AuthService,
+    private log: MessageService
+  ) {}
 
   ngOnInit() {
+    this.userSubscription = this.authService.user.subscribe((user) => {
+      this.user = user;
+    });
+
+    this.getContact();
+  }
+
+  getContact(){
     this.contactService.getContact().subscribe((contact) => {
       this.telefono = contact.telefono;
       this.correo = contact.correo;
@@ -28,5 +49,45 @@ export class TopBarComponent {
       this.twitter = contact.twitter;
       this.linkedin = contact.linkedin;
     });
+  }
+
+  showDialog() {
+    this.display = true;
+  }
+
+  cancelDialog(){
+    this.display = false;
+    window.scrollTo(0, 0);
+    this.getContact();
+  }
+
+  saveDialog(){
+    let object = {
+      telefono: this.telefono,
+      correo: this.correo,
+      wsp: this.wsp,
+      facebook: this.facebook,
+      instagram: this.instagram,
+      twitter: this.twitter,
+      linkedin: this.linkedin,
+    };
+
+    this.sharedService.updateObject({
+      type: "CONTACT",
+      object: object,
+    }).then(result =>{
+      this.log.add("Contacto guardado exitosamente");
+    })
+    .catch(error => {
+      console.error(error.message);
+      this.log.addError("No se pudo modificar el contacto");
+    });
+
+    this.display = false;
+    window.scrollTo(0, 0);
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }

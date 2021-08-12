@@ -1,14 +1,16 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { NgxSiemaOptions, NgxSiemaService } from 'ngx-siema';
+import { Component, OnInit, Input, OnDestroy } from "@angular/core";
+import { NgxSiemaOptions, NgxSiemaService } from "ngx-siema";
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { SharedService } from '../../../shared/shared.service';
+import { Subject, Subscription } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { AuthService } from "../../../account/shared/auth.service";
+import { User } from "../../../models/user.model";
+import { SharedService } from "../../../shared/shared.service";
 
 @Component({
-  selector: 'app-main-slider',
-  templateUrl: './main-slider.component.html',
-  styleUrls: ['./main-slider.component.scss']
+  selector: "app-main-slider",
+  templateUrl: "./main-slider.component.html",
+  styleUrls: ["./main-slider.component.scss"],
 })
 export class MainSliderComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
@@ -16,11 +18,13 @@ export class MainSliderComponent implements OnInit, OnDestroy {
   public currentSlide: number;
   public imagesLoaded: string[];
   public backgroundImage: string;
+  private userSubscription: Subscription;
+  public user: User;
 
   public options: NgxSiemaOptions = {
-    selector: '.siema',
+    selector: ".siema",
     duration: 200,
-    easing: 'ease-out',
+    easing: "ease-out",
     perPage: 1,
     startIndex: 0,
     draggable: true,
@@ -31,21 +35,32 @@ export class MainSliderComponent implements OnInit, OnDestroy {
     },
     onChange: () => {
       // runs after slide change
-    }
+    },
   };
 
-  constructor(private ngxSiemaService: NgxSiemaService, private sharedService: SharedService) {}
+  constructor(
+    private ngxSiemaService: NgxSiemaService,
+    private sharedService: SharedService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.currentSlide = 0;
     this.imagesLoaded = [];
-    this.sharedService.getObject("FONDO").subscribe(result => {
+    this.sharedService.getObject("FONDO").subscribe((result) => {
       this.backgroundImage = result.imageURLs;
+    });
+
+    this.userSubscription = this.authService.user.subscribe((user) => {
+      this.user = user;
     });
   }
 
-  updateBackground(event){
-    this.sharedService.updateObject({type: "FONDO", file: event.target.files[0]})
+  updateBackground(event) {
+    this.sharedService.updateObjectWithFile({
+      type: "FONDO",
+      file: event.target.files[0],
+    });
   }
 
   public prev() {
@@ -84,6 +99,7 @@ export class MainSliderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.userSubscription.unsubscribe();
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
