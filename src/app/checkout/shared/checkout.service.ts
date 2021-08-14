@@ -54,6 +54,11 @@ export class CheckoutService {
     return this.orderInProgress;
   }
 
+  public setPaymentCost(cost: number) {
+    this.orderInProgress.shippingCost = cost;
+    this.orderInProgressChanged.emit(this.orderInProgress);
+  }
+
   public setPaymentMethod(paymentMethod: string) {
     this.orderInProgress.paymentMethod = paymentMethod;
     this.orderInProgressChanged.emit(this.orderInProgress);

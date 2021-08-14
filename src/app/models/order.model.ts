@@ -10,6 +10,7 @@ export class Order {
     public number: string = '',
     public date: string = new Date().toISOString().split('T')[0],
     public shippingMethod: string = '',
+    public shippingCost: number = 0,
     public paymentMethod: string = ''
   ) {}
 }

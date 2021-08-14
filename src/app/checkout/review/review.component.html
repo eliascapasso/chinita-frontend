@@ -4,7 +4,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Nombre del prodcuto</th>
+        <th>Nombre del producto</th>
         <th class="text-center">Subtotal</th>
         <th></th>
       </tr>
@@ -37,7 +37,7 @@
         </td>
         <td class="text-center">
           <a class="btn btn-outline-primary btn-sm" routerLink="/carrito"
-            >Edit</a
+            >Editar</a
           >
         </td>
       </tr>
@@ -63,17 +63,19 @@
         <span class="text-muted">Dirección:</span>{{ customer.address1 }}
         {{ customer.address2 }}
       </li>
+      <li><span class="text-muted">Ciudad:</span>{{ customer.city }}</li>
+      <li><span class="text-muted">E-mail:</span>{{ customer.email }}</li>
       <li><span class="text-muted">Teléfono:</span>{{ customer.phone }}</li>
     </ul>
   </div>
-  <div class="col-sm-6">
+  <!-- <div class="col-sm-6">
     <h5>Método de pago:</h5>
     <ul class="list-unstyled">
       <li>
         <span class="text-muted">{{ paymentMethod }}</span>
       </li>
     </ul>
-  </div>
+  </div> -->
 </div>
 
 <div class="checkout-footer">
@@ -85,7 +87,8 @@
   </div>
   <div class="column">
     <button class="btn btn-primary" href="" (click)="onCompleteOrder($event)">
-      <span class="hidden-xs-down">Completar orden</span><span class="d-sm-none">Completar</span>
+      <span class="hidden-xs-down">Completar orden</span
+      ><span class="d-sm-none">Completar</span>
     </button>
   </div>
 </div>

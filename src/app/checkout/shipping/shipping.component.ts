@@ -69,12 +69,15 @@ export class ShippingComponent implements OnInit {
     if(sMethod == "a domicilio"){
       console.log(this.shippingMethods[1].fee);
       this.cartService.setShipping(this.shippingMethods[1].fee);
+      this.checkoutService.setPaymentCost(this.shippingMethods[1].fee);
     }
     else if(sMethod == "retira"){
       this.cartService.setShipping(this.shippingMethods[0].fee);
+      this.checkoutService.setPaymentCost(this.shippingMethods[0].fee);
     }
     else{
       this.cartService.setShipping(0);
+      this.checkoutService.setPaymentCost(0);
     }
   }
 

@@ -14,7 +14,6 @@ import { CartItem } from "../../models/cart-item.model";
 import { Customer } from "../../models/customer.model";
 import { Order } from "../../models/order.model";
 import { User } from "../../models/user.model";
-import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-checkout-review",
@@ -35,8 +34,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private router: Router,
     private authService: AuthService,
-    private messageService: MessageService,
-    private httpClient: HttpClient
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -79,8 +77,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private submitUserOrder(order, total, userUid) {
     this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      //window.location.replace(resp);
-      window.open(resp,'_blank');
+      window.location.replace(resp);
+
       this.orderService
         .addUserOrder(order, total, userUid)
         .pipe(takeUntil(this.unsubscribe$))
@@ -101,8 +99,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private submitAnonOrder(order, total) {
     this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      //window.location.replace(resp);
-      window.open(resp,'_blank');
+      window.location.replace(resp);
+
       this.orderService
         .addAnonymousOrder(order, total)
         .pipe(takeUntil(this.unsubscribe$))

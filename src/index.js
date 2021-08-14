@@ -25,14 +25,34 @@ mercadopago.configure({
 app.post("/api/checkout", (req, res) => {
   console.log(req.body);
   let preference = {
+    back_urls: {
+      success: "http://localhost:4200/order-complete",
+    },
+    payer: {
+      name: req.body.customer.firstname,
+      surname: req.body.customer.lasttname,
+      email: req.body.customer.email,
+      address: {
+        street_name:
+          req.body.customer.adress1 + " " + req.body.customer.adress2,
+      },
+    },
+    shipments: {
+      cost: parse(req.body.shippingCost),
+      mode: "not_specified",
+    },
+    statement_descriptor: "COMPRA_TIENDA_VIRTUAL",
     items: [],
   };
 
   for (let i = 0; i < req.body.items.length; i++) {
     let item = {
+      id: req.body.items[i].product.id,
       title: req.body.items[i].product.name,
+      description: req.body.items[i].product.description,
       unit_price: req.body.items[i].product.price,
       quantity: req.body.items[i].amount,
+      currency_id: "ARS",
     };
     preference.items.push(item);
   }
@@ -54,3 +74,9 @@ app.post("/api/checkout", (req, res) => {
 app.listen(app.get("port"), () => {
   console.log(`server on port ${app.get("port")}`);
 });
+
+function parse(x) {
+  let parsed = parseInt(x);
+  if (isNaN(parsed)) { return 0; }
+  return parsed;
+}
