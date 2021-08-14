@@ -98,7 +98,7 @@ export class SharedService {
     return fromPromise(dbOperation);
   }
 
-  public updateObject(data: { type: any; object: any }): Promise<void> {
-    return this.angularFireDatabase.object("contact").update(data.object);
+  public updateObject(data: { type: string; object: any }): Promise<void> {
+    return this.angularFireDatabase.object(data.type).update(data.object);
   }
 }

@@ -34,7 +34,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   }
 
   private initFormGroup() {
-    this.countries = ['Switzerland'];
+    this.countries = ['Argentina'];
     this.formAddress = new FormGroup({
       firstname: new FormControl(
         this.user && this.user.firstName,
@@ -64,23 +64,6 @@ export class AddressComponent implements OnInit, OnDestroy {
   public onContinue() {
     this.checkoutService.setCustomer(this.formAddress.value);
     this.checkoutService.nextStep();
-  }
-
-  // Debug: Fill Form Helper MEthod
-  public onFillForm(event: Event) {
-    event.preventDefault();
-    this.formAddress.setValue({
-      firstname: 'Hans',
-      lastname: 'Muster',
-      address1: 'Musterstrasse 13',
-      address2: '',
-      zip: 1234,
-      city: 'Musterhausen',
-      email: 'hans.muster@muster.com',
-      phone: '+41791234567',
-      company: '',
-      country: 'Switzerland'
-    });
   }
 
   ngOnDestroy() {

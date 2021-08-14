@@ -1,11 +1,11 @@
-<h4>Elija el método de envío</h4>
+<h4>Elija el método de entrega</h4>
 <hr class="padding-bottom-1x">
 <form [formGroup]="formShipping">
   <div class="table-responsive">
     <table class="table">
       <thead class="thead-default">
         <tr>
-          <th>Método de envío</th>
+          <th>Entrega</th>
           <th>Plazo de entrega</th>
           <th>Tarifa</th>
           <th></th>
@@ -20,7 +20,7 @@
           <td class="align-middle">{{shippingMethod.fee | currency}}</td>
           <td class="align-middle">
             <label class="custom-control custom-radio">
-              <input class="form-control-radio" type="radio" name="shippingMethod" value="{{shippingMethod.value}}" formControlName="shippingMethod">
+              <input class="form-control-radio" type="radio" name="shippingMethod" value="{{shippingMethod.value}}" formControlName="shippingMethod" (click)="updateFee(shippingMethod.value)">
               <span class="custom-control-indicator"></span>
             </label>
           </td>

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { CartService } from '../../cart/shared/cart.service';
+import { CartService } from "../../cart/shared/cart.service";
 
 @Component({
-  selector: 'app-checkout-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  selector: "app-checkout-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.scss"],
 })
 export class SidebarComponent implements OnInit {
   public cartSubtotal: number;
@@ -16,8 +16,12 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.cartSubtotal = this.cartService.getTotal();
-    // TODO: shipping, hardcoded for now
-    this.shipping = 9;
+    this.shipping = this.cartService.getShipping();
     this.orderTotal = this.cartSubtotal + this.shipping;
+    
+    this.cartService.shippingChanged.subscribe((value) => {
+      this.shipping = value;
+      this.orderTotal = this.cartSubtotal + this.shipping;
+    });
   }
 }

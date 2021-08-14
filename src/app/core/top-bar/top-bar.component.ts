@@ -73,7 +73,7 @@ export class TopBarComponent {
     };
 
     this.sharedService.updateObject({
-      type: "CONTACT",
+      type: "contact",
       object: object,
     }).then(result =>{
       this.log.add("Contacto guardado exitosamente");

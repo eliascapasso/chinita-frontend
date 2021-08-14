@@ -9,7 +9,7 @@
         <td>Subtotal del carrito:</td>
         <td class="text-medium">{{cartSubtotal | currency}}</td>
       </tr>
-      <tr>
+      <tr *ngIf="shipping != 0">
         <td>Envío:</td>
         <td class="text-medium">{{shipping | currency}}</td>
       </tr>
