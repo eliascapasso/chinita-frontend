@@ -1,24 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
-import { AuthService } from '../../account/shared/auth.service';
-import { CheckoutService } from '../shared/checkout.service';
-import { CartService } from '../../cart/shared/cart.service';
-import { MessageService } from '../../messages/message.service';
-import { OrderService } from '../../account/orders/shared/order.service';
+import { AuthService } from "../../account/shared/auth.service";
+import { CheckoutService } from "../shared/checkout.service";
+import { CartService } from "../../cart/shared/cart.service";
+import { MessageService } from "../../messages/message.service";
+import { OrderService } from "../../account/orders/shared/order.service";
 
-import { CartItem } from '../../models/cart-item.model';
-import { Customer } from '../../models/customer.model';
-import { Order } from '../../models/order.model';
-import { User } from '../../models/user.model';
+import { CartItem } from "../../models/cart-item.model";
+import { Customer } from "../../models/customer.model";
+import { Order } from "../../models/order.model";
+import { User } from "../../models/user.model";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-checkout-review',
-  templateUrl: './review.component.html',
-  styleUrls: ['./review.component.scss']
+  selector: "app-checkout-review",
+  templateUrl: "./review.component.html",
+  styleUrls: ["./review.component.scss"],
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   items: CartItem[];
@@ -28,18 +29,18 @@ export class ReviewComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
   user: User;
 
-
   constructor(
     private cartService: CartService,
     private checkoutService: CheckoutService,
     private orderService: OrderService,
     private router: Router,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private httpClient: HttpClient
   ) {}
 
   ngOnInit() {
-    this.authService.user.subscribe(user => this.user = user);
+    this.authService.user.subscribe((user) => (this.user = user));
 
     this.items = this.cartService.getItems();
     this.total = this.cartService.getTotal();
@@ -77,35 +78,47 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   private submitUserOrder(order, total, userUid) {
-    this.orderService
-      .addUserOrder(order, total, userUid)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        (response) => {
-          this.cartService.clearCart();
-          this.checkoutService.resetSteps();
-          this.router.navigate(['/order-complete']);
-        },
-        (error) => {
-          this.messageService.addError('No se pudo enviar el pedido, inténtelo de nuevo.');
-        }
-      );
+    this.orderService.goCheckoutMP(order).subscribe((resp) => {
+      //window.location.replace(resp);
+      window.open(resp,'_blank');
+      this.orderService
+        .addUserOrder(order, total, userUid)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(
+          (response) => {
+            this.cartService.clearCart();
+            this.checkoutService.resetSteps();
+            this.router.navigate(["/order-complete"]);
+          },
+          (error) => {
+            this.messageService.addError(
+              "No se pudo enviar el pedido, inténtelo de nuevo."
+            );
+          }
+        );
+    });
   }
 
   private submitAnonOrder(order, total) {
-    this.orderService
-      .addAnonymousOrder(order, total)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        (response) => {
-          this.cartService.clearCart();
-          this.checkoutService.resetSteps();
-          this.router.navigate(['/order-complete']);
-        },
-        (error) => {
-          this.messageService.addError('No se pudo enviar el pedido, inténtelo de nuevo.');
-        }
-      );
+    this.orderService.goCheckoutMP(order).subscribe((resp) => {
+      //window.location.replace(resp);
+      window.open(resp,'_blank');
+      this.orderService
+        .addAnonymousOrder(order, total)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(
+          (response) => {
+            this.cartService.clearCart();
+            this.checkoutService.resetSteps();
+            this.router.navigate(["/order-complete"]);
+          },
+          (error) => {
+            this.messageService.addError(
+              "No se pudo enviar el pedido, inténtelo de nuevo."
+            );
+          }
+        );
+    });
   }
 
   ngOnDestroy() {

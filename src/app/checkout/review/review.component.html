@@ -1,5 +1,5 @@
 <h4>Revise su pedido</h4>
-<hr class="padding-bottom-1x">
+<hr class="padding-bottom-1x" />
 <div class="table-responsive shopping-cart">
   <table class="table">
     <thead>
@@ -13,21 +13,32 @@
       <tr *ngFor="let item of items; let i = index">
         <td>
           <div class="product-item">
-            <a class="product-thumb" routerLink="/productos/{{item.product.id}}">
-              <img [src]="item.product.imageURLs[0]" alt="{{item.product.name}}">
+            <a
+              class="product-thumb"
+              routerLink="/productos/{{ item.product.id }}"
+            >
+              <img
+                [src]="item.product.imageURLs[0]"
+                alt="{{ item.product.name }}"
+              />
             </a>
             <div class="product-info">
               <h4 class="product-title">
-                <a routerLink="/productos/{{item.product.id}}">{{item.product.name}}
-                  <small>x {{item.amount}}</small>
+                <a routerLink="/productos/{{ item.product.id }}"
+                  >{{ item.product.name }}
+                  <small>x {{ item.amount }}</small>
                 </a>
               </h4>
             </div>
           </div>
         </td>
-        <td class="text-center text-lg text-medium">{{ (item.product.price * item.amount) | currency }}</td>
+        <td class="text-center text-lg text-medium">
+          {{ item.product.price * item.amount | currency }}
+        </td>
         <td class="text-center">
-          <a class="btn btn-outline-primary btn-sm" routerLink="/carrito">Edit</a>
+          <a class="btn btn-outline-primary btn-sm" routerLink="/carrito"
+            >Edit</a
+          >
         </td>
       </tr>
     </tbody>
@@ -35,7 +46,8 @@
 </div>
 <div class="shopping-cart-footer">
   <div class="column"></div>
-  <div class="column text-lg">Subtotal:
+  <div class="column text-lg">
+    Subtotal:
     <span class="text-medium">{{ total | currency }}</span>
   </div>
 </div>
@@ -44,20 +56,36 @@
     <h5>Envío a:</h5>
     <ul class="list-unstyled">
       <li>
-        <span class="text-muted">Cliente:</span>{{customer.firstname}} {{customer.lastname}}</li>
+        <span class="text-muted">Cliente:</span>{{ customer.firstname }}
+        {{ customer.lastname }}
+      </li>
       <li>
-        <span class="text-muted">Dirección:</span>{{customer.address1}} {{customer.address2}}</li>
-      <li>
-        <span class="text-muted">Teléfono:</span>{{customer.phone}}</li>
+        <span class="text-muted">Dirección:</span>{{ customer.address1 }}
+        {{ customer.address2 }}
+      </li>
+      <li><span class="text-muted">Teléfono:</span>{{ customer.phone }}</li>
     </ul>
   </div>
   <div class="col-sm-6">
     <h5>Método de pago:</h5>
     <ul class="list-unstyled">
       <li>
-        <span class="text-muted">{{ paymentMethod }}</span></li>
+        <span class="text-muted">{{ paymentMethod }}</span>
+      </li>
     </ul>
   </div>
 </div>
 
-<app-checkout-footer [buttons]="['back', 'completeOrder']" (back)="onBack()" (completeOrder)="onCompleteOrder()"></app-checkout-footer>
+<div class="checkout-footer">
+  <div class="column">
+    <button class="btn btn-outline-secondary" (click)="onBack($event)">
+      <i class="icon-arrow-left"></i>
+      <span class="hidden-xs-down">&nbsp;Volver</span>
+    </button>
+  </div>
+  <div class="column">
+    <button class="btn btn-primary" href="" (click)="onCompleteOrder($event)">
+      <span class="hidden-xs-down">Completar orden</span><span class="d-sm-none">Completar</span>
+    </button>
+  </div>
+</div>

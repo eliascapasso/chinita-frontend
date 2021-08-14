@@ -53,7 +53,7 @@ import { DialogModule } from "primeng/dialog";
     SharedModule,
     NgxSiemaModule.forRoot(),
     DialogModule,
-    ButtonModule,
+    ButtonModule
   ],
   exports: [
     CommonModule,

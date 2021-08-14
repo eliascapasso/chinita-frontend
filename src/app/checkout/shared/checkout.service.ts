@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Order } from '../../models/order.model';
 import { Customer } from '../../models/customer.model';
 import { CartItem } from '../../models/cart-item.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CheckoutService {
@@ -10,7 +11,7 @@ export class CheckoutService {
   public stepChanged: EventEmitter<number> = new EventEmitter<number>();
   public activeStep: number;
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     this.orderInProgress = new Order(new Customer());
     this.activeStep = 0;
   }

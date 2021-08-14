@@ -5,14 +5,6 @@
 
 export const environment = {
   production: false,
-  // firebase: {
-  //   apiKey: 'AIzaSyCXVTjTuBUXf-UWlpKfKHjomfPezutmPwI',
-  //   authDomain: 'cas-fee-shop.firebaseapp.com',
-  //   databaseURL: 'https://cas-fee-shop.firebaseio.com',
-  //   projectId: 'cas-fee-shop',
-  //   storageBucket: 'cas-fee-shop.appspot.com',
-  //   messagingSenderId: '323643286137'
-  // },
   firebase: {
     apiKey: "AIzaSyDND3cwYE_2HsEJts7yOSyjgqGGmqus6no",
     authDomain: "tienda-online-base.firebaseapp.com",

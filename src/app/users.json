@@ -1,0 +1,26 @@
+{
+    "users": [
+        {
+            "id": 807106888,
+            "nickname": "TESTS3RQPNOF",
+            "password": "qatest2210",
+            "site_status": "active",
+            "email": "test_user_5323570@testuser.com",
+            "credentials": [
+                {
+                    "public_key": "APP_USR-211e660c-abb2-4511-8c64-03d901c31385",
+                    "access_token": "APP_USR-6410586645251716-081310-931fec56178dcba5529ae799e8a2be91-807106888",
+                    "client_id": "6410586645251716",
+                    "client_secret": "x1aq3Wf0BCqjHQGwIlnXRpx4ujiEmjc4"
+                }
+            ]
+        },
+        {
+            "id": 807109047,
+            "nickname": "TETE7392202",
+            "password": "qatest4179",
+            "site_status": "active",
+            "email": "test_user_97900828@testuser.com"
+        }
+    ]
+}

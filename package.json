@@ -4,11 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "watch": "npx nodemon src/index"
   },
   "private": true,
   "dependencies": {
@@ -21,10 +22,15 @@
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
     "angularfire2": "^5.2.1",
+    "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "core-js": "^3.3.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "firebase": "^7.21.0",
+    "mercadopago": "^1.5.8",
     "modernizr": "^3.7.1",
+    "morgan": "^1.10.0",
     "ng-multiselect-dropdown": "^0.3.4",
     "ngx-siema": "^2.0.1",
     "ngx-toastr": "^11.1.2",
