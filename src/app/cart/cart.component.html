@@ -98,7 +98,7 @@
             <a class="btn btn-outline-secondary" routerLink="/productos">
               <i class="icon-arrow-left"></i>&nbsp;Volver a Compras</a>
           </div>
-          <div class="column">
+          <div class="column" *ngIf="items.length != 0">
             <!-- <a class="btn btn-primary" href="#" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check"
               data-toast-title="Tu carrito" data-toast-message="is updated successfully!">Actualizar carrito</a> -->
             <a class="btn btn-success" routerLink="/checkout">Comprar</a>
