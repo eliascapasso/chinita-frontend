@@ -1,0 +1,180 @@
+<app-page-title
+  title="Servicios"
+  [children]="[{ title: 'Servicios' }]"
+></app-page-title>
+
+<div class="container">
+  <div>
+    <div>
+      <h2 class="margin-bottom-1x">Servicios</h2>
+
+      <!-- Delete services -->
+      <table class="table table-hover margin-bottom-none">
+        <thead>
+          <tr>
+            <th>Servicio</th>
+            <th>Habilitado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ENVIO -->
+          <tr class="myStyle">
+            <td>
+              <div class="col-md-3 col-sm-6 text-center mb-30">
+                <img
+                  class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+                  [src]="services.ENVIO.imagen"
+                  alt="Envío"
+                />
+                <textarea rows="1" cols="30" [(ngModel)]="services.ENVIO.titulo"></textarea>
+                <textarea rows="3" cols="30" [(ngModel)]="services.ENVIO.cuerpo"></textarea>
+                <button
+                  class="btn btn-primary"
+                  style="background-color: rgb(2, 175, 2)"
+                  (click)="updateService(services.ENVIO, 'ENVIO')"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </td>
+            <td>
+              <label class="container">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="services.ENVIO.habilitado"
+                  class="checkbox"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </td>
+          </tr>
+
+          <!-- GARANTIA -->
+          <tr class="myStyle">
+            <td>
+              <div class="col-md-3 col-sm-6 text-center mb-30">
+                <img
+                  class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+                  [src]="services.GARANTIA.imagen"
+                  alt="Garantía"
+                />
+                <textarea rows="1" cols="30" [(ngModel)]="services.GARANTIA.titulo"></textarea>
+                <textarea rows="3" cols="30" [(ngModel)]="services.GARANTIA.cuerpo"></textarea>
+                <button
+                  class="btn btn-primary"
+                  style="background-color: rgb(2, 175, 2)"
+                  (click)="updateService(services.GARANTIA, 'GARANTIA')"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </td>
+            <td>
+              <label class="container">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="services.GARANTIA.habilitado"
+                  class="checkbox"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </td>
+          </tr>
+
+          <!-- ATENCION -->
+          <tr class="myStyle">
+            <td>
+              <div class="col-md-3 col-sm-6 text-center mb-30">
+                <img
+                  class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+                  [src]="services.ATENCION.imagen"
+                  alt="Atención"
+                />
+                <textarea rows="1" cols="30" [(ngModel)]="services.ATENCION.titulo"></textarea>
+                <textarea rows="3" cols="30" [(ngModel)]="services.ATENCION.cuerpo"></textarea>
+                <button
+                  class="btn btn-primary"
+                  style="background-color: rgb(2, 175, 2)"
+                  (click)="updateService(services.ATENCION, 'ATENCION')"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </td>
+            <td>
+              <label class="container">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="services.ATENCION.habilitado"
+                  class="checkbox"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </td>
+          </tr>
+
+          <!-- PAGO -->
+          <tr class="myStyle">
+            <td>
+              <div class="col-md-3 col-sm-6 text-center mb-30">
+                <img
+                  class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+                  [src]="services.PAGO.imagen"
+                  alt="Pago"
+                />
+                <textarea rows="1" cols="30" [(ngModel)]="services.PAGO.titulo"></textarea>
+                <textarea rows="3" cols="30" [(ngModel)]="services.PAGO.cuerpo"></textarea>
+                <button
+                  class="btn btn-primary"
+                  style="background-color: rgb(2, 175, 2)"
+                  (click)="updateService(services.PAGO, 'PAGO')"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </td>
+            <td>
+              <label class="container">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="services.PAGO.habilitado"
+                  class="checkbox"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- NO IMPLEMENTADO -->
+      <!-- <hr class="padding-bottom-1x" />
+      <h6>Agregar servicio</h6>
+
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <input
+                class="form-control form-control-square"
+                type="text"
+                [(ngModel)]="newService"
+                (keyup.enter)="addService()"
+              />
+            </td>
+            <td>
+              <button
+                class="btn btn-primary"
+                style="background-color: rgb(2, 175, 2)"
+                type="button"
+                (click)="addService()"
+              >
+                Agregar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+  </div>
+</div>

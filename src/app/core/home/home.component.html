@@ -1,44 +1,101 @@
 <app-main-slider [items]="productsFeatured"></app-main-slider>
 
-    <!-- Product Widgets-->
-    <section class="container padding-bottom-2x padding-top-3x">
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <app-product-widget [widgetTitle]="'Recién llegados'" [products]="productsNewArrivals"></app-product-widget>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <app-product-widget [widgetTitle]="'En venta'" [products]="productsOnSale"></app-product-widget>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <app-product-widget [widgetTitle]="'Mejor calificados'" [products]="productsBestRated"></app-product-widget>
-            </div>
-        </div>
-    </section>
+<!-- Product Widgets-->
+<section class="container padding-bottom-2x padding-top-3x">
+  <div class="row">
+    <div class="col-md-4 col-sm-6">
+      <app-product-widget
+        [widgetTitle]="'Recién llegados'"
+        [products]="productsNewArrivals"
+      ></app-product-widget>
+    </div>
+    <div class="col-md-4 col-sm-6">
+      <app-product-widget
+        [widgetTitle]="'En venta'"
+        [products]="productsOnSale"
+      ></app-product-widget>
+    </div>
+    <div class="col-md-4 col-sm-6">
+      <app-product-widget
+        [widgetTitle]="'Mejor calificados'"
+        [products]="productsBestRated"
+      ></app-product-widget>
+    </div>
+  </div>
+</section>
 
-    <!-- <app-promo *ngIf="promos" [promo]="promos[0]"></app-promo> -->
+<!-- <app-promo *ngIf="promos" [promo]="promos[0]"></app-promo> -->
 
-    <!-- Services-->
-    <section class="container padding-top-3x padding-bottom-2x">
-        <div class="row">
-            <div class="col-md-3 col-sm-6 text-center mb-30">
-                <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="img/services/01.png" alt="Envío">
-                <h6>Envío gratuito a todo el país</h6>
-                <p class="text-muted margin-bottom-none">Envío gratuito para todos los pedidos de más de $5000</p>
-            </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30">
-                <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="img/services/02.png" alt="Devolución de dinero">
-                <h6>Garantía de devolución de dinero</h6>
-                <p class="text-muted margin-bottom-none">Devolvemos el dinero dentro de los 30 días</p>
-            </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30">
-                <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="img/services/03.png" alt="Soporte">
-                <h6>Atención al cliente 24/7</h6>
-                <p class="text-muted margin-bottom-none">Amable atención al cliente 24/7</p>
-            </div>
-            <div class="col-md-3 col-sm-6 text-center mb-30">
-                <img class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3" src="img/services/04.png" alt="Pago">
-                <h6>Pago seguro en línea</h6>
-                <p class="text-muted margin-bottom-none">Presentamos SSL / Certificado Seguro</p>
-            </div>
-        </div>
-    </section>
+<!-- Services-->
+<section class="container padding-top-3x padding-bottom-2x">
+  <div class="row">
+    <div
+      class="col-md-3 col-sm-6 text-center mb-30"
+      *ngIf="services.ENVIO.habilitado"
+    >
+      <img
+        class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+        [src]="services.ENVIO.imagen"
+        alt="Envío"
+      />
+      <h6>{{ services.ENVIO.titulo }}</h6>
+      <p class="text-muted margin-bottom-none">
+        {{ services.ENVIO.cuerpo }}
+      </p>
+    </div>
+    <div
+      class="col-md-3 col-sm-6 text-center mb-30"
+      *ngIf="services.GARANTIA.habilitado"
+    >
+      <img
+        class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+        [src]="services.GARANTIA.imagen"
+        alt="Garantía"
+      />
+      <h6>{{ services.GARANTIA.titulo }}</h6>
+      <p class="text-muted margin-bottom-none">
+        {{ services.GARANTIA.cuerpo }}
+      </p>
+    </div>
+    <div
+      class="col-md-3 col-sm-6 text-center mb-30"
+      *ngIf="services.ATENCION.habilitado"
+    >
+      <img
+        class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+        [src]="services.ATENCION.imagen"
+        alt="Atención"
+      />
+      <h6>{{ services.ATENCION.titulo }}</h6>
+      <p class="text-muted margin-bottom-none">
+        {{ services.ATENCION.cuerpo }}
+      </p>
+    </div>
+    <div
+      class="col-md-3 col-sm-6 text-center mb-30"
+      *ngIf="services.PAGO.habilitado"
+    >
+      <img
+        class="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+        [src]="services.PAGO.imagen"
+        alt="Pago"
+      />
+      <h6>{{ services.PAGO.titulo }}</h6>
+      <p class="text-muted margin-bottom-none">
+        {{ services.PAGO.cuerpo }}
+      </p>
+    </div>
+
+    <div style="width: 100%; text-align: center">
+      <button
+        class="btn btn-primary"
+        style="background-color: rgb(2, 175, 2)"
+        routerLink="/admin/services"
+        href=""
+        *ngIf="user && user.roles.admin"
+      >
+        <label>Editar</label>
+      </button>
+    </div>
+  </div>
+</section>

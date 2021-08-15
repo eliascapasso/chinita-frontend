@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { MessageService } from '../../messages/message.service';
@@ -10,6 +10,9 @@ import { PromoService } from '../shared/promo.service';
 
 import { Product } from '../../models/product.model';
 import { Promo } from '../../models/promo.model';
+import { User } from '../../models/user.model';
+import { AuthService } from '../../account/shared/auth.service';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-home',
@@ -24,15 +27,50 @@ export class HomeComponent implements OnInit, OnDestroy {
   public productsOnSale: Product[];
   public productsBestRated: Product[];
   public promos: Promo[];
+  public services = {
+    GARANTIA: {
+      imagen: "",
+      habilitado: false,
+      titulo: "",
+      cuerpo: ""
+    },
+    ENVIO: {
+      imagen: "",
+      habilitado: false,
+      titulo: "",
+      cuerpo: ""
+    },
+    ATENCION: {
+      imagen: "",
+      habilitado: false,
+      titulo: "",
+      cuerpo: ""
+    },
+    PAGO: {
+      imagen: "",
+      habilitado: false,
+      titulo: "",
+      cuerpo: ""
+    },
+  };
+
+  private userSubscription: Subscription;
+  public user: User;
 
   constructor(
     private messageService: MessageService,
     private productsCache: ProductsCacheService,
     private productService: ProductService,
-    private promoService: PromoService
+    private promoService: PromoService,
+    private authService: AuthService,
+    private sharedServive: SharedService
   ) {}
 
   ngOnInit() {
+    this.userSubscription = this.authService.user.subscribe((user) => {
+      this.user = user;
+    });
+
     this.productService
       .getProducts()
       .pipe(takeUntil(this.unsubscribe$))
@@ -86,10 +124,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((promos) => {
         this.promos = promos;
       });
+
+      this.sharedServive.getObject("SERVICIOS").subscribe(services => {
+        this.services = services;
+      });
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+    this.userSubscription.unsubscribe();
   }
 }

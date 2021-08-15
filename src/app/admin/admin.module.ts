@@ -5,11 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsModule } from '../products/products.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AddEditCategoriesComponent } from './add-edit-categories/add-edit-categories.component';
+import { EditServicesComponent } from './edit-services/edit-services.component';
 
 @NgModule({
     declarations: [
         AddEditComponent,
-        AddEditCategoriesComponent
+        AddEditCategoriesComponent,
+        EditServicesComponent
     ],
     imports: [
         NgMultiSelectDropDownModule.forRoot(),
