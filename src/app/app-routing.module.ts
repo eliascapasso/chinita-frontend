@@ -14,6 +14,7 @@ import { AccountComponent } from './account/account.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { CompleteComponent } from './checkout/complete/complete.component';
+import { AddEditCategoriesComponent } from './admin/add-edit-categories/add-edit-categories.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'admin/edit/:id',
     component: AddEditComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'admin/categories',
+    component: AddEditCategoriesComponent,
     canActivate: [AdminGuard]
   },
   { path: 'checkout', component: CheckoutComponent },

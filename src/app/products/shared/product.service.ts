@@ -59,6 +59,24 @@ export class ProductService {
       );
   }
 
+  public addCategory(category: string) {
+    var jsonString = '{ "' + category + '": "' + category + '" }';
+    var jsonCategory = JSON.parse(jsonString);
+
+    return this.angularFireDatabase
+      .object<any>("categories")
+      .update(jsonCategory);
+  }
+
+  public deleteCategory(category: string) {
+    var jsonString = '{ "' + category + '": "' + category + '" }';
+    var jsonCategory = JSON.parse(jsonString);
+
+    return this.angularFireDatabase
+      .object<any>("categories/" + category)
+      .remove();
+  }
+
   public getProducts(): Observable<Product[]> {
     return this.angularFireDatabase
       .list<Product>("products", (ref) => ref.orderByChild("date"))

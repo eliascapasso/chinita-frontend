@@ -1,0 +1,63 @@
+<app-page-title
+  title="Categorías"
+  [children]="[{ title: 'Categorías' }]"
+></app-page-title>
+
+<div class="container">
+  <div class="row mb-5">
+    <div class="col-lg-8">
+      <h2 class="margin-bottom-1x">Categorías</h2>
+
+      <!-- Delete Categories -->
+      <table class="table table-hover margin-bottom-none">
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <td>
+              <a class="text-medium navi-link" data-toggle="modal">{{
+                category
+              }}</a>
+            </td>
+            <td>
+              <span class="text-info" style="cursor: pointer;" (click)="deleteCategory(category)"><i class="icon-trash"></i></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="padding-bottom-1x" />
+      <h6>Agregar categoría</h6>
+
+      <!-- Add Category -->
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <input
+                class="form-control form-control-square"
+                type="text"
+                [(ngModel)]="newCategory"
+                (keyup.enter)="addCategory()"
+              />
+            </td>
+            <td>
+              <button
+                class="btn btn-primary"
+                style="background-color: rgb(2, 175, 2)"
+                type="button"
+                (click)="addCategory()"
+              >
+                Agregar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
