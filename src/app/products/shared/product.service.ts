@@ -69,9 +69,6 @@ export class ProductService {
   }
 
   public deleteCategory(category: string) {
-    var jsonString = '{ "' + category + '": "' + category + '" }';
-    var jsonCategory = JSON.parse(jsonString);
-
     return this.angularFireDatabase
       .object<any>("categories/" + category)
       .remove();

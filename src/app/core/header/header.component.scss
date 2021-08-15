@@ -1,2 +1,16 @@
 @import '~scss/helpers/variables';
 @import '~scss/helpers/mixins';
+
+.edit-logo {
+    color: white;
+  
+    input[type="file"] {
+      position: absolute;
+      left: 0;
+      opacity: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      cursor: pointer;
+    }
+  }

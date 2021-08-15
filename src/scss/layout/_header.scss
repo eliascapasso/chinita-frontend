@@ -141,13 +141,13 @@
 // Search
 .site-search-wrapper {
   position: absolute;
-  width: 100%;
+  width: 95%;
   height: 100%;
 }
 .search-results {
   position: absolute;
   border-bottom: inset;
-  top: 84px;
+  top: 43px;
   left: -15px;
   width: 100%;
   background: #ffffff;
@@ -249,7 +249,7 @@
   left: 0;
   width: 100%;
   min-height: $navbar-min-height;
-  border-bottom: 1px solid $border-color;
+  //border-bottom: 1px solid $border-color;
   background-color: $white-color;
   z-index: 9000;
   &.navbar-stuck {
@@ -298,7 +298,7 @@
 .offcanvas-toggle {
   width: 74px;
   transition: color .3s;
-  border-right: 1px solid $border-color;
+  //border-right: 1px solid $border-color;
   color: $navbar-tools-color;
   font-size: $offcanvas-toggle-icon-size;
   line-height: 1;

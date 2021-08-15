@@ -16,6 +16,7 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
   public user: User;
   private authSubscription: Subscription;
   public categories: string[] = [];
+  displayCategories: boolean = false;
 
   constructor(public authService: AuthService, public productService: ProductService) {}
 

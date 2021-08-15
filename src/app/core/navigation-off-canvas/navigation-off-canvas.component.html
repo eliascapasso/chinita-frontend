@@ -14,7 +14,8 @@
         >Ha iniciado sesión como:</span
       >
       <h6 class="user-name">
-        {{ user.lastName }} {{ user.firstName }}<span *ngIf="user.roles.admin"> (Admin)</span>
+        {{ user.lastName }} {{ user.firstName
+        }}<span *ngIf="user.roles.admin"> (Admin)</span>
       </h6>
     </div>
   </a>
@@ -57,11 +58,30 @@
       </li>
 
       <!-- Categories -->
-      <li routerLinkActive="active" class="nav submenu" *ngFor="let category of categories">
-        <a routerLink="/productos" [queryParams]="{'categoria': category}" (click)="onNavigationClick()" style="font-size: small; text-align: end;">
-            <span>{{ category }}</span>
+      <li
+        routerLinkActive="active"
+        class="nav submenu"
+        *ngFor="let category of categories"
+      >
+        <a
+          routerLink="/productos"
+          [queryParams]="{ categoria: category }"
+          (click)="onNavigationClick()"
+          style="font-size: small; text-align: end"
+        >
+          <span>{{ category }}</span>
         </a>
-    </li>
+      </li>
+
+      <li
+        *ngIf="user && user.roles.admin"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <a routerLink="admin/categories" href="" (click)="onNavigationClick()">
+          <span style="color: white">&nbsp;Editar categorías</span>
+        </a>
+      </li>
 
       <li routerLinkActive="active">
         <span>

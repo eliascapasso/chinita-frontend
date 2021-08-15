@@ -7,6 +7,7 @@ import { AuthService } from '../../account/shared/auth.service';
 import { OffcanvasService } from '../shared/offcanvas.service';
 
 import { User } from '../../models/user.model';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -17,16 +18,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authSubscription: Subscription;
   public user: User;
   public showSearch;
+  public logoImage: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private offcanvasService: OffcanvasService
+    private offcanvasService: OffcanvasService,
+    private sharedService: SharedService,
   ) {}
 
   ngOnInit() {
+    this.sharedService.getObject("LOGO").subscribe((result) => {
+      this.logoImage = result.imageURLs;
+    });
+
     this.authSubscription = this.authService.user.subscribe((user) => {
       this.user = user;
+    });
+  }
+
+  updateLogo(event) {
+    this.sharedService.updateObjectWithFile({
+      type: "LOGO",
+      file: event.target.files[0],
     });
   }
 
