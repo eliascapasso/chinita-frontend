@@ -67,7 +67,6 @@ export class ShippingComponent implements OnInit {
 
   updateFee(sMethod){
     if(sMethod == "a domicilio"){
-      console.log(this.shippingMethods[1].fee);
       this.cartService.setShipping(this.shippingMethods[1].fee);
       this.checkoutService.setPaymentCost(this.shippingMethods[1].fee);
     }

@@ -1,0 +1,36 @@
+// Progress bars
+@import '../../../scss/helpers/_variables.scss';
+
+//
+// Progress Bars
+// --------------------------------------------------
+
+.progress {
+  height: auto;
+  border-radius: ceil($progress-height / 2);
+  background-color: darken($gray-lighter, 2%);
+  font: {
+    size: $font-size-xs;
+    weight: 500;
+  }
+  line-height: $progress-height;
+}
+.progress-bar {
+  height: $progress-height;
+  background-color: $progress-bg;
+}
+
+
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

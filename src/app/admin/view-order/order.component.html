@@ -1,0 +1,42 @@
+<app-page-title
+  title="Ver orden"
+  [children]="[{ title: 'Ver orden' }]"
+></app-page-title>
+
+<div class="container">
+  <div>
+    <div>
+      <h2 class="margin-bottom-1x">Orden #{{ numOrder }}</h2>
+
+      <table class="table table-hover margin-bottom-none">
+        <thead>
+          <tr>
+            <th>Orden #</th>
+            <th>Fecha de compra</th>
+            <th>Estado</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <a
+                class="text-medium navi-link"
+                data-toggle="modal"
+                data-target="#orderDetails"
+                >{{ order.number }}</a
+              >
+            </td>
+            <td>{{ order.date | date: "mediumDate" }}</td>
+            <td>
+              <span class="text-info">{{ order.status || "En progreso" }}</span>
+            </td>
+            <td>
+              <span class="text-medium">{{ order.total | currency }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@
       <img [src]="logoImage" style="width: 150px;" alt="logo"/>
     </div>
 
-    <div style="width: 100%; text-align: center;">
+    <div style="width: 100%; text-align: center;" *ngIf="user && user.roles.admin">
       <div class="btn btn-primary edit-logo" style="background-color: rgb(2, 175, 2);">
         <label for="logo">Cambiar logo</label>
         <input (input)="updateLogo($event)" type="file" id="logo" />

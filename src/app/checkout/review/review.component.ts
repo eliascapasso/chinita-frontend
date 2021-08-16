@@ -77,6 +77,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private submitUserOrder(order, total, userUid) {
     this.orderService.goCheckoutMP(order).subscribe((resp) => {
+      console.log(resp);
       window.location.replace(resp);
 
       this.orderService
@@ -108,7 +109,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
           (response) => {
             this.cartService.clearCart();
             this.checkoutService.resetSteps();
-            this.router.navigate(["/order-complete"]);
+            //this.router.navigate(["/order-complete"]);
           },
           (error) => {
             this.messageService.addError(

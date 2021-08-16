@@ -88,15 +88,18 @@
             class="market-button google-button mb-light-skin"
             [href]="playstore"
             target="_blank"
-            *ngIf="playstore != '' && playstore != null && playstore != undefined"
+            *ngIf="
+              playstore != '' && playstore != null && playstore != undefined
+            "
           >
             <span class="mb-subtitle">Descarga en</span>
             <span class="mb-title">Google Play</span>
           </a>
         </section>
       </div>
-      <div class="col-lg-3 col-md-6">
-        <!-- About Us-->
+
+      <!-- About Us-->
+      <!-- <div class="col-lg-3 col-md-6">
         <section class="widget widget-links widget-light-skin">
           <h3 class="widget-title">Sobre nosotros</h3>
           <ul>
@@ -111,9 +114,10 @@
             </li>
           </ul>
         </section>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <!-- Account / Shipping Info-->
+      </div> -->
+
+      <!-- Account / Shipping Info-->
+      <!-- <div class="col-lg-3 col-md-6">
         <section class="widget widget-links widget-light-skin">
           <h3 class="widget-title">Cuenta &amp; Información de envío</h3>
           <ul>
@@ -137,7 +141,7 @@
             </li>
           </ul>
         </section>
-      </div>
+      </div> -->
     </div>
     <hr class="hr-light mt-2 margin-bottom-2x" />
     <div class="row">

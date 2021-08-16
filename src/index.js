@@ -27,6 +27,8 @@ app.post("/api/checkout", (req, res) => {
   let preference = {
     back_urls: {
       success: "http://localhost:4200/order-complete",
+      failure: "http://localhost:4200/inicio",
+      pending: "http://localhost:4200/inicio",
     },
     payer: {
       name: req.body.customer.firstname,
@@ -77,6 +79,8 @@ app.listen(app.get("port"), () => {
 
 function parse(x) {
   let parsed = parseInt(x);
-  if (isNaN(parsed)) { return 0; }
+  if (isNaN(parsed)) {
+    return 0;
+  }
   return parsed;
 }

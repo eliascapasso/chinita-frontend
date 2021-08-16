@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable ,  of ,  from as fromPromise, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { Order } from '../../../models/order.model';
@@ -15,7 +15,8 @@ export class OrderService {
     private messageService: MessageService,
     private authService: AuthService,
     private store: AngularFireDatabase,
-    private http: HttpClient
+    private http: HttpClient,
+    private angularFireDatabase: AngularFireDatabase,
   ) {}
 
   public getOrders() {
@@ -29,6 +30,26 @@ export class OrderService {
             return of(null);
           }
         })
+      );
+  }
+
+  public getOrder(id: any): Observable<Order | null> {
+    const url = `orders/${id}`;
+    return this.angularFireDatabase
+      .object<Order>(url)
+      .valueChanges()
+      .pipe(
+        tap((result) => {
+          if (result) {
+            return of(result);
+          } else {
+            this.messageService.addError(
+              `No se ha encontrado ninguna orden con id=${id}`
+            );
+            return of(null);
+          }
+        }),
+        catchError(this.handleError<Order>(`getOrder id=${id}`))
       );
   }
 
