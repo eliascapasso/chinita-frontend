@@ -6,15 +6,15 @@
 <div class="container">
   <div>
     <div>
-      <h2 class="margin-bottom-1x">Orden #{{ numOrder }}</h2>
-
+      <h5 class="margin-bottom-1x">Orden #{{ numOrder }}</h5>
       <table class="table table-hover margin-bottom-none">
         <thead>
           <tr>
             <th>Orden #</th>
             <th>Fecha de compra</th>
             <th>Estado</th>
-            <th>Total</th>
+            <th>Subtotal</th>
+            <th>Envío</th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +33,96 @@
             </td>
             <td>
               <span class="text-medium">{{ order.total | currency }}</span>
+            </td>
+            <td>
+              <span class="text-medium">{{
+                order.shippingCost | currency
+              }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="padding-bottom-1x" />
+      <h5 class="margin-bottom-1x">Cliente</h5>
+      <table class="table table-hover margin-bottom-none">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Dirección</th>
+            <th>Ciudad / Código postal</th>
+            <th *ngIf="order.customer.email != undefined">E-mail</th>
+            <th *ngIf="order.customer.phone != undefined">Telefono</th>
+            <th *ngIf="order.customer.company != undefined">Compañia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{ order.customer.lastname }} {{ order.customer.firstname }}
+            </td>
+            <td>{{ order.customer.address1 }} {{ order.customer.address2 }}</td>
+            <td>
+              {{ order.customer.city }}, {{ order.customer.country }} /
+              {{ order.customer.zip }}
+            </td>
+            <td *ngIf="order.customer.email != undefined">
+              <a
+                class="hidden-md-down"
+                [href]="'mailto:' + order.customer.email"
+              >
+                {{ order.customer.email }}</a
+              >
+            </td>
+            <td *ngIf="order.customer.phone != undefined">
+              <a
+                class="hidden-md-down"
+                [href]="'tel:' + order.customer.phone"
+              >
+                {{ order.customer.phone }}</a
+              >
+            </td>
+            <td *ngIf="order.customer.company != undefined">
+              {{ order.customer.company }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="padding-bottom-1x" />
+      <h5 class="margin-bottom-1x">Producto(s)</h5>
+      <table class="table table-hover margin-bottom-none">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of order.items"
+            (click)="goProduct(item.product.id)"
+            style="cursor: pointer"
+          >
+            <td>
+              <img [src]="item.product.imageURLs[0]" style="width: 50px" />
+            </td>
+            <td>
+              {{ item.product.name }}
+            </td>
+            <td>
+              {{ item.product.description }}
+            </td>
+            <td>
+              {{ item.amount }}
+            </td>
+            <td>
+              <span class="text-medium">{{
+                item.product.price | currency
+              }}</span>
             </td>
           </tr>
         </tbody>

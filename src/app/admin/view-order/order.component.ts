@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { OrderService } from "../../account/orders/shared/order.service";
 import { MessageService } from "../../messages/message.service";
+import { Customer } from "../../models/customer.model";
+import { Order } from "../../models/order.model";
 import { SharedService } from "../../shared/shared.service";
 
 @Component({
@@ -11,8 +13,10 @@ import { SharedService } from "../../shared/shared.service";
 })
 export class OrderComponent implements OnInit {
   public numOrder: string = "";
+  public order: Order = new Order();
 
   constructor(
+    private router: Router,
     public route: ActivatedRoute,
     private sharedService: SharedService,
     private log: MessageService,
@@ -25,6 +29,20 @@ export class OrderComponent implements OnInit {
   }
 
   getOrder(){
-    
+    this.order.customer = new Customer();
+    this.orderService.getOrders().subscribe(orders =>{
+        for(let order of orders){
+          if(order.number == this.numOrder){
+            this.order = order;
+            console.log(order);
+            break;
+          }
+        }
+    });
+  }
+
+  goProduct(idproduct){
+    this.router.navigateByUrl('productos/' + idproduct);
+    window.scrollTo(0, 0);
   }
 }

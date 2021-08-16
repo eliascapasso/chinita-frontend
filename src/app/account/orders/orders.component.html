@@ -21,7 +21,7 @@
           <span class="text-info">{{order.status || 'En progreso'}}</span>
         </td>
         <td>
-          <span class="text-medium">{{order.total | currency}}</span>
+          <span class="text-medium">{{order.total + order.shippingCost | currency}}</span>
         </td>
       </tr>
 

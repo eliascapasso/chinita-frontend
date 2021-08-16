@@ -35,13 +35,18 @@
           </a>
         </span>
       </li>
-      <li *ngIf="user" routerLinkActive="active">
+      <li
+        *ngIf="user"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
         <span>
-          <a routerLink="/account/orders" (click)="onNavigationClick()">
-            <span>Mis ordenes</span>
+          <a routerLink="/account/orders" href="" (click)="onNavigationClick()">
+            <span style="color: white">&nbsp;Mis ordenes</span>
           </a>
         </span>
       </li>
+
       <li routerLinkActive="active">
         <span>
           <a routerLink="/inicio" (click)="onNavigationClick()">
@@ -49,6 +54,7 @@
           </a>
         </span>
       </li>
+
       <li routerLinkActive="active" class="nav submenu">
         <span>
           <a routerLink="/productos" (click)="onNavigationClick()">
@@ -90,9 +96,14 @@
           </a>
         </span>
       </li>
-      <li *ngIf="user && user.roles.admin" routerLinkActive="active">
-        <a routerLink="/admin/add" (click)="onNavigationClick()">
-          <span>Agregar producto</span>
+
+      <li
+        *ngIf="user && user.roles.admin"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <a routerLink="/admin/add" href="" (click)="onNavigationClick()">
+          <span style="color: white">&nbsp;Agregar producto</span>
         </a>
       </li>
       <li *ngIf="user">

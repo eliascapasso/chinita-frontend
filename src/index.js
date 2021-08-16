@@ -26,10 +26,11 @@ app.post("/api/checkout", (req, res) => {
   console.log(req.body);
   let preference = {
     back_urls: {
-      success: "http://localhost:4200/order-complete",
+      success: "http://localhost:4200/order-complete/complete",
       failure: "http://localhost:4200/inicio",
-      pending: "http://localhost:4200/inicio",
+      pending: "http://localhost:4200/order-complete/pending",
     },
+    auto_return: "approved",
     payer: {
       name: req.body.customer.firstname,
       surname: req.body.customer.lasttname,
