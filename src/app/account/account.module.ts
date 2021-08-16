@@ -8,13 +8,15 @@ import { ProfileComponent } from './profile/profile.component';
 import { OrdersComponent } from './orders/orders.component';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { AccountComponent } from './account.component';
+import { ShippingCostComponent } from './shipping/profile/shipping-cost.component';
 
 @NgModule({
     declarations: [
         AccountComponent,
         ProfileComponent,
         OrdersComponent,
-        RegisterLoginComponent
+        RegisterLoginComponent,
+        ShippingCostComponent
     ],
     imports: [
         CommonModule,

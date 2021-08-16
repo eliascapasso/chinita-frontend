@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from './shared/auth.service';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { User } from '../models/user.model';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   public user: User;
 
   constructor(
@@ -19,4 +19,8 @@ export class AccountComponent {
     public router: Router,
     public orderService: OrderService
   ) {}
+
+  ngOnInit() {
+
+  }
 }

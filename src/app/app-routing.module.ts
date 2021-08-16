@@ -17,6 +17,7 @@ import { CompleteComponent } from './checkout/complete/complete.component';
 import { AddEditCategoriesComponent } from './admin/add-edit-categories/add-edit-categories.component';
 import { EditServicesComponent } from './admin/edit-services/edit-services.component';
 import { OrderComponent } from './admin/view-order/order.component';
+import { ShippingCostComponent } from './account/shipping/profile/shipping-cost.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -53,7 +54,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'orders', component: OrdersComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'shipping', component: ShippingCostComponent }
     ]
   },
   { path: 'order-complete/:type', component: CompleteComponent },

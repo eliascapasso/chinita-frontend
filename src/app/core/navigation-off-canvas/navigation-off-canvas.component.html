@@ -47,6 +47,18 @@
         </span>
       </li>
 
+      <li
+        *ngIf="user"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <span>
+          <a routerLink="/account/shipping" href="" (click)="onNavigationClick()">
+            <span style="color: white">&nbsp;Envío</span>
+          </a>
+        </span>
+      </li>
+
       <li routerLinkActive="active">
         <span>
           <a routerLink="/inicio" (click)="onNavigationClick()">
