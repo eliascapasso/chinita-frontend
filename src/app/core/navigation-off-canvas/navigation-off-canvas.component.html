@@ -12,7 +12,7 @@
     <div class="user-info">
       <span class="text-sm text-white opacity-60"
         >Ha iniciado sesión como:</span
-      > 
+      >
       <h6 class="user-name">
         {{ user.lastName }} {{ user.firstName
         }}<span *ngIf="user.roles.admin"> (Admin)</span>
@@ -24,14 +24,18 @@
       <li *ngIf="!user" routerLinkActive="active">
         <span>
           <a routerLink="/register-login" (click)="onNavigationClick()">
-            <span>Iniciar sesión </span> <img src="../../../img/login-color.png" style="width: 18px;" />
+            <img src="../../../img/login-color.png" style="width: 18px" /><span
+              >&nbsp;Iniciar sesión
+            </span>
           </a>
         </span>
       </li>
       <li *ngIf="user" routerLinkActive="active">
         <span>
           <a routerLink="/account/profile" (click)="onNavigationClick()">
-            <span>Mi perfil</span>
+            <img src="../../../img/profile.png" style="width: 18px" /><span
+              >&nbsp;Mi perfil
+            </span>
           </a>
         </span>
       </li>
@@ -39,7 +43,9 @@
       <li routerLinkActive="active">
         <span>
           <a routerLink="/inicio" (click)="onNavigationClick()">
-            <span>Inicio</span>
+            <img src="../../../img/home.png" style="width: 18px" /><span
+              >&nbsp;Inicio
+            </span>
           </a>
         </span>
       </li>
@@ -47,7 +53,9 @@
       <li routerLinkActive="active" class="nav submenu">
         <span>
           <a routerLink="/productos" (click)="onNavigationClick()">
-            <span>Productos</span>
+            <img src="../../../img/product.png" style="width: 18px" /><span
+              >&nbsp;Productos
+            </span>
           </a>
         </span>
       </li>
@@ -71,7 +79,9 @@
       <li routerLinkActive="active">
         <span>
           <a routerLink="/carrito" (click)="onNavigationClick()">
-            <span>Carrito</span>
+            <img src="../../../img/cart.png" style="width: 18px" /><span
+              >&nbsp;Carrito
+            </span>
           </a>
         </span>
       </li>
@@ -82,7 +92,10 @@
         style="background-color: rgb(2, 175, 2)"
       >
         <a routerLink="/admin/add" href="" (click)="onNavigationClick()">
-          <span style="color: white">&nbsp;Agregar producto</span>
+          <img src="../../../img/add-product.png" style="width: 18px" /><span
+            style="color: white"
+            >&nbsp;Agregar producto
+          </span>
         </a>
       </li>
 
@@ -92,7 +105,10 @@
         style="background-color: rgb(2, 175, 2)"
       >
         <a routerLink="admin/categories" href="" (click)="onNavigationClick()">
-          <span style="color: white">&nbsp;Editar categorías</span>
+          <img
+            src="../../../img/edit-categories.png"
+            style="width: 18px"
+          /><span style="color: white">&nbsp;Editar categorías </span>
         </a>
       </li>
 
@@ -103,7 +119,10 @@
       >
         <span>
           <a routerLink="/account/orders" href="" (click)="onNavigationClick()">
-            <span style="color: white">&nbsp;Mis ordenes</span>
+            <img src="../../../img/order.png" style="width: 18px" /><span
+              style="color: white"
+              >&nbsp;Mis ordenes
+            </span>
           </a>
         </span>
       </li>
@@ -119,14 +138,19 @@
             href=""
             (click)="onNavigationClick()"
           >
-            <span style="color: white">&nbsp;Envío</span>
+            <img
+              src="../../../img/shipping-color.png"
+              style="width: 18px"
+            /><span style="color: white">&nbsp;Envío</span>
           </a>
         </span>
       </li>
 
       <li *ngIf="user">
         <a href="" (click)="onLogout($event)">
-          <span>Cerrar sesión </span> <img src="../../../img/logout-color.png" style="width: 18px;" />
+          <img src="../../../img/logout-color.png" style="width: 18px" /><span
+            >&nbsp;Cerrar sesión</span
+          >
         </a>
       </li>
     </ul>
