@@ -1,6 +1,6 @@
 <!-- Navbar-->
 <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
-<header>
+<header style="padding-top: 20px;">
   <div class="navbar">
     <div style="width: 100%; text-align: center;">
       <img [src]="logoImage" style="width: 150px;" alt="logo"/>
@@ -12,7 +12,9 @@
         <input (input)="updateLogo($event)" type="file" id="logo" />
       </div>
     </div>
+  </div>
 
+  <div class="navbar navbar-sticky" style="border-bottom: 1px solid #e1e7ec;">
     <div class="site-branding">
       <div class="inner">
         <!-- Off-Canvas Toggle (#shop-categories)-->
@@ -21,9 +23,7 @@
         <a class="offcanvas-toggle" href="" (click)="onMenuToggle($event)"></a>
       </div>
     </div>
-  </div>
 
-  <div class="navbar navbar-sticky" style="border-bottom: 1px solid #e1e7ec;">
     <app-search (onHideSearch)="showSearch = false" [showSearch]="showSearch" class="site-search-wrapper"></app-search>
     
     <app-navigation-main></app-navigation-main>

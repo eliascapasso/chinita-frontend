@@ -55,21 +55,26 @@
     >
       <i class="socicon-whatsapp"></i>
     </a>
-
-    <button
-      class="btn btn-primary"
-      style="background-color: rgb(2, 175, 2);"
-      (click)="showContact()"
-      *ngIf="user && user.roles.admin"
-    >
-      <label>Editar</label>
-    </button>
   </div>
-  
+
   <a routerLink="/register-login" title="Iniciar sesión" *ngIf="!user">
-    <img src="../../../img/login.png" style="width: 25px; float: right; cursor: pointer;" />
+    <img
+      src="../../../img/login.png"
+      style="width: 25px; float: right; cursor: pointer"
+    />
   </a>
   <a href="" (click)="onLogout($event)" title="Cerrar sesión" *ngIf="user">
-    <img src="../../../img/logout.png" style="width: 25px; float: right; cursor: pointer;" />
+    <img
+      src="../../../img/logout.png"
+      style="width: 25px; float: right; cursor: pointer"
+    />
+  </a>
+
+  <a
+    class="edit-button"
+    (click)="showContact()"
+    *ngIf="user && user.roles.admin"
+  >
+    <i><label>EDITAR</label></i>
   </a>
 </div>
