@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "../../account/shared/auth.service";
 import { MessageService } from "../../messages/message.service";
 import { User } from "../../models/user.model";
 import { SharedService } from "../../shared/shared.service";
 import { ContactService } from "../shared/contact.service";
+import { OffcanvasService } from "../shared/offcanvas.service";
 
 @Component({
   selector: "app-top-bar",
@@ -28,7 +30,9 @@ export class TopBarComponent {
     public contactService: ContactService,
     private sharedService: SharedService,
     private authService: AuthService,
-    private log: MessageService
+    private log: MessageService,
+    public offcanvasService: OffcanvasService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -85,6 +89,13 @@ export class TopBarComponent {
 
     this.display = false;
     window.scrollTo(0, 0);
+  }
+
+  public onLogout(e: Event) {
+    this.offcanvasService.closeOffcanvasNavigation();
+    this.authService.signOut();
+    this.router.navigate(['/register-login']);
+    e.preventDefault();
   }
 
   ngOnDestroy() {

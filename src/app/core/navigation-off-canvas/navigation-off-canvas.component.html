@@ -24,7 +24,7 @@
       <li *ngIf="!user" routerLinkActive="active">
         <span>
           <a routerLink="/register-login" (click)="onNavigationClick()">
-            <span>Registrarse/Iniciar sesión</span>
+            <span>Iniciar sesión</span>
           </a>
         </span>
       </li>
@@ -36,7 +36,7 @@
         </span>
       </li>
       <li
-        *ngIf="user"
+        *ngIf="user && user.roles.admin"
         routerLinkActive="active"
         style="background-color: rgb(2, 175, 2)"
       >
@@ -48,7 +48,7 @@
       </li>
 
       <li
-        *ngIf="user"
+        *ngIf="user && user.roles.admin"
         routerLinkActive="active"
         style="background-color: rgb(2, 175, 2)"
       >

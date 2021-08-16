@@ -182,4 +182,11 @@
       </p-footer>
     </p-dialog>
   </div>
+  
+  <a routerLink="/register-login" title="Iniciar sesión" *ngIf="!user">
+    <img src="../../../img/login.png" style="width: 25px; float: right; cursor: pointer;" />
+  </a>
+  <a href="" (click)="onLogout($event)" title="Cerrar sesión" *ngIf="user">
+    <img src="../../../img/logout.png" style="width: 25px; float: right; cursor: pointer;" />
+  </a>
 </div>
