@@ -27,7 +27,6 @@
     </li>
   </ul>
 
-  <!-- Categories -->
   <div (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false">
     <ul
       style="background-color: white; border-bottom: 1px solid #e1e7ec"
@@ -38,6 +37,43 @@
           routerLink="/productos"
           [queryParams]="{ categoria: category }"
           href=""
+        >
+          <span>{{ category }}</span>
+        </a>
+      </li>
+      <li
+        *ngIf="user && user.roles.admin"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <a routerLink="admin/categories" href="">
+          <span style="color: white">&nbsp;Editar</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="site-menu" style="display: block !important" *ngIf="displayProducts">
+  <ul style="margin-right: 40%;">
+    <li routerLinkActive="active" (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false">
+      <a routerLink="/productos" href="">
+        <span>Productos</span>
+      </a>
+    </li>
+  </ul>
+
+  <div (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false">
+    <ul
+      style="background-color: white; border-bottom: 1px solid #e1e7ec"
+      *ngIf="displayCategories"
+    >
+      <li routerLinkActive="active" *ngFor="let category of categories">
+        <a
+          routerLink="/productos"
+          [queryParams]="{ categoria: category }"
+          href=""
+          (click)="displayCategories = false"
         >
           <span>{{ category }}</span>
         </a>
