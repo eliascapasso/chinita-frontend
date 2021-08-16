@@ -24,7 +24,6 @@ export class TopBarComponent {
 
   private userSubscription: Subscription;
   public user: User;
-  display: boolean = false;
 
   constructor(
     public contactService: ContactService,
@@ -55,40 +54,8 @@ export class TopBarComponent {
     });
   }
 
-  showDialog() {
-    this.display = true;
-  }
-
-  cancelDialog(){
-    this.display = false;
-    window.scrollTo(0, 0);
-    this.getContact();
-  }
-
-  saveDialog(){
-    let object = {
-      telefono: this.telefono,
-      correo: this.correo,
-      wsp: this.wsp,
-      facebook: this.facebook,
-      instagram: this.instagram,
-      twitter: this.twitter,
-      linkedin: this.linkedin,
-    };
-
-    this.sharedService.updateObject({
-      type: "contact",
-      object: object,
-    }).then(result =>{
-      this.log.add("Contacto guardado exitosamente");
-    })
-    .catch(error => {
-      console.error(error.message);
-      this.log.addError("No se pudo modificar el contacto");
-    });
-
-    this.display = false;
-    window.scrollTo(0, 0);
+  showContact() {
+    this.router.navigateByUrl('admin/edit-contact');
   }
 
   public onLogout(e: Event) {

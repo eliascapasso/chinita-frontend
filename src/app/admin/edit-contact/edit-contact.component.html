@@ -1,0 +1,142 @@
+<app-page-title
+  title="Datos de contacto"
+  [children]="[{ title: 'Contacto' }]"
+></app-page-title>
+
+<div class="container">
+  <div>
+    <div>
+      <h2 class="margin-bottom-1x">Datos de contacto</h2>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label" for="email">Email</label>
+        <div class="col-12">
+          <input
+            class="form-control form-control-square form-control-sm"
+            type="email"
+            id="email"
+            [(ngModel)]="correo"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label" for="telefono">Telefono</label>
+        <div class="col-12">
+          <input
+            class="form-control form-control-square form-control-sm"
+            type="text"
+            id="telefono"
+            [(ngModel)]="telefono"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label" for="facebook"
+          >Link Facebook</label
+        >
+        <div class="col-12">
+          <input
+            class="form-control form-control-square form-control-sm"
+            type="text"
+            id="facebook"
+            placeholder="Pegue aquí el link de su perfil de facebook"
+            [(ngModel)]="facebook"
+          />
+        </div>
+        <div class="col-12" style="text-align: end">
+          <a class="get-link" href="https://www.facebook.com" target="_blank"
+            >Obtener link</a
+          >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label" for="twitter">Link Twitter</label>
+        <div class="col-12">
+          <input
+            class="form-control form-control-square form-control-sm"
+            type="text"
+            id="twitter"
+            placeholder="Pegue aquí el link de su perfil de twitter"
+            [(ngModel)]="twitter"
+          />
+        </div>
+        <div class="col-12" style="text-align: end">
+          <a class="get-link" href="https://www.twitter.com" target="_blank"
+            >Obtener link</a
+          >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label" for="instagram"
+          >Link Instagram</label
+        >
+        <div class="col-12">
+          <input
+            class="form-control form-control-square form-control-sm"
+            type="text"
+            id="instagram"
+            placeholder="Pegue aquí el link de su perfil de instagram"
+            [(ngModel)]="instagram"
+          />
+        </div>
+        <div class="col-12" style="text-align: end">
+          <a class="get-link" href="https://www.instagram.com" target="_blank"
+            >Obtener link</a
+          >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label" for="linkedin"
+          >Link Linkedin</label
+        >
+        <div class="col-12">
+          <input
+            class="form-control form-control-square form-control-sm"
+            type="text"
+            id="linkedin"
+            placeholder="Pegue aquí el link de su perfil de linkedin"
+            [(ngModel)]="linkedin"
+          />
+        </div>
+        <div class="col-12" style="text-align: end">
+          <a class="get-link" href="https://www.linkedin.com" target="_blank"
+            >Obtener link</a
+          >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-12 col-form-label" for="wsp">Link Whatsapp</label>
+        <div class="col-12">
+          <input
+            class="form-control form-control-square form-control-sm"
+            type="text"
+            id="wsp"
+            placeholder="Pegue aquí el link para redirigir a whatsapp"
+            [(ngModel)]="wsp"
+          />
+        </div>
+        <div class="col-12" style="text-align: end">
+          <a class="get-link" href="https://crear.wa.link/" target="_blank"
+            >Obtener link</a
+          >
+        </div>
+      </div>
+
+      <div style="float: right">
+        <button
+          class="btn btn-primary"
+          (click)="saveContact()"
+          style="background-color: rgb(2, 175, 2)"
+        >
+          <label>Modificar</label>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

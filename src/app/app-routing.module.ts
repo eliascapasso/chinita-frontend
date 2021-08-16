@@ -18,6 +18,7 @@ import { AddEditCategoriesComponent } from './admin/add-edit-categories/add-edit
 import { EditServicesComponent } from './admin/edit-services/edit-services.component';
 import { OrderComponent } from './admin/view-order/order.component';
 import { ShippingCostComponent } from './account/shipping/profile/shipping-cost.component';
+import { EditContactComponent } from './admin/edit-contact/edit-contact.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -39,6 +40,11 @@ const routes: Routes = [
   {
     path: 'admin/services',
     component: EditServicesComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'admin/edit-contact',
+    component: EditContactComponent,
     canActivate: [AdminGuard]
   },
   {

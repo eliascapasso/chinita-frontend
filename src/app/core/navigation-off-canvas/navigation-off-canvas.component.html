@@ -12,7 +12,7 @@
     <div class="user-info">
       <span class="text-sm text-white opacity-60"
         >Ha iniciado sesión como:</span
-      >
+      > 
       <h6 class="user-name">
         {{ user.lastName }} {{ user.firstName
         }}<span *ngIf="user.roles.admin"> (Admin)</span>
@@ -24,7 +24,7 @@
       <li *ngIf="!user" routerLinkActive="active">
         <span>
           <a routerLink="/register-login" (click)="onNavigationClick()">
-            <span>Iniciar sesión</span>
+            <span>Iniciar sesión </span> <img src="../../../img/login-color.png" style="width: 18px;" />
           </a>
         </span>
       </li>
@@ -32,29 +32,6 @@
         <span>
           <a routerLink="/account/profile" (click)="onNavigationClick()">
             <span>Mi perfil</span>
-          </a>
-        </span>
-      </li>
-      <li
-        *ngIf="user && user.roles.admin"
-        routerLinkActive="active"
-        style="background-color: rgb(2, 175, 2)"
-      >
-        <span>
-          <a routerLink="/account/orders" href="" (click)="onNavigationClick()">
-            <span style="color: white">&nbsp;Mis ordenes</span>
-          </a>
-        </span>
-      </li>
-
-      <li
-        *ngIf="user && user.roles.admin"
-        routerLinkActive="active"
-        style="background-color: rgb(2, 175, 2)"
-      >
-        <span>
-          <a routerLink="/account/shipping" href="" (click)="onNavigationClick()">
-            <span style="color: white">&nbsp;Envío</span>
           </a>
         </span>
       </li>
@@ -91,16 +68,6 @@
         </a>
       </li>
 
-      <li
-        *ngIf="user && user.roles.admin"
-        routerLinkActive="active"
-        style="background-color: rgb(2, 175, 2)"
-      >
-        <a routerLink="admin/categories" href="" (click)="onNavigationClick()">
-          <span style="color: white">&nbsp;Editar categorías</span>
-        </a>
-      </li>
-
       <li routerLinkActive="active">
         <span>
           <a routerLink="/carrito" (click)="onNavigationClick()">
@@ -118,9 +85,48 @@
           <span style="color: white">&nbsp;Agregar producto</span>
         </a>
       </li>
+
+      <li
+        *ngIf="user && user.roles.admin"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <a routerLink="admin/categories" href="" (click)="onNavigationClick()">
+          <span style="color: white">&nbsp;Editar categorías</span>
+        </a>
+      </li>
+
+      <li
+        *ngIf="user && user.roles.admin"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <span>
+          <a routerLink="/account/orders" href="" (click)="onNavigationClick()">
+            <span style="color: white">&nbsp;Mis ordenes</span>
+          </a>
+        </span>
+      </li>
+
+      <li
+        *ngIf="user && user.roles.admin"
+        routerLinkActive="active"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <span>
+          <a
+            routerLink="/account/shipping"
+            href=""
+            (click)="onNavigationClick()"
+          >
+            <span style="color: white">&nbsp;Envío</span>
+          </a>
+        </span>
+      </li>
+
       <li *ngIf="user">
         <a href="" (click)="onLogout($event)">
-          <span>Cerrar sesión</span>
+          <span>Cerrar sesión </span> <img src="../../../img/logout-color.png" style="width: 18px;" />
         </a>
       </li>
     </ul>

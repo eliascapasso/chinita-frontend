@@ -7,13 +7,15 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AddEditCategoriesComponent } from './add-edit-categories/add-edit-categories.component';
 import { EditServicesComponent } from './edit-services/edit-services.component';
 import { OrderComponent } from './view-order/order.component';
+import { EditContactComponent } from './edit-contact/edit-contact.component';
 
 @NgModule({
     declarations: [
         AddEditComponent,
         AddEditCategoriesComponent,
         EditServicesComponent,
-        OrderComponent
+        OrderComponent,
+        EditContactComponent
     ],
     imports: [
         NgMultiSelectDropDownModule.forRoot(),
