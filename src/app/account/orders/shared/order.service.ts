@@ -82,7 +82,7 @@ export class OrderService {
     headers.append("Access-Control-Allow-Credentials", "true");
 
     return this.http
-      .post("http://localhost:3000/api/checkout", order, { headers: headers })
+      .post("http://https://tienda-online-base.web.app:3000/api/checkout", order, { headers: headers })
       .pipe(catchError(this.handleErrorHttp));
   }
 
