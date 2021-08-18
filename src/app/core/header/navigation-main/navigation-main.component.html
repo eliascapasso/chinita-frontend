@@ -37,6 +37,7 @@
           routerLink="/productos"
           [queryParams]="{ categoria: category }"
           href=""
+          (click)="displayCategories = false"
         >
           <span>{{ category }}</span>
         </a>
@@ -45,6 +46,7 @@
         *ngIf="user && user.roles.admin"
         routerLinkActive="active"
         style="background-color: rgb(2, 175, 2)"
+        (click)="displayCategories = false"
       >
         <a routerLink="admin/categories" href="">
           <span style="color: white">&nbsp;Editar</span>
@@ -55,7 +57,7 @@
 </nav>
 
 <nav class="site-menu" style="display: block !important" *ngIf="displayProducts">
-  <ul style="margin-right: 40%;">
+  <ul style="margin-right: 45%;">
     <li routerLinkActive="active" (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false">
       <a routerLink="/productos" href="">
         <span>Productos</span>
@@ -82,6 +84,7 @@
         *ngIf="user && user.roles.admin"
         routerLinkActive="active"
         style="background-color: rgb(2, 175, 2)"
+        (click)="displayCategories = false"
       >
         <a routerLink="admin/categories" href="">
           <span style="color: white">&nbsp;Editar</span>

@@ -1,20 +1,35 @@
 <!-- Navbar-->
 <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
-<header style="padding-top: 20px;">
+<header style="padding-top: 20px">
   <div class="navbar">
-    <div style="width: 100%; text-align: center;">
-      <img [src]="logoImage" style="width: 150px;" alt="logo"/>
+    <div
+      class="image-wrapper"
+      [ngClass]="{ loading: !imagesLoaded.includes(logoImage) }"
+    >
+      <img
+        [src]="logoImage"
+        [hidden]="!imagesLoaded.includes(logoImage)"
+        style="width: 150px"
+        (load)="onImageLoad($event)"
+        alt="logo"
+      />
     </div>
 
-    <div style="width: 100%; text-align: center;" *ngIf="user && user.roles.admin">
-      <div class="btn btn-primary edit-logo" style="background-color: rgb(2, 175, 2);">
+    <div
+      style="width: 100%; text-align: center"
+      *ngIf="user && user.roles.admin"
+    >
+      <div
+        class="btn btn-primary edit-logo"
+        style="background-color: rgb(2, 175, 2)"
+      >
         <label for="logo">Cambiar logo</label>
         <input (input)="updateLogo($event)" type="file" id="logo" />
       </div>
     </div>
   </div>
 
-  <div class="navbar navbar-sticky" style="border-bottom: 1px solid #e1e7ec;">
+  <div class="navbar navbar-sticky" style="border-bottom: 1px solid #e1e7ec">
     <div class="site-branding">
       <div class="inner">
         <!-- Off-Canvas Toggle (#shop-categories)-->
@@ -24,10 +39,14 @@
       </div>
     </div>
 
-    <app-search (onHideSearch)="showSearch = false" [showSearch]="showSearch" class="site-search-wrapper"></app-search>
-    
+    <app-search
+      (onHideSearch)="showSearch = false"
+      [showSearch]="showSearch"
+      class="site-search-wrapper"
+    ></app-search>
+
     <app-navigation-main></app-navigation-main>
-  
+
     <!-- Toolbar-->
     <div class="toolbar">
       <div class="inner">
@@ -36,17 +55,21 @@
             <i (click)="showSearch = true" class="icon-search"></i>
           </div>
           <div class="account">
-            <a *ngIf="!user; else whenLoggedIn" routerLink="/register-login"></a>
-  
+            <a
+              *ngIf="!user; else whenLoggedIn"
+              routerLink="/register-login"
+            ></a>
+
             <ng-template #whenLoggedIn>
               <a routerLink="/account/profile"></a>
             </ng-template>
-  
+
             <i class="icon-head"></i>
             <ul *ngIf="user" class="toolbar-dropdown">
               <li class="sub-menu-user">
                 <div class="user-info">
-                  <h6 class="user-name">{{ user.lastName }} {{ user.firstName }}
+                  <h6 class="user-name">
+                    {{ user.lastName }} {{ user.firstName }}
                     <span *ngIf="user.roles.admin"> (Admin)</span>
                   </h6>
                 </div>
@@ -60,13 +83,13 @@
               <li class="sub-menu-separator"></li>
               <li>
                 <a href="" (click)="onLogOut($event)">
-                  <i class="icon-unlock"></i>Cerrar sesión</a>
+                  <i class="icon-unlock"></i>Cerrar sesión</a
+                >
               </li>
             </ul>
           </div>
-  
+
           <app-toolbar-cart></app-toolbar-cart>
-  
         </div>
       </div>
     </div>

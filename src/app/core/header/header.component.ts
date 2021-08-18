@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public user: User;
   public showSearch;
   public logoImage: string;
+  public imagesLoaded: string[];
 
   constructor(
     private authService: AuthService,
@@ -28,6 +29,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.imagesLoaded = [];
+
     this.sharedService.getObject("LOGO").subscribe((result) => {
       this.logoImage = result.imageURLs;
     });
@@ -35,6 +38,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.user.subscribe((user) => {
       this.user = user;
     });
+  }
+
+  public onImageLoad(e: any) {
+    this.imagesLoaded.push(e.target.src);
   }
 
   updateLogo(event) {
