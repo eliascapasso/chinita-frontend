@@ -57,11 +57,11 @@ export class ReviewComponent implements OnInit, OnDestroy {
       });
   }
 
-  public onBack() {
+  public onBack(event) {
     this.checkoutService.previousStep();
   }
 
-  public onCompleteOrder() {
+  public onCompleteOrder(event) {
     const userUid = this.user ? this.user.uid : false;
     const order = this.checkoutService.getOrderInProgress();
     const total = this.cartService.getTotal();

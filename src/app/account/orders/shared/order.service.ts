@@ -12,9 +12,14 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from "@angular/common/http";
+import { environment } from "../../../../environments/environment";
 
 @Injectable()
 export class OrderService {
+  private get serviceBaseURL(): string {
+    return environment.apiUrl;
+}
+
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
@@ -77,12 +82,13 @@ export class OrderService {
   }
 
   public goCheckoutMP(order): Observable<any> {
+    var url = this.serviceBaseURL + "/checkout";
     var headers: HttpHeaders = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*");
     headers.append("Access-Control-Allow-Credentials", "true");
 
     return this.http
-      .post("http://https://tienda-online-base.web.app:3000/api/checkout", order, { headers: headers })
+      .post(url, order, { headers: headers })
       .pipe(catchError(this.handleErrorHttp));
   }
 
