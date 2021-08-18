@@ -5,6 +5,7 @@
     <div
       class="image-wrapper"
       [ngClass]="{ loading: !imagesLoaded.includes(logoImage) }"
+      (click)="goHome()"
     >
       <img
         [src]="logoImage"

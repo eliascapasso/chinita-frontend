@@ -40,6 +40,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  goHome(){
+    this.router.navigateByUrl('inicio')
+  }
+
   public onImageLoad(e: any) {
     this.imagesLoaded.push(e.target.src);
   }
