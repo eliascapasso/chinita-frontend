@@ -1,6 +1,6 @@
 {
     "/api/*": {
-      "target": "http://https://tienda-online-base.web.app:3000",
+      "target": "https://checkout-tienda-base.herokuapp.com/",
       "secure": false,
       "logLevel": "debug",
       "changeOrigin": true

@@ -53,7 +53,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       city: new FormControl(null, Validators.required),
       email: new FormControl(
         this.user && this.user.email,
-        Validators.email
+        Validators.email && Validators.required,
       ),
       phone: new FormControl(null),
       company: new FormControl(null),
