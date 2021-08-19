@@ -1,41 +1,7 @@
 <!-- Navbar-->
 <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
 <header style="padding-top: 20px">
-  <div class="navbar">
-    <div
-      class="image-wrapper"
-      [ngClass]="{ loading: !imagesLoaded.includes(logoImage) }"
-      (click)="goHome()"
-    >
-      <img
-        [src]="logoImage"
-        [hidden]="!imagesLoaded.includes(logoImage)"
-        style="width: 150px"
-        (load)="onImageLoad($event)"
-        alt="logo"
-      />
-    </div>
-
-    <div
-      style="width: 100%; text-align: center"
-      *ngIf="user && user.roles.admin"
-    >
-      <div
-        class="btn btn-primary edit-logo"
-        style="background-color: rgb(2, 175, 2)"
-      >
-        <label for="logo" style="cursor: pointer">Cambiar logo</label>
-        <input
-          (input)="updateLogo($event)"
-          type="file"
-          id="logo"
-          style="cursor: pointer"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="navbar navbar-sticky" style="border-bottom: 1px solid #e1e7ec">
+  <div class="navbar navbar-sticky nav-top">
     <div class="site-branding">
       <div class="inner">
         <!-- Off-Canvas Toggle (#shop-categories)-->
@@ -97,6 +63,40 @@
 
           <app-toolbar-cart></app-toolbar-cart>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar nav-down">
+    <div
+      class="image-wrapper"
+      [ngClass]="{ loading: !imagesLoaded.includes(logoImage) }"
+      (click)="goHome()"
+    >
+      <img
+        [src]="logoImage"
+        [hidden]="!imagesLoaded.includes(logoImage)"
+        style="width: 150px"
+        (load)="onImageLoad($event)"
+        alt="logo"
+      />
+    </div>
+
+    <div
+      style="width: 100%; text-align: center"
+      *ngIf="user && user.roles.admin"
+    >
+      <div
+        class="btn btn-primary edit-logo"
+        style="background-color: rgb(2, 175, 2)"
+      >
+        <label for="logo" style="cursor: pointer">Cambiar logo</label>
+        <input
+          (input)="updateLogo($event)"
+          type="file"
+          id="logo"
+          style="cursor: pointer"
+        />
       </div>
     </div>
   </div>

@@ -28,3 +28,15 @@
     background: url("../../../img/loading.gif") center center no-repeat;
   }
 }
+
+.nav-top{
+  z-index: 10000;
+  margin-top: 32px;
+  position: fixed;
+  border-bottom: 1px solid #e1e7ec;
+}
+
+.nav-down{
+  margin-top: 75px;
+  border-bottom: 1px solid #e1e7ec;
+}
