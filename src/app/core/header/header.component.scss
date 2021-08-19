@@ -18,7 +18,10 @@
 .image-wrapper {
   width: 100%;
   text-align: center;
-  cursor: pointer;
+
+  img {
+    cursor: pointer;
+  }
 
   &.loading {
     min-height: 150px;

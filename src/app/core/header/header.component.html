@@ -24,8 +24,13 @@
         class="btn btn-primary edit-logo"
         style="background-color: rgb(2, 175, 2)"
       >
-        <label for="logo">Cambiar logo</label>
-        <input (input)="updateLogo($event)" type="file" id="logo" />
+        <label for="logo" style="cursor: pointer">Cambiar logo</label>
+        <input
+          (input)="updateLogo($event)"
+          type="file"
+          id="logo"
+          style="cursor: pointer"
+        />
       </div>
     </div>
   </div>

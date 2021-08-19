@@ -18,7 +18,7 @@ import { environment } from "../../../../environments/environment";
 export class OrderService {
   private get serviceBaseURL(): string {
     return environment.apiUrl;
-}
+  }
 
   constructor(
     private messageService: MessageService,
@@ -28,7 +28,17 @@ export class OrderService {
     private angularFireDatabase: AngularFireDatabase
   ) {}
 
-  public getOrders() {
+  public getOrders(): Observable<any[]> {
+    return this.angularFireDatabase
+      .list<any>("orders")
+      .valueChanges()
+      .pipe(
+        map((arr) => arr.reverse()),
+        catchError(this.handleError<any[]>(`getOrders`))
+      );
+  }
+
+  public getOrdersFromUser() {
     return this.authService.user.pipe(
       switchMap((user) => {
         if (user) {
@@ -50,8 +60,18 @@ export class OrderService {
       total,
     };
 
+    //DESCOMENTAR
+    // const databaseOperation = this.store
+    //   .list(`users/${user}/orders`)
+    //   .push(orderWithMetaData)
+    //   .then(
+    //     (response) => response,
+    //     (error) => error
+    //   );
+
+    //ELIMINAR
     const databaseOperation = this.store
-      .list(`users/${user}/orders`)
+      .list("orders")
       .push(orderWithMetaData)
       .then(
         (response) => response,

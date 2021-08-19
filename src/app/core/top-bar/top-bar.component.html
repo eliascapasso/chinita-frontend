@@ -70,11 +70,13 @@
     />
   </a>
 
-  <a
-    class="edit-button"
-    (click)="showContact()"
-    *ngIf="user && user.roles.admin"
-  >
-    <i><label>EDITAR</label></i>
-  </a>
+  <div style="cursor: pointer">
+    <a
+      class="edit-button"
+      (click)="showContact()"
+      *ngIf="user && user.roles.admin"
+    >
+      <i><label style="cursor: pointer">EDITAR</label></i>
+    </a>
+  </div>
 </div>
