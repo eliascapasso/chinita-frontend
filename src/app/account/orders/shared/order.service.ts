@@ -12,7 +12,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from "@angular/common/http";
-import { environment } from "../../../../environments/environment";
+import { environment } from "../../../../environments/environment.prod";
 
 @Injectable()
 export class OrderService {
@@ -52,8 +52,6 @@ export class OrderService {
   }
 
   public addUserOrder(order: Order, total: number, user: string) {
-    this.goCheckoutMP(order);
-
     const orderWithMetaData = {
       ...order,
       ...this.constructOrderMetaData(order),
@@ -82,8 +80,6 @@ export class OrderService {
   }
 
   public addAnonymousOrder(order: Order, total: number) {
-    this.goCheckoutMP(order);
-
     const orderWithMetaData = {
       ...order,
       ...this.constructOrderMetaData(order),
@@ -140,7 +136,7 @@ export class OrderService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      console.error(error.message);
+      console.error(error);
       console.error(
         `Backend returned code ${error.status}, body was: `,
         error.error

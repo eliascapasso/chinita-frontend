@@ -1,8 +1,8 @@
 {
-  "/api/*": {
+  "/api": {
     "target": "https://checkout-tienda-base.herokuapp.com/",
     "secure": false,
-    "logLevel": "debug",
-    "changeOrigin": true
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }
