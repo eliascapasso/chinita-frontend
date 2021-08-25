@@ -85,8 +85,12 @@
       <span class="hidden-xs-down">&nbsp;Volver</span>
     </button>
   </div>
-  <div class="column">
-    <button class="btn btn-primary" href="" (click)="onCompleteOrder($event)">
+  <div
+    class="column"
+    class="image-wrapper"
+    [ngClass]="{ loading: loading }"
+  >
+    <button class="btn btn-primary" href="" (click)="onCompleteOrder($event)" [hidden]="loading">
       <span class="hidden-xs-down">Completar orden</span
       ><span class="d-sm-none">Completar</span>
     </button>

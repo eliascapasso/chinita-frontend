@@ -22,11 +22,12 @@ import { User } from "../../models/user.model";
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   items: CartItem[];
-  total: number = 0;;
+  total: number = 0;
   customer: Customer = new Customer();
   paymentMethod: string;
   unsubscribe$ = new Subject();
   user: User;
+  loading: boolean;
 
   constructor(
     private cartService: CartService,
@@ -55,6 +56,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
         this.customer = order.customer;
         this.paymentMethod = order.paymentMethod;
       });
+
+    this.loading = false;
   }
 
   public onBack(event) {
@@ -62,6 +65,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   public onCompleteOrder(event) {
+    this.loading = true;
     const userUid = this.user ? this.user.uid : false;
     const order = this.checkoutService.getOrderInProgress();
     const total = this.cartService.getTotal();
@@ -77,18 +81,20 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private submitUserOrder(order, total, userUid) {
     this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      //window.location.replace(resp);
+      window.location.replace(resp);
 
       this.orderService
         .addUserOrder(order, total, userUid)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (response) => {
+            this.loading = false;
             this.cartService.clearCart();
             this.checkoutService.resetSteps();
             //this.router.navigate(["/order-complete"]);
           },
           (error) => {
+            this.loading = false;
             this.messageService.addError(
               "No se pudo enviar el pedido, inténtelo de nuevo."
             );
@@ -99,18 +105,20 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private submitAnonOrder(order, total) {
     this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      //window.location.replace(resp);
+      window.location.replace(resp);
 
       this.orderService
         .addAnonymousOrder(order, total)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (response) => {
+            this.loading = false;
             this.cartService.clearCart();
             this.checkoutService.resetSteps();
             //this.router.navigate(["/order-complete"]);
           },
           (error) => {
+            this.loading = false;
             this.messageService.addError(
               "No se pudo enviar el pedido, inténtelo de nuevo."
             );
