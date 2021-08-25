@@ -28,8 +28,50 @@
               >
             </td>
             <td>{{ order.date | date: "mediumDate" }}</td>
-            <td>
+            <!-- <td>
               <span class="text-info">{{ order.status || "En progreso" }}</span>
+            </td> -->
+            <td>
+              <span class="text-info"
+                ><div class="form-group select-status">
+                  <select
+                    [ngClass]="{
+                      'warning-option':
+                        order.status == 'Revisando' ||
+                        order.status == 'Preparando' ||
+                        order.status == 'Enviado',
+                      'danger-option':
+                        order.status == 'Cancelado' ||
+                        order.status == 'Devuelto',
+                      'ok-option':
+                        order.status == 'Pagado' || order.status == 'Entregado'
+                    }"
+                    class="form-control"
+                    [value]="order.status"
+                    (change)="onSelectStatus($event)"
+                  >
+                    <option class="warning-option" value="Revisando">
+                      Revisando
+                    </option>
+                    <option class="ok-option" value="Pagado">Pagado</option>
+                    <option class="warning-option" value="Preparando">
+                      Preparando
+                    </option>
+                    <option class="warning-option" value="Enviado">
+                      Enviado
+                    </option>
+                    <option class="ok-option" value="Entregado">
+                      Entregado
+                    </option>
+                    <option class="danger-option" value="Cancelado">
+                      Cancelado
+                    </option>
+                    <option class="danger-option" value="Devuelto">
+                      Devuelto
+                    </option>
+                  </select>
+                </div></span
+              >
             </td>
             <td>
               <span class="text-medium">{{ order.total | currency }}</span>
@@ -75,10 +117,7 @@
               >
             </td>
             <td *ngIf="order.customer.phone != undefined">
-              <a
-                class="hidden-md-down"
-                [href]="'tel:' + order.customer.phone"
-              >
+              <a class="hidden-md-down" [href]="'tel:' + order.customer.phone">
                 {{ order.customer.phone }}</a
               >
             </td>

@@ -1,5 +1,5 @@
 // Progress bars
-@import '../../../scss/helpers/_variables.scss';
+@import "../../../scss/helpers/_variables.scss";
 
 //
 // Progress Bars
@@ -20,7 +20,6 @@
   background-color: $progress-bg;
 }
 
-
 /* The container */
 .container {
   display: block;
@@ -32,4 +31,23 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.select-status {
+  select {
+    width: auto;
+    height: auto;
+  }
+}
+
+.warning-option {
+  background-color: yellow;
+}
+
+.danger-option {
+  background-color: red;
+}
+
+.ok-option {
+  background-color: greenyellow;
 }

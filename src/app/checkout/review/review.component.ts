@@ -77,7 +77,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private submitUserOrder(order, total, userUid) {
     this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      window.location.replace(resp);
+      //window.location.replace(resp);
 
       this.orderService
         .addUserOrder(order, total, userUid)
@@ -99,7 +99,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
   private submitAnonOrder(order, total) {
     this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      window.location.replace(resp);
+      //window.location.replace(resp);
 
       this.orderService
         .addAnonymousOrder(order, total)

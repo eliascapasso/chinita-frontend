@@ -4,6 +4,7 @@ import { Customer } from './customer.model';
 export class Order {
   constructor(
     public customer: Customer = null,
+    public id: string = '',
     public items: CartItem[] = null,
     public total: number = null,
     public status: string = '',

@@ -28,6 +28,26 @@ export class OrderService {
     private angularFireDatabase: AngularFireDatabase
   ) {}
 
+  public getOrder(id: any): Observable<Order | null> {
+    const url = `orders/${id}`;
+    return this.angularFireDatabase
+      .object<Order>(url)
+      .valueChanges()
+      .pipe(
+        tap((result) => {
+          if (result) {
+            return of(result);
+          } else {
+            this.messageService.addError(
+              `No se ha encontrado ningúna orden con id=${id}`
+            );
+            return of(null);
+          }
+        }),
+        catchError(this.handleError<Order>(`getOrder id=${id}`))
+      );
+  }
+
   public getOrders(): Observable<any[]> {
     return this.angularFireDatabase
       .list<any>("orders")
@@ -72,7 +92,18 @@ export class OrderService {
       .list("orders")
       .push(orderWithMetaData)
       .then(
-        (response) => response,
+        (response) => {
+          this.getOrder(response.key).subscribe((order) => {
+            order.id = response.key;
+            this.updateOrder(order)
+              .then((response) => {
+                console.info(response);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          });
+        },
         (error) => error
       );
 
@@ -90,11 +121,26 @@ export class OrderService {
       .list("orders")
       .push(orderWithMetaData)
       .then(
-        (response) => response,
+        (response) => {
+          this.getOrder(response.key).subscribe((order) => {
+            order.id = response.key;
+            this.updateOrder(order)
+              .then((response) => {
+                console.info(response);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          });
+        },
         (error) => error
       );
 
     return fromPromise(databaseOperation);
+  }
+
+  public updateOrder(order: Order): Promise<void> {
+    return this.angularFireDatabase.object("orders/" + order.id).update(order);
   }
 
   public goCheckoutMP(order): Observable<any> {
@@ -112,7 +158,7 @@ export class OrderService {
     return {
       number: (Math.random() * 10000000000).toString().split(".")[0],
       date: new Date().toString(),
-      status: "En progreso",
+      status: "Revisando",
     };
   }
 

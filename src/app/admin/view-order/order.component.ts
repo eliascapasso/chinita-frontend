@@ -12,7 +12,7 @@ import { SharedService } from "../../shared/shared.service";
   styleUrls: ["./order.component.scss"],
 })
 export class OrderComponent implements OnInit {
-  public numOrder: string = "";
+  public idOrder: string = "";
   public order: Order = new Order();
 
   constructor(
@@ -24,25 +24,32 @@ export class OrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.numOrder = this.route.snapshot.paramMap.get("id");
+    this.idOrder = this.route.snapshot.paramMap.get("id");
     this.getOrder();
   }
 
-  getOrder(){
+  getOrder() {
     this.order.customer = new Customer();
-    this.orderService.getOrders().subscribe(orders =>{
-        for(let order of orders){
-          if(order.number == this.numOrder){
-            this.order = order;
-            console.log(order);
-            break;
-          }
-        }
+    this.orderService.getOrder(this.idOrder).subscribe((order) => {
+      this.order = order;
     });
   }
 
-  goProduct(idproduct){
-    this.router.navigateByUrl('productos/' + idproduct);
+  public onSelectStatus(event) {
+    this.order.status = event.target.value;
+    this.orderService
+      .updateOrder(this.order)
+      .then((response) => {
+        this.log.add("Estado de la orden modificado con éxito");
+      })
+      .catch((error) => {
+        console.error(error);
+        this.log.addError("No fue posible modificar ele estado de la orden");
+      });
+  }
+
+  goProduct(idproduct) {
+    this.router.navigateByUrl("productos/" + idproduct);
     window.scrollTo(0, 0);
   }
 }

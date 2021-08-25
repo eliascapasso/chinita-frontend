@@ -1,5 +1,4 @@
-<div class="padding-top-2x mt-2 hidden-lg-up">
-</div>
+<div class="padding-top-2x mt-2 hidden-lg-up"></div>
 <div class="table-responsive">
   <table class="table table-hover margin-bottom-none">
     <thead>
@@ -11,21 +10,43 @@
       </tr>
     </thead>
     <tbody>
-
-      <tr *ngFor="let order of orders" [routerLink]="'order/' + order.number" href="" style="cursor: pointer;">
+      <tr
+        *ngFor="let order of orders"
+        [routerLink]="'order/' + order.id"
+        href=""
+        style="cursor: pointer"
+      >
         <td>
-          <a class="text-medium navi-link" data-toggle="modal" data-target="#orderDetails">{{order.number}}</a>
+          <a
+            class="text-medium navi-link"
+            data-toggle="modal"
+            data-target="#orderDetails"
+            >{{ order.number }}</a
+          >
         </td>
-        <td>{{order.date | date:'mediumDate'}}</td>
+        <td>{{ order.date | date: "mediumDate" }}</td>
         <td>
-          <span class="text-info">{{order.status || 'En progreso'}}</span>
+          <span
+            [ngClass]="{
+              'warning-option':
+                order.status == 'Revisando' ||
+                order.status == 'Preparando' ||
+                order.status == 'Enviado',
+              'danger-option':
+                order.status == 'Cancelado' || order.status == 'Devuelto',
+              'ok-option':
+                order.status == 'Pagado' || order.status == 'Entregado'
+            }"
+            >{{ order.status || "Revisando" }}</span
+          >
         </td>
         <td>
-          <span class="text-medium">{{order.total + order.shippingCost | currency}}</span>
+          <span class="text-medium">{{
+            order.total + order.shippingCost | currency
+          }}</span>
         </td>
       </tr>
-
     </tbody>
   </table>
 </div>
-<hr>
+<hr />
