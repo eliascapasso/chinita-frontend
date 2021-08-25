@@ -27,10 +27,7 @@
                 >{{ order.number }}</a
               >
             </td>
-            <td>{{ order.date | date: "mediumDate" }}</td>
-            <!-- <td>
-              <span class="text-info">{{ order.status || "En progreso" }}</span>
-            </td> -->
+            <td>{{ order.date | date: "medium" }}</td>
             <td>
               <span class="text-info"
                 ><div class="form-group select-status">
@@ -168,4 +165,14 @@
       </table>
     </div>
   </div>
+</div>
+
+<div class="checkout-footer">
+  <div class="column">
+    <button class="btn btn-outline-secondary" (click)="goBack()">
+      <i class="icon-arrow-left"></i>
+      <span class="hidden-xs-down">&nbsp;Volver</span>
+    </button>
+  </div>
+  <div class="column"></div>
 </div>

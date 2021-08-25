@@ -35,6 +35,10 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  goBack(){
+    this.router.navigateByUrl("/account/orders");
+  }
+
   public onSelectStatus(event) {
     this.order.status = event.target.value;
     this.orderService

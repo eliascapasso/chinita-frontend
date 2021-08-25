@@ -1,15 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  CommonModule,
-  DatePipe,
-  DecimalPipe,
-  CurrencyPipe
-} from '@angular/common';
-
 import { Subscription } from 'rxjs';
-
 import { OrderService } from './shared/order.service';
-
 import { Order } from '../../models/order.model';
 
 @Component({
