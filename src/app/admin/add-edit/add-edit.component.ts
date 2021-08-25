@@ -230,7 +230,11 @@ export class AddEditComponent implements OnInit, OnDestroy {
     product.categories = this.categoriesToArrayString();
     this.productService.updateProduct({ product, files }).subscribe(
       (response: Product) => {
-        this.router.navigate(["/productos/" + response.id]);
+        if (response.id != undefined) {
+          this.router.navigate(["/productos/" + response.id]);
+        } else {
+          this.log.addError("No se pudo actualizar el producto");
+        }
       },
       (error) => this.log.addError("No se pudo actualizar el producto")
     );

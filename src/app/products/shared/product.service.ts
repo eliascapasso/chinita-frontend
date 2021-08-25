@@ -179,13 +179,15 @@ export class ProductService {
 
   public updateProduct(data: { product: Product; files: FileList }) {
     const url = `${this.productsUrl}/${data.product.id}`;
-    if (data.files.length != 0) {
+    
+    if (data.files.length == 0) {
       return this.updateProductWithoutNewImage(data.product, url);
     }
 
     const dbOperation = this.uploadService
       .startUpload(data)
       .then((result) => {
+        console.log(result);
         result.downloadURL.subscribe((url) => {
           data.product.imageURLs[0] = url;
         });
@@ -194,11 +196,13 @@ export class ProductService {
         return data;
       })
       .then((dataWithImagePath) => {
+        console.log(dataWithImagePath);
         return this.angularFireDatabase
           .object<Product>(url)
           .update(data.product);
       })
       .then((response) => {
+        console.log(response);
         this.log(`Producto modificado ${data.product.name}`);
         return data.product;
       })
