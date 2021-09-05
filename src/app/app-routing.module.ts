@@ -65,6 +65,7 @@ const routes: Routes = [
     ]
   },
   { path: 'order-complete/:type', component: CompleteComponent },
+  { path: 'order-complete', component: CompleteComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

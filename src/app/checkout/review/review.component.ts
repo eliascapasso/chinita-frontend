@@ -80,18 +80,16 @@ export class ReviewComponent implements OnInit, OnDestroy {
   }
 
   private submitUserOrder(order, total, userUid) {
-    this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      window.location.replace(resp);
-
+    if (this.cartService.getShipping() <= 0) {
       this.orderService
-        .addUserOrder(order, total, userUid)
+        .addUserOrder(order, total, userUid, true)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (response) => {
             this.loading = false;
             this.cartService.clearCart();
             this.checkoutService.resetSteps();
-            //this.router.navigate(["/order-complete"]);
+            this.router.navigate(["/order-complete"]);
           },
           (error) => {
             this.loading = false;
@@ -100,22 +98,42 @@ export class ReviewComponent implements OnInit, OnDestroy {
             );
           }
         );
-    });
+    } else {
+      this.orderService.goCheckoutMP(order).subscribe((resp) => {
+        window.location.replace(resp);
+
+        this.orderService
+          .addUserOrder(order, total, userUid, false)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(
+            (response) => {
+              this.loading = false;
+              this.cartService.clearCart();
+              this.checkoutService.resetSteps();
+              //this.router.navigate(["/order-complete"]);
+            },
+            (error) => {
+              this.loading = false;
+              this.messageService.addError(
+                "No se pudo enviar el pedido, inténtelo de nuevo."
+              );
+            }
+          );
+      });
+    }
   }
 
   private submitAnonOrder(order, total) {
-    this.orderService.goCheckoutMP(order).subscribe((resp) => {
-      window.location.replace(resp);
-
+    if (this.cartService.getShipping() <= 0) {
       this.orderService
-        .addAnonymousOrder(order, total)
+        .addAnonymousOrder(order, total, true)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (response) => {
             this.loading = false;
             this.cartService.clearCart();
             this.checkoutService.resetSteps();
-            //this.router.navigate(["/order-complete"]);
+            this.router.navigate(["/order-complete"]);
           },
           (error) => {
             this.loading = false;
@@ -124,7 +142,29 @@ export class ReviewComponent implements OnInit, OnDestroy {
             );
           }
         );
-    });
+    } else {
+      this.orderService.goCheckoutMP(order).subscribe((resp) => {
+        window.location.replace(resp);
+
+        this.orderService
+          .addAnonymousOrder(order, total, false)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(
+            (response) => {
+              this.loading = false;
+              this.cartService.clearCart();
+              this.checkoutService.resetSteps();
+              //this.router.navigate(["/order-complete"]);
+            },
+            (error) => {
+              this.loading = false;
+              this.messageService.addError(
+                "No se pudo enviar el pedido, inténtelo de nuevo."
+              );
+            }
+          );
+      });
+    }
   }
 
   ngOnDestroy() {

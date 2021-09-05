@@ -3,6 +3,7 @@ import {
   Observable,
   from as fromPromise,
   of,
+  throwError,
 } from "rxjs";
 import { Injectable } from "@angular/core";
 
@@ -13,9 +14,18 @@ import { environment } from "../../environments/environment";
 import { MessageService } from "../messages/message.service";
 import { AuthService } from "../account/shared/auth.service";
 import { FileUploadService } from "../products/shared/file-upload.service";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from "@angular/common/http";
+import { Order } from "../models/order.model";
 
 @Injectable()
 export class SharedService {
+  private get serviceBaseURL(): string {
+    return environment.apiUrl;
+  }
   private sharedUrl = environment.sharedUrl;
 
   constructor(

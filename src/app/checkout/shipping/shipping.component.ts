@@ -50,10 +50,10 @@ export class ShippingComponent implements OnInit {
     this.sharedService.getObject("ENVIO").subscribe((value) => {
       this.shippingMethods = [
         {
-          method: "Retiro en local",
+          method: "Coordinar entrega y pago con el vendedor",
           time: "En el momento",
           fee: 0,
-          value: "retira",
+          value: "coordina",
         },
         {
           method: "Entrega a domicilio",
@@ -70,7 +70,7 @@ export class ShippingComponent implements OnInit {
       this.cartService.setShipping(this.shippingMethods[1].fee);
       this.checkoutService.setPaymentCost(this.shippingMethods[1].fee);
     }
-    else if(sMethod == "retira"){
+    else if(sMethod == "coordina"){
       this.cartService.setShipping(this.shippingMethods[0].fee);
       this.checkoutService.setPaymentCost(this.shippingMethods[0].fee);
     }

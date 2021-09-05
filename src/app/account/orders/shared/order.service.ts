@@ -71,7 +71,15 @@ export class OrderService {
     );
   }
 
-  public addUserOrder(order: Order, total: number, user: string) {
+  public addUserOrder(order: Order, total: number, user: string, coordinarEntrega: boolean) {
+    let medioPago = "";
+    if(coordinarEntrega){
+      medioPago = "Coordinar medio de pago";
+    }
+    else{
+      medioPago = "Mercado Pago";
+    }
+    
     const orderWithMetaData = {
       ...order,
       ...this.constructOrderMetaData(order),
@@ -97,7 +105,13 @@ export class OrderService {
             order.id = response.key;
             this.updateOrder(order)
               .then((response) => {
-                console.info(response);
+                this.sendEmail(order, medioPago).subscribe((response) => {
+                  if (response) {
+                    console.info(
+                      "Orden generada y enviada por email exitosamente"
+                    );
+                  }
+                });
               })
               .catch((error) => {
                 console.error(error);
@@ -110,7 +124,15 @@ export class OrderService {
     return fromPromise(databaseOperation);
   }
 
-  public addAnonymousOrder(order: Order, total: number) {
+  public addAnonymousOrder(order: Order, total: number, coordinarEntrega: boolean) {
+    let medioPago = "";
+    if(coordinarEntrega){
+      medioPago = "Coordinar medio de pago";
+    }
+    else{
+      medioPago = "Mercado Pago";
+    }
+
     const orderWithMetaData = {
       ...order,
       ...this.constructOrderMetaData(order),
@@ -126,7 +148,13 @@ export class OrderService {
             order.id = response.key;
             this.updateOrder(order)
               .then((response) => {
-                console.info(response);
+                this.sendEmail(order, medioPago).subscribe((response) => {
+                  if (response) {
+                    console.info(
+                      "Orden generada y enviada por email exitosamente"
+                    );
+                  }
+                });
               })
               .catch((error) => {
                 console.error(error);
@@ -151,6 +179,23 @@ export class OrderService {
 
     return this.http
       .post(url, order, { headers: headers })
+      .pipe(catchError(this.handleErrorHttp));
+  }
+
+  public sendEmail(order: Order, medioPago: string) {
+    var url = this.serviceBaseURL + "/send-email";
+
+    let body = {
+      order: order,
+      medioPago: medioPago
+    };
+
+    var headers: HttpHeaders = new HttpHeaders();
+    headers.append("Access-Control-Allow-Origin", "*");
+    headers.append("Access-Control-Allow-Credentials", "true");
+
+    return this.http
+      .post(url, body, { headers: headers })
       .pipe(catchError(this.handleErrorHttp));
   }
 

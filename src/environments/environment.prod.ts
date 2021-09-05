@@ -1,16 +1,16 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "AIzaSyDND3cwYE_2HsEJts7yOSyjgqGGmqus6no",
-    authDomain: "tienda-online-base.firebaseapp.com",
-    databaseURL: "https://tienda-online-base-default-rtdb.firebaseio.com",
-    projectId: "tienda-online-base",
-    storageBucket: "tienda-online-base.appspot.com",
-    messagingSenderId: "927400481935",
-    appId: "1:927400481935:web:77118240db1484ea598cfa",
-    measurementId: "G-3TCBS0C504",
+    apiKey: "AIzaSyAAFf5SZNADvWQealA_SxTfhrGaYfGDjMI",
+    authDomain: "chinita-bd.firebaseapp.com",
+    databaseURL: "https://chinita-bd-default-rtdb.firebaseio.com",
+    projectId: "chinita-bd",
+    storageBucket: "chinita-bd.appspot.com",
+    messagingSenderId: "460480351809",
+    appId: "1:460480351809:web:a09eaa753acf38fc06c0c0",
+    measurementId: "G-W63JNCD70T",
   },
-  envName: 'prod',
+  envName: "prod",
   sharedUrl: "/shared",
-  apiUrl: '/api'
+  apiUrl: "/api",
 };
