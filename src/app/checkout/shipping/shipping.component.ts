@@ -11,6 +11,7 @@ import { CartService } from "../../cart/shared/cart.service";
   styleUrls: ["./shipping.component.scss"],
 })
 export class ShippingComponent implements OnInit {
+  public selectShip: boolean = false;
   public formShipping: FormGroup;
   public shippingMethods: {
     method: string;
@@ -66,6 +67,7 @@ export class ShippingComponent implements OnInit {
   }
 
   updateFee(sMethod){
+    this.selectShip = true;
     if(sMethod == "a domicilio"){
       this.cartService.setShipping(this.shippingMethods[1].fee);
       this.checkoutService.setPaymentCost(this.shippingMethods[1].fee);
