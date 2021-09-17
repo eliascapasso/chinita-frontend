@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://checkout-tienda-base.herokuapp.com/",
+    "target": "https://chinitabackend.herokuapp.com/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
