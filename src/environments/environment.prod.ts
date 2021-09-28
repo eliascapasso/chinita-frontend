@@ -10,7 +10,7 @@ export const environment = {
     appId: "1:460480351809:web:a09eaa753acf38fc06c0c0",
     measurementId: "G-W63JNCD70T",
   },
-  envName: "prod",
-  sharedUrl: "/shared",
-  apiUrl: "/api",
+  envName: 'prod',
+  sharedUrl: '/shared',
+  apiUrl: '/api',
 };

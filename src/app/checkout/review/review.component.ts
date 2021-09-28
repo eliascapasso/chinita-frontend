@@ -100,7 +100,9 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
     } else {
       this.orderService.goCheckoutMP(order).subscribe((resp) => {
-        window.location.replace(resp);
+        console.log(resp);
+        window.open(resp, '_blank');
+        //window.location.replace(resp);
 
         this.orderService
           .addUserOrder(order, total, userUid, false)
@@ -144,7 +146,9 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
     } else {
       this.orderService.goCheckoutMP(order).subscribe((resp) => {
-        window.location.replace(resp);
+        console.log(resp);
+        window.open(resp, '_blank');
+        //window.location.replace(resp);
 
         this.orderService
           .addAnonymousOrder(order, total, false)

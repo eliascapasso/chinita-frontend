@@ -102,9 +102,6 @@
             "browserTarget": "shop:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "shop:build:production"
-            },
             "dev": {
               "browserTarget": "shop:build:dev",
               "proxyConfig": "proxy.conf.dev.json",

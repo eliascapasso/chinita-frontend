@@ -71,15 +71,19 @@ export class OrderService {
     );
   }
 
-  public addUserOrder(order: Order, total: number, user: string, coordinarEntrega: boolean) {
+  public addUserOrder(
+    order: Order,
+    total: number,
+    user: string,
+    coordinarEntrega: boolean
+  ) {
     let medioPago = "";
-    if(coordinarEntrega){
+    if (coordinarEntrega) {
       medioPago = "Coordinar medio de pago";
-    }
-    else{
+    } else {
       medioPago = "Mercado Pago";
     }
-    
+
     const orderWithMetaData = {
       ...order,
       ...this.constructOrderMetaData(order),
@@ -107,6 +111,7 @@ export class OrderService {
               .then((response) => {
                 this.sendEmail(order, medioPago).subscribe((response) => {
                   if (response) {
+                    console.log(response);
                     console.info(
                       "Orden generada y enviada por email exitosamente"
                     );
@@ -124,12 +129,15 @@ export class OrderService {
     return fromPromise(databaseOperation);
   }
 
-  public addAnonymousOrder(order: Order, total: number, coordinarEntrega: boolean) {
+  public addAnonymousOrder(
+    order: Order,
+    total: number,
+    coordinarEntrega: boolean
+  ) {
     let medioPago = "";
-    if(coordinarEntrega){
+    if (coordinarEntrega) {
       medioPago = "Coordinar medio de pago";
-    }
-    else{
+    } else {
       medioPago = "Mercado Pago";
     }
 
@@ -150,9 +158,7 @@ export class OrderService {
               .then((response) => {
                 this.sendEmail(order, medioPago).subscribe((response) => {
                   if (response) {
-                    console.info(
-                      "Orden generada y enviada por email exitosamente"
-                    );
+                    console.info("Orden generada y enviada por email");
                   }
                 });
               })
@@ -172,7 +178,9 @@ export class OrderService {
   }
 
   public goCheckoutMP(order): Observable<any> {
-    var url = this.serviceBaseURL + "/checkout";
+    //var url = this.serviceBaseURL + "/checkout";
+    var url = "https://chinitabackend.herokuapp.com/api/checkout";
+
     var headers: HttpHeaders = new HttpHeaders();
     headers.append("Access-Control-Allow-Origin", "*");
     headers.append("Access-Control-Allow-Credentials", "true");
@@ -184,11 +192,11 @@ export class OrderService {
 
   public sendEmail(order: Order, medioPago: string) {
     //var url = this.serviceBaseURL + "/send-email";
-    var url = "https://chinitabackend.herokuapp.com/send-email";
+    var url = "https://chinitabackend.herokuapp.com/api/send-email";
 
     let body = {
       order: order,
-      medioPago: medioPago
+      medioPago: medioPago,
     };
 
     var headers: HttpHeaders = new HttpHeaders();
@@ -196,7 +204,7 @@ export class OrderService {
     headers.append("Access-Control-Allow-Credentials", "true");
 
     return this.http
-      .post(url, body, { headers: headers })
+      .post(url, body, { headers: headers, responseType: "text" })
       .pipe(catchError(this.handleErrorHttp));
   }
 
@@ -228,6 +236,7 @@ export class OrderService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
+      console.log("ERROR!!", error.message);
       console.error(error);
       console.error(
         `Backend returned code ${error.status}, body was: `,

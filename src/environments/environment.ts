@@ -11,6 +11,6 @@ export const environment = {
     measurementId: "G-W63JNCD70T",
   },
   envName: 'prod',
-  sharedUrl: "/shared",
-  apiUrl: '/api'
+  sharedUrl: '/shared',
+  apiUrl: '/api',
 };
