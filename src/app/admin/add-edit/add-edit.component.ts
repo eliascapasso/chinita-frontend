@@ -118,6 +118,22 @@ export class AddEditComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.min(0),
       ]),
+      stockSizeS: new FormControl(this.product && this.product.stockSizeS, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      stockSizeM: new FormControl(this.product && this.product.stockSizeM, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      stockSizeL: new FormControl(this.product && this.product.stockSizeL, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      stockSizeXL: new FormControl(this.product && this.product.stockSizeXL, [
+        Validators.required,
+        Validators.min(0),
+      ]),
     });
     this.onFormChanges();
   }
@@ -131,6 +147,10 @@ export class AddEditComponent implements OnInit, OnDestroy {
       description: new FormControl("", Validators.required),
       price: new FormControl("", Validators.required),
       priceNormal: new FormControl("", Validators.required),
+      stockSizeS: new FormControl("", Validators.required),
+      stockSizeM: new FormControl("", Validators.required),
+      stockSizeL: new FormControl("", Validators.required),
+      stockSizeXL: new FormControl("", Validators.required),
     });
   }
 
@@ -258,7 +278,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   private constructProductToSubmit(product: Product): Product {
     return {
-      ...product,
+      ...product
     };
   }
 

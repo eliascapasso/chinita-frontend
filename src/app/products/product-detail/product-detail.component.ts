@@ -1,25 +1,25 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Params } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Params } from "@angular/router";
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
-import { AuthService } from '../../account/shared/auth.service';
-import { CartService } from '../../cart/shared/cart.service';
-import { CartItem } from '../../models/cart-item.model';
-import { ProductsCacheService } from '../shared/products-cache.service';
-import { ProductRatingService } from '../shared/product-rating.service';
-import { ProductService } from '../shared/product.service';
+import { AuthService } from "../../account/shared/auth.service";
+import { CartService } from "../../cart/shared/cart.service";
+import { CartItem } from "../../models/cart-item.model";
+import { ProductsCacheService } from "../shared/products-cache.service";
+import { ProductRatingService } from "../shared/product-rating.service";
+import { ProductService } from "../shared/product.service";
 
-import { Product } from '../../models/product.model';
-import { User } from '../../models/user.model';
+import { Product } from "../../models/product.model";
+import { User } from "../../models/user.model";
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  selector: "app-product-detail",
+  templateUrl: "./product-detail.component.html",
+  styleUrls: ["./product-detail.component.scss"],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject();
@@ -33,6 +33,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   public activeImageIndex: number;
 
   public selectedQuantity: number;
+  public selectedSize: string;
 
   public ratingCount: number;
   public ratingValues: number[];
@@ -58,6 +59,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     this.ratingValues = [1, 2, 3, 4, 5];
     this.selectedQuantity = 1;
+    this.selectedSize = "S";
     this.imagesLoaded = [];
 
     this.route.params
@@ -69,8 +71,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   private getProduct(): void {
     this.productLoading = true;
-    const id = + this.route.snapshot.paramMap.get('id');
-    
+    const id = +this.route.snapshot.paramMap.get("id");
+
     this.productService
       .getProduct(id)
       .pipe(takeUntil(this.unsubscribe$))
@@ -80,7 +82,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           this.setupProduct();
           this.productLoading = false;
         } else {
-          this.router.navigate(['/404-product-not-found']);
+          this.router.navigate(["/404-product-not-found"]);
         }
       });
   }
@@ -92,11 +94,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   public onAddToCart() {
-    this.cartService.addItem(new CartItem(this.product, this.selectedQuantity));
+    this.cartService.addItem(new CartItem(this.product, this.selectedSize, this.selectedQuantity));
   }
 
   public onSelectQuantity(event) {
     this.selectedQuantity = <number>+event.target.value;
+  }
+
+  public onSelectSize(event) {
+    this.selectedSize = <string>event.target.value;
   }
 
   public onRate() {
@@ -125,7 +131,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   private checkCategories() {
     const categories = Object.keys(this.product.categories).map(
       (category, index, inputArray) => {
-        category = index < inputArray.length - 1 ? category + ',' : category;
+        category = index < inputArray.length - 1 ? category + "," : category;
         return category;
       }
     );

@@ -14,6 +14,10 @@ export class Product {
     public categories: string[] = [],
     public ratings: {} = {},
     public currentRating: number = 0,
-    public sale: boolean = false
+    public sale: boolean = false,
+    public stockSizeS: number = 0,
+    public stockSizeM: number = 0,
+    public stockSizeL: number = 0,
+    public stockSizeXL: number = 0,
   ) {}
 }

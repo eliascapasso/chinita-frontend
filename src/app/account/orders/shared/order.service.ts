@@ -199,8 +199,8 @@ export class OrderService {
   }
 
   public sendEmail(order: Order, medioPago: string) {
-    //var url = this.serviceBaseURL + "/send-email";
-    var url = "https://chinitabackend.herokuapp.com/api/send-email";
+    var url = this.serviceBaseURL + "/send-email";
+    //var url = "https://chinitabackend.herokuapp.com/api/send-email";
 
     let body = {
       order: order,

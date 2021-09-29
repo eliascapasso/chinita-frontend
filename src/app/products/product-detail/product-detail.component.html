@@ -66,22 +66,8 @@
           </span>
           <p>{{ product.description }}</p>
           <div class="row margin-top-1x">
-            <!-- <div class="col-sm-4">
-              <div class="form-group">
-                <label for="size">Tamaño</label>
-                <select class="form-control" id="size">
-                  <option>Elija el tamaño</option>
-                  <option>11.5</option>
-                  <option>11</option>
-                  <option>10.5</option>
-                  <option>10</option>
-                  <option>9.5</option>
-                  <option>9</option>
-                  <option>8.5</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-5">
+            <!-- Color -->
+            <!-- <div class="col-sm-5">
               <div class="form-group">
                 <label for="color">Elija el color</label>
                 <select class="form-control" id="color">
@@ -91,6 +77,25 @@
                 </select>
               </div>
             </div> -->
+
+            <!-- Talle -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="size">Talle</label>
+                <select
+                  class="form-control"
+                  id="size"
+                  (change)="onSelectSize($event)"
+                >
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Cantidad -->
             <div class="col-sm-3">
               <div class="form-group">
                 <label for="quantity">Cantidad</label>

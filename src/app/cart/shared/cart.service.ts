@@ -38,19 +38,22 @@ export class CartService {
 
   public addItem(item: CartItem) {
     // If item is already in cart, add to the amount, otherwise push item into cart
-    if (this.getItemIds().includes(item.product.id)) {
-      this.cartItems.forEach(function (cartItem) {
-        if (cartItem.product.id === item.product.id) {
-          cartItem.amount += item.amount;
-        }
-      });
-      this.messageService.add(
-        "Cantidad en carrito cambiada por: " + item.product.name
-      );
-    } else {
-      this.cartItems.push(item);
-      this.messageService.add("Añadido al carrito: " + item.product.name);
-    }
+    // if (this.getItemIds().includes(item.product.id) && item.size) {
+    //   this.cartItems.forEach(function (cartItem) {
+    //     if (cartItem.product.id === item.product.id) {
+    //       cartItem.amount += item.amount;
+    //     }
+    //   });
+    //   this.messageService.add(
+    //     "Cantidad en carrito cambiada por: " + item.product.name
+    //   );
+    // } else {
+    //   this.cartItems.push(item);
+    //   this.messageService.add("Añadido al carrito: " + item.product.name);
+    // }
+
+    this.cartItems.push(item);
+    this.messageService.add("Añadido al carrito: " + item.product.name);
     this.itemsChanged.emit(this.cartItems.slice());
   }
 
