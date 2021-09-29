@@ -105,22 +105,25 @@ export class OrderService {
       .push(orderWithMetaData)
       .then(
         (response) => {
+          let obtieneOrden: boolean = false;
           this.getOrder(response.key).subscribe((order) => {
-            order.id = response.key;
-            this.updateOrder(order)
-              .then((response) => {
-                this.sendEmail(order, medioPago).subscribe((response) => {
-                  if (response) {
-                    console.log(response);
-                    console.info(
-                      "Orden generada y enviada por email exitosamente"
-                    );
-                  }
+            if(!obtieneOrden){
+              obtieneOrden = true;
+              order.id = response.key;
+              this.updateOrder(order)
+                .then((response) => {
+                  this.sendEmail(order, medioPago).subscribe((response) => {
+                    if (response) {
+                      console.info(
+                        "Orden generada y enviada por email exitosamente"
+                      );
+                    }
+                  });
+                })
+                .catch((error) => {
+                  console.error(error);
                 });
-              })
-              .catch((error) => {
-                console.error(error);
-              });
+            }
           });
         },
         (error) => error
@@ -136,7 +139,7 @@ export class OrderService {
   ) {
     let medioPago = "";
     if (coordinarEntrega) {
-      medioPago = "Coordinar medio de pago";
+      medioPago = "Coordinar";
     } else {
       medioPago = "Mercado Pago";
     }
@@ -152,19 +155,24 @@ export class OrderService {
       .push(orderWithMetaData)
       .then(
         (response) => {
+          let obtieneOrden: boolean = false;
           this.getOrder(response.key).subscribe((order) => {
-            order.id = response.key;
-            this.updateOrder(order)
-              .then((response) => {
-                this.sendEmail(order, medioPago).subscribe((response) => {
-                  if (response) {
-                    console.info("Orden generada y enviada por email");
-                  }
+            console.log(obtieneOrden);
+            if(!obtieneOrden){
+              obtieneOrden = true;
+              order.id = response.key;
+              this.updateOrder(order)
+                .then((response) => {
+                  this.sendEmail(order, medioPago).subscribe((response) => {
+                    if (response) {
+                      console.info("Orden generada y enviada por email");
+                    }
+                  });
+                })
+                .catch((error) => {
+                  console.error(error);
                 });
-              })
-              .catch((error) => {
-                console.error(error);
-              });
+            }
           });
         },
         (error) => error
