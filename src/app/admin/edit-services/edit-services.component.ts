@@ -66,8 +66,6 @@ export class EditServicesComponent implements OnInit {
       type: "shared/SERVICIOS/" + type,
     };
 
-    console.log(service);
-
     this.sharedService
       .updateObject(data)
       .then((result) => {

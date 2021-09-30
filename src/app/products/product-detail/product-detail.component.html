@@ -86,11 +86,11 @@
                   class="form-control"
                   id="size"
                   (change)="onSelectSize($event)"
+                  [(ngModel)]="selectedSize"
                 >
-                  <option value="S">S</option>
-                  <option value="M">M</option>
-                  <option value="L">L</option>
-                  <option value="XL">XL</option>
+                  <option *ngFor="let size of sizes" [value]="size.value">
+                    {{ size.label }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -103,15 +103,27 @@
                   class="form-control"
                   id="quantity"
                   (change)="onSelectQuantity($event)"
+                  [(ngModel)]="selectedQuantity"
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
+                  <option *ngFor="let quantity of quantities" [value]="quantity.value">
+                    {{ quantity.label }}
+                  </option>
                 </select>
               </div>
             </div>
+
+            <p *ngIf="selectedSize == 'S'">
+              ¡Solo queda {{ product.stockSizeS }}!
+            </p>
+            <p *ngIf="selectedSize == 'M'">
+              ¡Solo queda {{ product.stockSizeM }}!
+            </p>
+            <p *ngIf="selectedSize == 'L'">
+              ¡Solo queda {{ product.stockSizeL }}!
+            </p>
+            <p *ngIf="selectedSize == 'XL'">
+              ¡Solo queda {{ product.stockSizeXL }}!
+            </p>
           </div>
           <div class="pt-1 mb-2">
             <span class="text-medium">SKU:</span> {{ product.id }}

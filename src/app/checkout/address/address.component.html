@@ -26,7 +26,7 @@
             formAddress.get('firstname').touched
           "
         >
-        Por favor, introduzca su primer nombre(s)
+          Por favor, introduzca su primer nombre(s)
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
             formAddress.get('lastname').touched
           "
         >
-        Por favor, introduzca su apellido(s)
+          Por favor, introduzca su apellido(s)
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@
             formAddress.get('address1').touched
           "
         >
-        Por favor, introduzca su dirección
+          Por favor, introduzca su dirección
         </div>
       </div>
     </div>
@@ -124,7 +124,7 @@
             formAddress.get('zip').invalid && formAddress.get('zip').touched
           "
         >
-        Por favor, introduzca su código postal
+          Por favor, introduzca su código postal
         </div>
       </div>
     </div>
@@ -150,7 +150,7 @@
             formAddress.get('city').invalid && formAddress.get('city').touched
           "
         >
-        Por favor, introduzca su ciudad
+          Por favor, introduzca su ciudad
         </div>
       </div>
     </div>
@@ -178,13 +178,19 @@
             formAddress.get('email').invalid && formAddress.get('email').touched
           "
         >
-        Por favor, introduzca su correo electrónico
+          Por favor, introduzca su correo electrónico
         </div>
       </div>
     </div>
     <div class="col-sm-6">
-      <div class="form-group">
-        <label for="phone">Télefono</label>
+      <div
+        class="form-group"
+        [ngClass]="{
+          'has-danger':
+            formAddress.get('phone').invalid && formAddress.get('phone').touched
+        }"
+      >
+        <label for="phone">Telefono</label>
         <input
           class="form-control"
           type="text"
@@ -192,6 +198,14 @@
           name="phone"
           formControlName="phone"
         />
+        <div
+          class="form-control-feedback"
+          *ngIf="
+            formAddress.get('phone').invalid && formAddress.get('phone').touched
+          "
+        >
+          Por favor, introduzca su telefono
+        </div>
       </div>
     </div>
   </div>

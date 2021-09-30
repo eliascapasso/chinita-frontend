@@ -100,7 +100,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
     } else {
       this.orderService.goCheckoutMP(order).subscribe((resp) => {
-        console.log(resp);
         window.open(resp, '_blank');
         //window.location.replace(resp);
 
@@ -146,7 +145,6 @@ export class ReviewComponent implements OnInit, OnDestroy {
         );
     } else {
       this.orderService.goCheckoutMP(order).subscribe((resp) => {
-        console.log(resp);
         window.open(resp, '_blank');
         //window.location.replace(resp);
 

@@ -13,6 +13,9 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { environment } from "../../../../environments/environment.prod";
+import { ProductService } from "../../../products/shared/product.service";
+import { Product } from "../../../models/product.model";
+import { isNgTemplate } from "@angular/compiler";
 
 @Injectable()
 export class OrderService {
@@ -25,7 +28,8 @@ export class OrderService {
     private authService: AuthService,
     private store: AngularFireDatabase,
     private http: HttpClient,
-    private angularFireDatabase: AngularFireDatabase
+    private angularFireDatabase: AngularFireDatabase,
+    private productService: ProductService
   ) {}
 
   public getOrder(id: any): Observable<Order | null> {
@@ -79,7 +83,7 @@ export class OrderService {
   ) {
     let medioPago = "";
     if (coordinarEntrega) {
-      medioPago = "Coordinar medio de pago";
+      medioPago = "Coordinar";
     } else {
       medioPago = "Mercado Pago";
     }
@@ -106,19 +110,28 @@ export class OrderService {
       .then(
         (response) => {
           let obtieneOrden: boolean = false;
-          this.getOrder(response.key).subscribe((order) => {
-            if(!obtieneOrden){
+          this.getOrder(response.key).subscribe((order: Order) => {
+            if (!obtieneOrden) {
               obtieneOrden = true;
               order.id = response.key;
               this.updateOrder(order)
                 .then((response) => {
-                  this.sendEmail(order, medioPago).subscribe((response) => {
-                    if (response) {
-                      console.info(
-                        "Orden generada y enviada por email exitosamente"
-                      );
+                  //SEND EMAIL
+                  this.sendEmail(order, medioPago).subscribe(
+                    (response) => {
+                      if (response) {
+                        console.info(
+                          "Orden generada y enviada por email exitosamente"
+                        );
+                      }
+                    },
+                    (error) => {
+                      console.error(error.message);
                     }
-                  });
+                  );
+
+                  //UPDATE STOCK PRODUCT
+                  this.updateStockProduct(order);
                 })
                 .catch((error) => {
                   console.error(error);
@@ -157,17 +170,24 @@ export class OrderService {
         (response) => {
           let obtieneOrden: boolean = false;
           this.getOrder(response.key).subscribe((order) => {
-            console.log(obtieneOrden);
-            if(!obtieneOrden){
+            if (!obtieneOrden) {
               obtieneOrden = true;
               order.id = response.key;
               this.updateOrder(order)
                 .then((response) => {
-                  this.sendEmail(order, medioPago).subscribe((response) => {
-                    if (response) {
-                      console.info("Orden generada y enviada por email");
+                  this.sendEmail(order, medioPago).subscribe(
+                    (response) => {
+                      if (response) {
+                        console.info("Orden generada y enviada por email");
+                      }
+                    },
+                    (error) => {
+                      console.error(error.message);
                     }
-                  });
+                  );
+
+                  //UPDATE STOCK PRODUCT
+                  this.updateStockProduct(order);
                 })
                 .catch((error) => {
                   console.error(error);
@@ -179,6 +199,79 @@ export class OrderService {
       );
 
     return fromPromise(databaseOperation);
+  }
+
+  private updateStockProduct(order: Order) {
+    var products = [];
+    for (let item of order.items) {
+      var product: Product = item.product;
+      switch (item.size) {
+        case "S":
+          product.stockSizeS = item.product.stockSizeS - item.amount;
+          var index = this.getIndex(products, item);
+
+          if (index != -1) {
+            products[index].stockSizeS = product.stockSizeS;
+          } else {
+            products.push(product);
+          }
+          break;
+        case "M":
+          product.stockSizeM = item.product.stockSizeM - item.amount;
+          var index = this.getIndex(products, item);
+
+          if (index != -1) {
+            products[index].stockSizeM = product.stockSizeM;
+          } else {
+            products.push(product);
+          }
+          break;
+        case "L":
+          product.stockSizeL = item.product.stockSizeL - item.amount;
+          var index = this.getIndex(products, item);
+
+          if (index != -1) {
+            products[index].stockSizeL = product.stockSizeL;
+          } else {
+            products.push(product);
+          }
+          break;
+        case "XL":
+          product.stockSizeXL = item.product.stockSizeXL - item.amount;
+          var index = this.getIndex(products, item);
+
+          if (index != -1) {
+            products[index].stockSizeXL = product.stockSizeXL;
+          } else {
+            products.push(product);
+          }
+          break;
+      }
+    }
+
+    for (let p of products) {
+      let data = {
+        product: p,
+        files: null,
+        client: true,
+      };
+
+      this.productService.updateProduct(data).subscribe((response) => {
+        console.info("Stock modificado");
+      });
+    }
+  }
+
+  private getIndex(products, item): number {
+    var index = -1;
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].id === item.product.id) {
+        index = i;
+        return i;
+      }
+    }
+
+    return -1;
   }
 
   public updateOrder(order: Order): Promise<void> {
@@ -244,7 +337,7 @@ export class OrderService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      console.log("ERROR!!", error.message);
+      console.info("ERROR!!", error.message);
       console.error(error);
       console.error(
         `Backend returned code ${error.status}, body was: `,

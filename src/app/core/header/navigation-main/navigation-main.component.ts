@@ -33,7 +33,6 @@ export class NavigationMainComponent implements OnInit, OnDestroy {
   @HostListener("window:resize", ["$event"])
   onResize(event) {
     this.displayProducts = window.innerWidth < 1070;
-    console.log(window.innerWidth < 1070);
   }
 
   ngOnDestroy() {

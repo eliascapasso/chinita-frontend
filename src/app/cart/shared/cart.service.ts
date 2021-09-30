@@ -74,7 +74,7 @@ export class CartService {
 
   public updateItemAmount(item: CartItem, newAmount: number) {
     this.cartItems.forEach((cartItem) => {
-      if (cartItem.product.id === item.product.id) {
+      if (cartItem.product.id === item.product.id && cartItem.size === item.size) {
         cartItem.amount = newAmount;
       }
     });

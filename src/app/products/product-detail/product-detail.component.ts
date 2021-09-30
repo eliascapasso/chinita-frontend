@@ -35,6 +35,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   public selectedQuantity: number;
   public selectedSize: string;
 
+  public quantities: any[];
+  public sizes: any[];
+
   public ratingCount: number;
   public ratingValues: number[];
   public selectedRating: any;
@@ -58,8 +61,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       });
 
     this.ratingValues = [1, 2, 3, 4, 5];
-    this.selectedQuantity = 1;
-    this.selectedSize = "S";
     this.imagesLoaded = [];
 
     this.route.params
@@ -94,7 +95,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   public onAddToCart() {
-    this.cartService.addItem(new CartItem(this.product, this.selectedSize, this.selectedQuantity));
+    this.cartService.addItem(
+      new CartItem(this.product, this.selectedSize, this.selectedQuantity)
+    );
   }
 
   public onSelectQuantity(event) {
@@ -103,6 +106,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   public onSelectSize(event) {
     this.selectedSize = <string>event.target.value;
+    this.initQuantities();
   }
 
   public onRate() {
@@ -125,6 +129,52 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       this.checkRatings();
       this.activeImageUrl = this.product.imageURLs[0];
       this.activeImageIndex = 0;
+      this.initSizes();
+      this.initQuantities();
+    }
+  }
+
+  private initSizes() {
+    this.sizes = [];
+    if (this.product.stockSizeS > 0) {
+      this.sizes.push({ value: "S", label: "S" });
+      this.selectedSize = "S";
+    }
+    if (this.product.stockSizeM > 0) {
+      this.sizes.push({ value: "M", label: "M" });
+      this.selectedSize = "M";
+    }
+    if (this.product.stockSizeL > 0) {
+      this.sizes.push({ value: "L", label: "L" });
+      this.selectedSize = "L";
+    }
+    if (this.product.stockSizeXL > 0) {
+      this.sizes.push({ value: "XL", label: "XL" });
+      this.selectedSize = "XL";
+    }
+  }
+
+  private initQuantities() {
+    var stock = 0;
+    switch (this.selectedSize) {
+      case "S":
+        stock = this.product.stockSizeS;
+        break;
+      case "M":
+        stock = this.product.stockSizeM;
+        break;
+      case "L":
+        stock = this.product.stockSizeL;
+        break;
+      case "XL":
+        stock = this.product.stockSizeXL;
+        break;
+    }
+
+    this.quantities = [];
+    for (let i = 1; i <= stock; i++) {
+      this.selectedQuantity = 1;
+      this.quantities.push({ value: i.toString(), label: i.toString() });
     }
   }
 
