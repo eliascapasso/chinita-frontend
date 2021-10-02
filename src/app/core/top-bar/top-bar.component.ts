@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { environment } from "../../../environments/environment";
 import { AuthService } from "../../account/shared/auth.service";
 import { MessageService } from "../../messages/message.service";
 import { User } from "../../models/user.model";
@@ -25,6 +26,8 @@ export class TopBarComponent {
   private userSubscription: Subscription;
   public user: User;
 
+  public isDev: boolean = false;
+
   constructor(
     public contactService: ContactService,
     private sharedService: SharedService,
@@ -40,6 +43,8 @@ export class TopBarComponent {
     });
 
     this.getContact();
+
+    this.isDev = environment.envName == 'dev';
   }
 
   getContact(){
