@@ -1,5 +1,5 @@
 <!-- Main Navigation-->
-<nav class="site-menu">
+<nav class="site-menu app-color">
   <ul>
     <li routerLinkActive="active">
       <a routerLink="/inicio" href="">
@@ -29,8 +29,9 @@
 
   <div (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false">
     <ul
-      style="background-color: white; border-bottom: 1px solid #e1e7ec"
+      style="border-bottom: 1px solid #e1e7ec"
       *ngIf="displayCategories"
+      class="app-color"
     >
       <li routerLinkActive="active" *ngFor="let category of categories">
         <a
@@ -56,8 +57,8 @@
   </div>
 </nav>
 
-<nav class="site-menu" style="display: block !important" *ngIf="displayProducts">
-  <ul style="margin-right: 45%;">
+<nav class="site-menu app-color" style="display: block !important" *ngIf="displayProducts">
+  <ul style="margin-right: 45%;" class="app-color">
     <li routerLinkActive="active" (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false">
       <a routerLink="/productos" href="">
         <span>Productos</span>
@@ -65,12 +66,13 @@
     </li>
   </ul>
 
-  <div (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false">
+  <div (mouseenter)="displayCategories = true" (mouseleave)="displayCategories = false" class="app-color">
     <ul
       style="background-color: white; border-bottom: 1px solid #e1e7ec"
       *ngIf="displayCategories"
+      class="app-color"
     >
-      <li routerLinkActive="active" *ngFor="let category of categories">
+      <li routerLinkActive="active" *ngFor="let category of categories" class="app-color">
         <a
           routerLink="/productos"
           [queryParams]="{ categoria: category }"
