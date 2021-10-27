@@ -187,12 +187,12 @@ export class ProductService {
     const dbOperation = this.uploadService
       .startUpload(data)
       .then((result) => {
-        result.downloadURL.subscribe((url) => {
-          data.product.imageURLs[0] = url;
-        });
-        data.product.imageRefs[0] = result.task.ref.fullPath;
+        // result.downloadURL.subscribe((url) => {
+        //   data.product.imageURLs[0] = url;
+        // });
+        // data.product.imageRefs[0] = result.task.ref.fullPath;
 
-        return data;
+        // return data;
       })
       .then((dataWithImagePath) => {
         return this.angularFireDatabase
@@ -232,14 +232,17 @@ export class ProductService {
       .startUpload(data)
       .then(
         (result) => {
-          result.downloadURL.subscribe((url) => {
-            data.product.imageURLs.push(url);
-            data.product.imageRefs.push(result.task.ref.fullPath);
+          for (let downloadURL of result.downloadURLArr) {
+            downloadURL.getDownloadURL().subscribe((url) => {
+              console.log(url);
+              data.product.imageURLs.push(url);
+              data.product.imageRefs.push(result.task.ref.fullPath);
 
-            return this.angularFireDatabase
-              .list("products")
-              .set(data.product.id.toString(), data.product);
-          });
+              return this.angularFireDatabase
+                .list("products")
+                .set(data.product.id.toString(), data.product);
+            });
+          }
         },
         (error) => error
       )

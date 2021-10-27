@@ -46,7 +46,7 @@
                 [hidden]="!imagesLoaded.includes(item.imageURLs)"
                 style="width: 270px"
                 class="d-block mx-auto"
-                src="{{ item.imageURLs }}"
+                src="{{ item.imageURLs[0] }}"
                 alt="{{ item.name }}"
                 (load)="onImageLoad($event)"
               />

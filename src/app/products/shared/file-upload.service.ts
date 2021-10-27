@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
-import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import {
+  AngularFireStorage,
+  AngularFireUploadTask,
+} from "angularfire2/storage";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class FileUploadService {
@@ -17,13 +20,15 @@ export class FileUploadService {
   constructor(public storage: AngularFireStorage) {}
 
   public async startUpload(data) {
-      // The File object
-      const file = data.files.item(0);
+    // The Files objects
+    const files = data.files;
+    var downloadURLArr: any[] = [];
 
-      // Client-side validation example
-      if (file.type.split('/')[0] !== 'image') {
-        console.error('unsupported file type :( ');
-        throw new Error('upload failed, unsupported file type');
+    // Client-side validation example
+    for (let file of files) {
+      if (file.type.split("/")[0] !== "image") {
+        console.error("unsupported file type :( ");
+        throw new Error("upload failed, unsupported file type");
       }
 
       // The storage path
@@ -36,15 +41,18 @@ export class FileUploadService {
       this.percentage$ = this.task$.percentageChanges();
 
       var task = await this.task$;
+      downloadURLArr.push(this.storage.ref(task.ref.fullPath));
+    }
 
-      var result = {
-        task: task,
-        downloadURL: this.storage.ref(task.ref.fullPath).getDownloadURL()
-      }
-      return result;
+    var result = {
+      task: task,
+      downloadURLArr: downloadURLArr,
+    };
+
+    return result;
   }
 
-  public async uploadSharedFile(data: { type: any; file: any }){
+  public async uploadSharedFile(data: { type: any; file: any }) {
     // The storage path
     const path = `shared/${data.type}`;
 
@@ -58,8 +66,8 @@ export class FileUploadService {
 
     var result = {
       task: task,
-      downloadURL: this.storage.ref(task.ref.fullPath).getDownloadURL()
-    }
+      downloadURL: this.storage.ref(task.ref.fullPath).getDownloadURL(),
+    };
     return result;
   }
 
@@ -74,7 +82,7 @@ export class FileUploadService {
   // Determines if the upload task is active
   public isActive(snapshot) {
     return (
-      snapshot.state === 'running' &&
+      snapshot.state === "running" &&
       snapshot.bytesTransferred < snapshot.totalBytes
     );
   }
