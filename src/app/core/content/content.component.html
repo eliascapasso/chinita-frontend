@@ -1,15 +1,24 @@
-  <!-- Off-Canvas Wrapper-->
-  <div class="offcanvas-wrapper">
-    <!-- Page Content-->
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
-  </div>
+<!-- Off-Canvas Wrapper-->
+<div class="offcanvas-wrapper">
+  <!-- Page Content-->
+  <router-outlet></router-outlet>
 
-  <!-- Back To Top Button-->
-  <a class="scroll-to-top-btn" href="#">
-    <i class="icon-arrow-up"></i>
+  <!-- Floating Button -->
+  <a
+    [href]="wsp"
+    target="_blank"
+    class="float"
+    *ngIf="wsp != '' && wsp != null && wsp != undefined"
+  >
+    <img src="../../../img/whatsapp.png" />
   </a>
+  <app-footer></app-footer>
+</div>
 
+<!-- Back To Top Button-->
+<a class="scroll-to-top-btn" href="#">
+  <i class="icon-arrow-up"></i>
+</a>
 
-  <!-- Backdrop-->
-  <div class="site-backdrop" (click)="onMenuClose($event)"></div>
+<!-- Backdrop-->
+<div class="site-backdrop" (click)="onMenuClose($event)"></div>
