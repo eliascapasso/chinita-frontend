@@ -107,60 +107,6 @@
         class="form-group"
         [ngClass]="{
           'has-danger':
-            formAddress.get('zip').invalid && formAddress.get('zip').touched
-        }"
-      >
-        <label for="zip">Código postal</label>
-        <input
-          class="form-control"
-          type="text"
-          name="zip"
-          id="zip"
-          formControlName="zip"
-        />
-        <div
-          class="form-control-feedback"
-          *ngIf="
-            formAddress.get('zip').invalid && formAddress.get('zip').touched
-          "
-        >
-          Por favor, introduzca su código postal
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div
-        class="form-group"
-        [ngClass]="{
-          'has-danger':
-            formAddress.get('city').invalid && formAddress.get('city').touched
-        }"
-      >
-        <label for="city">Ciudad y Provincia</label>
-        <input
-          class="form-control"
-          type="text"
-          name="city"
-          id="city"
-          formControlName="city"
-        />
-        <div
-          class="form-control-feedback"
-          *ngIf="
-            formAddress.get('city').invalid && formAddress.get('city').touched
-          "
-        >
-          Por favor, introduzca su ciudad
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <div
-        class="form-group"
-        [ngClass]="{
-          'has-danger':
             formAddress.get('email').invalid && formAddress.get('email').touched
         }"
       >
@@ -210,19 +156,68 @@
     </div>
   </div>
   <div class="row">
-    <!-- <div class="col-sm-6">
-      <div class="form-group">
-        <label for="company">Compañía</label>
-        <input
-          class="form-control"
-          type="text"
-          id="company"
-          name="company"
-          formControlName="company"
-        />
-      </div>
-    </div> -->
     <div class="col-sm-6">
+      <div
+        class="form-group"
+        [ngClass]="{
+          'has-danger':
+            formAddress.get('province').invalid &&
+            formAddress.get('province').touched
+        }"
+      >
+        <label for="province">Provincia</label>
+        <select
+          class="form-control"
+          name="province"
+          (change)="upgradeCities()"
+          id="province"
+          formControlName="province"
+        >
+          <option *ngFor="let province of provinces" [ngValue]="province">
+            {{ province }}
+          </option>
+        </select>
+        <div
+          class="form-control-feedback"
+          *ngIf="
+            formAddress.get('province').invalid &&
+            formAddress.get('province').touched
+          "
+        >
+          Por favor, introduzca su provincia
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div
+        class="form-group"
+        [ngClass]="{
+          'has-danger':
+            formAddress.get('city').invalid && formAddress.get('city').touched
+        }"
+      >
+        <label for="city">Localidad</label>
+        <select
+          class="form-control"
+          name="city"
+          id="city"
+          formControlName="city"
+        >
+          <option *ngFor="let city of cities" [value]="city">
+            {{ city }}
+          </option>
+        </select>
+        <div
+          class="form-control-feedback"
+          *ngIf="
+            formAddress.get('city').invalid && formAddress.get('city').touched
+          "
+        >
+          Por favor, introduzca su localidad
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-sm-6">
       <div class="form-group">
         <label for="country">País</label>
         <select
@@ -235,6 +230,34 @@
             {{ country }}
           </option>
         </select>
+      </div>
+    </div> -->
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div
+        class="form-group"
+        [ngClass]="{
+          'has-danger':
+            formAddress.get('zip').invalid && formAddress.get('zip').touched
+        }"
+      >
+        <label for="zip">Código postal</label>
+        <input
+          class="form-control"
+          type="text"
+          name="zip"
+          id="zip"
+          formControlName="zip"
+        />
+        <div
+          class="form-control-feedback"
+          *ngIf="
+            formAddress.get('zip').invalid && formAddress.get('zip').touched
+          "
+        >
+          Por favor, introduzca su código postal
+        </div>
       </div>
     </div>
   </div>

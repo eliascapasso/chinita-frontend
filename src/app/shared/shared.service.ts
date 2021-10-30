@@ -16,10 +16,10 @@ import { AuthService } from "../account/shared/auth.service";
 import { FileUploadService } from "../products/shared/file-upload.service";
 import {
   HttpClient,
+  HttpClientModule,
   HttpErrorResponse,
   HttpHeaders,
 } from "@angular/common/http";
-import { Order } from "../models/order.model";
 
 @Injectable()
 export class SharedService {
@@ -32,7 +32,8 @@ export class SharedService {
     private messageService: MessageService,
     private angularFireDatabase: AngularFireDatabase,
     public authService: AuthService,
-    private uploadService: FileUploadService
+    private uploadService: FileUploadService,
+    private http: HttpClient
   ) {}
 
   /** Log a SharedService message with the MessageService */
@@ -110,5 +111,37 @@ export class SharedService {
 
   public updateObject(data: { type: string; object: any }): Promise<void> {
     return this.angularFireDatabase.object(data.type).update(data.object);
+  }
+
+  public getProvinces(): Observable<any> {
+    var url = "https://apis.datos.gob.ar/georef/api/provincias";
+
+    var headers: HttpHeaders = new HttpHeaders();
+    headers.append("Access-Control-Allow-Origin", "*");
+    headers.append("Access-Control-Allow-Credentials", "true");
+
+    return this.http.get<any>(url).pipe(catchError(this.handleErrorHttp));
+  }
+
+  public getCities() {
+    return this.http.get<any>("./assets/localidades.json");
+  }
+
+  private handleErrorHttp(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error("An error occurred:", error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.info("ERROR!!", error.message);
+      console.error(error);
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError("Something bad happened; please try again later.");
   }
 }
