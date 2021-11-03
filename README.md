@@ -2,15 +2,12 @@
 
 - Capasso Elias Nicolas
 
-Check out this project online at [https://nickeliferous-carri.000webhostapp.com/](https://nickeliferous-carri.000webhostapp.com/)
-Note: The pixelated product images are there because of image licensing reasons.
-
 ## Installation
 
 ### Clone repository
 
 ```bash
-git clone https://github.com/eliascapasso/tiena-online-base.git
+git clone https://github.com/eliascapasso/chinita-frontend.git
 ```
 
 ### Install Angular-Cli globally
