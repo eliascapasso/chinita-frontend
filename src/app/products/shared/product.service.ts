@@ -177,7 +177,7 @@ export class ProductService {
       );
   }
 
-  public updateProduct(data: { product: Product; files: FileList }) {
+  public updateProduct(data: { product: Product; files?: FileList }) {
     const url = `${this.productsUrl}/${data.product.id}`;
 
     if (data.files == null || data.files.length == 0) {

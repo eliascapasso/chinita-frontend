@@ -20,6 +20,8 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from "@angular/common/http";
+import { ProductService } from "../products/shared/product.service";
+import { Product, SizeProduct } from "../models/product.model";
 
 @Injectable()
 export class SharedService {
@@ -33,7 +35,8 @@ export class SharedService {
     private angularFireDatabase: AngularFireDatabase,
     public authService: AuthService,
     private uploadService: FileUploadService,
-    private http: HttpClient
+    private http: HttpClient,
+    private productService: ProductService
   ) {}
 
   /** Log a SharedService message with the MessageService */
@@ -58,6 +61,9 @@ export class SharedService {
 
   public getObject(type: any): Observable<any | null> {
     const url = `${this.sharedUrl}/${type}`;
+
+    this.actualizarEstructuraStock();
+
     return this.angularFireDatabase
       .object<any>(url)
       .valueChanges()
@@ -143,5 +149,80 @@ export class SharedService {
     }
     // Return an observable with a user-facing error message.
     return throwError("Something bad happened; please try again later.");
+  }
+
+
+
+
+  //FUNCION TEMPORAL PARA ACTUALIZAR ESTRUCTURA DE TALLES
+  private actualizarEstructuraStock() {
+    this.productService.getProducts().subscribe((products) => {
+      let anyProducts: any = products;
+
+      for (let p of anyProducts) {
+        let newProduct: any = p;
+        let modifica = false;
+
+        if (newProduct.sizes == null) {
+          newProduct.sizes = [];
+        }
+        if (p.stockSizeL != null && p.stockSizeL != undefined && p.stockSizeL > 0) {
+          if (!this.existeTalle(new SizeProduct("L", p.stockSizeL), newProduct.sizes)) {
+            newProduct.sizes.push(new SizeProduct("L", p.stockSizeL));
+            newProduct.stockSizeL = null;
+            newProduct.stockSizeS = null;
+            newProduct.stockSizeM = null;
+            newProduct.stockSizeXL = null;
+            modifica = true;
+          }
+        }
+        if (p.stockSizeM != null && p.stockSizeM != undefined && p.stockSizeM > 0) {
+          if (!this.existeTalle(new SizeProduct("M", p.stockSizeM), newProduct.sizes)) {
+            newProduct.sizes.push(new SizeProduct("M", p.stockSizeM));
+            newProduct.stockSizeL = null;
+            newProduct.stockSizeS = null;
+            newProduct.stockSizeM = null;
+            newProduct.stockSizeXL = null;
+            modifica = true;
+          }
+        }
+        if (p.stockSizeS != null && p.stockSizeS != undefined && p.stockSizeS > 0) {
+          if (!this.existeTalle(new SizeProduct("S", p.stockSizeS), newProduct.sizes)) {
+            newProduct.sizes.push(new SizeProduct("S", p.stockSizeS));
+            newProduct.stockSizeL = null;
+            newProduct.stockSizeS = null;
+            newProduct.stockSizeM = null;
+            newProduct.stockSizeXL = null;
+            modifica = true;
+          }
+        }
+        if (p.stockSizeXL != null && p.stockSizeXL != undefined && p.stockSizeXL > 0) {
+          if (
+            !this.existeTalle(new SizeProduct("XL", p.stockSizeXL), newProduct.sizes)
+          ) {
+            newProduct.sizes.push(new SizeProduct("XL", p.stockSizeXL));
+            newProduct.stockSizeL = null;
+            newProduct.stockSizeS = null;
+            newProduct.stockSizeM = null;
+            newProduct.stockSizeXL = null;
+            modifica = true;
+          }
+        }
+
+        if(modifica){
+          this.productService.updateProduct({ product: newProduct, files: null });
+        }
+      }
+    });
+  }
+
+  private existeTalle(size: SizeProduct, sizes: SizeProduct[]){
+    for(let s of sizes){
+      if(s.size == size.size){
+        return true;
+      }
+    }
+
+    return false;
   }
 }

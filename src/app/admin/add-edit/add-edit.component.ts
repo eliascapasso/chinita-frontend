@@ -9,7 +9,7 @@ import { FileUploadService } from "../../products/shared/file-upload.service";
 import { ProductService } from "../../products/shared/product.service";
 import { ProductsCacheService } from "../../products/shared/products-cache.service";
 
-import { Product } from "../../models/product.model";
+import { Product, SizeProduct } from "../../models/product.model";
 import { IDropdownSettings } from "ng-multiselect-dropdown";
 
 // we send and receive categories as {key:true},
@@ -29,6 +29,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
   public mode: "edit" | "add";
   public id;
   public percentage: Observable<number>;
+  public sizes: SizeProduct[] = [];
 
   dropdownListCategories = [];
   selectedItemsCategories = [];
@@ -45,8 +46,43 @@ export class AddEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.sizes = [];
     this.initFormEmpty();
     this.initCategories();
+  }
+
+  addSize() {
+    if (
+      this.productForm.controls["size"].value != null &&
+      this.productForm.controls["size"].value != undefined &&
+      this.productForm.controls["size"].value != "" &&
+      this.productForm.controls["stock"].value != null &&
+      this.productForm.controls["stock"].value != undefined &&
+      this.productForm.controls["stock"].value > 0
+    ) {
+      this.sizes.push(new SizeProduct(this.productForm.controls["size"].value, this.productForm.controls["stock"].value));
+      this.productForm.controls["size"].setValue(null);
+      this.productForm.controls["stock"].setValue(null);
+    }
+    else{
+      this.log.addError("Debe ingresar un talle y stock mayor a 0");
+    }
+  }
+
+  deleteSize(s: SizeProduct){
+    let newSizes = [];
+    for(let size of this.sizes){
+      if(size != s){
+        newSizes.push(size);
+      }
+    }
+
+    this.sizes = newSizes;
+  }
+
+  initSizes(){
+    console.log(this.product.sizes);
+    this.sizes = this.product.sizes;
   }
 
   initCategories() {
@@ -118,22 +154,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.min(0),
       ]),
-      stockSizeS: new FormControl(this.product && this.product.stockSizeS, [
-        Validators.required,
-        Validators.min(0),
-      ]),
-      stockSizeM: new FormControl(this.product && this.product.stockSizeM, [
-        Validators.required,
-        Validators.min(0),
-      ]),
-      stockSizeL: new FormControl(this.product && this.product.stockSizeL, [
-        Validators.required,
-        Validators.min(0),
-      ]),
-      stockSizeXL: new FormControl(this.product && this.product.stockSizeXL, [
-        Validators.required,
-        Validators.min(0),
-      ]),
+      size: new FormControl(),
+      stock: new FormControl(),
     });
     this.onFormChanges();
   }
@@ -147,10 +169,8 @@ export class AddEditComponent implements OnInit, OnDestroy {
       description: new FormControl("", Validators.required),
       price: new FormControl("", Validators.required),
       priceNormal: new FormControl("", Validators.required),
-      stockSizeS: new FormControl("", Validators.required),
-      stockSizeM: new FormControl("", Validators.required),
-      stockSizeL: new FormControl("", Validators.required),
-      stockSizeXL: new FormControl("", Validators.required),
+      size: new FormControl(""),
+      stock: new FormControl(""),
     });
   }
 
@@ -182,6 +202,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
           this.categoriesFromStringToObject(product);
           this.syncProduct(product);
           this.initForm();
+          this.initSizes();
         }
       });
   }
@@ -214,16 +235,22 @@ export class AddEditComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
-    this.syncProduct({ ...this.product, ...this.productForm.value });
-    const productToSubmit = this.constructProductToSubmit(this.product);
-    const files: FileList = this.photos.nativeElement.files;
-    if (this.mode === "add" && files.length > 0) {
-      this.addProduct(productToSubmit, files);
-    } else if (this.mode === "edit") {
-      this.updateProduct(productToSubmit, files);
-    } else {
-      this.log.addError("Proporcione un archivo para su producto");
-      return;
+    if(this.sizes.length != 0){
+      this.product.sizes = this.sizes;
+      this.syncProduct({ ...this.product, ...this.productForm.value });
+      const productToSubmit = this.constructProductToSubmit(this.product);
+      const files: FileList = this.photos.nativeElement.files;
+      if (this.mode === "add" && files.length > 0) {
+        this.addProduct(productToSubmit, files);
+      } else if (this.mode === "edit") {
+        this.updateProduct(productToSubmit, files);
+      } else {
+        this.log.addError("Proporcione un archivo para su producto");
+        return;
+      }
+    }
+    else{
+      this.log.addError("Proporcione almenos un talle para su producto");
     }
   }
 
@@ -278,7 +305,7 @@ export class AddEditComponent implements OnInit, OnDestroy {
 
   private constructProductToSubmit(product: Product): Product {
     return {
-      ...product
+      ...product,
     };
   }
 

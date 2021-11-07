@@ -137,7 +137,9 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-2 col-form-label" for="price">Precio actual ($)</label>
+          <label class="col-2 col-form-label" for="price"
+            >Precio actual ($)</label
+          >
           <div class="col-10">
             <input
               class="form-control form-control-square form-control-sm"
@@ -182,59 +184,74 @@
           </div>
         </div>
 
-        <hr style="margin-bottom: 20px;">
-
         <div class="form-group row">
-          <label class="col-2 col-form-label" for="stockSizeS">Stock talle S</label>
-          <div class="col-10">
+          <label class="col-2 col-form-label" for="size">Talle</label>
+          <div class="col-3">
             <input
               class="form-control form-control-square form-control-sm"
-              formControlName="stockSizeS"
-              type="number"
-              id="stockSizeS"
-              value="0"
+              type="text"
+              formControlName="size"
+              id="size"
             />
+          </div>
+          <label class="col-1 col-form-label" for="stock" style="margin-right: 7px;">Stock</label>
+          <div class="col-3">
+            <input
+              class="form-control form-control-square form-control-sm"
+              type="number"
+              formControlName="stock"
+              id="stock"
+              value="1"
+            />
+          </div>
+          <div class="col-1" style="margin-top: -10px; width: 10px;">
+            <button
+              class="btn btn-primary"
+              style="background-color: rgb(2, 175, 2)"
+              type="button"
+              (click)="addSize()"
+            >
+              <b style="font-size: xx-large;">+</b>
+            </button>
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-2 col-form-label" for="stockSizeM">Stock talle M</label>
-          <div class="col-10">
-            <input
-              class="form-control form-control-square form-control-sm"
-              formControlName="stockSizeM"
-              type="number"
-              id="stockSizeM"
-              value="0"
-            />
-          </div>
-        </div>
+        <table class="table table-hover margin-bottom-none">
+          <thead>
+            <tr>
+              <th>Talle</th>
+              <th>Stock</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let size of sizes" href="" style="cursor: pointer">
+              <td>
+                <a
+                  class="text-medium navi-link"
+                  data-toggle="modal"
+                  data-target="#orderDetails"
+                  >{{ size.size }}</a
+                >
+              </td>
+              <td>
+                <a
+                  class="text-medium navi-link"
+                  data-toggle="modal"
+                  data-target="#orderDetails"
+                  >{{ size.stock }}</a
+                >
+              </td>
+              <td>
+                <button class="btn btn-danger" type="button" (click)="deleteSize(size)">
+                  <b style="font-size: xx-large;">-</b>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-        <div class="form-group row">
-          <label class="col-2 col-form-label" for="stockSizeL">Stock talle L</label>
-          <div class="col-10">
-            <input
-              class="form-control form-control-square form-control-sm"
-              formControlName="stockSizeL"
-              type="number"
-              id="stockSizeL"
-              value="0"
-            />
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-2 col-form-label" for="stockSizeXL">Stock talle XL</label>
-          <div class="col-10">
-            <input
-              class="form-control form-control-square form-control-sm"
-              formControlName="stockSizeXL"
-              type="number"
-              id="stockSizeXL"
-              value="0"
-            />
-          </div>
-        </div>
+        <hr style="margin-bottom: 20px" />
 
         <div
           *ngIf="fileUploadService.percentage$ | async as pct"

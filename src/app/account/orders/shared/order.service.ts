@@ -129,9 +129,6 @@ export class OrderService {
                       console.error(error.message);
                     }
                   );
-
-                  //UPDATE STOCK PRODUCT
-                  this.updateStockProduct(order);
                 })
                 .catch((error) => {
                   console.error(error);
@@ -185,9 +182,6 @@ export class OrderService {
                       console.error(error.message);
                     }
                   );
-
-                  //UPDATE STOCK PRODUCT
-                  this.updateStockProduct(order);
                 })
                 .catch((error) => {
                   console.error(error);
@@ -199,67 +193,6 @@ export class OrderService {
       );
 
     return fromPromise(databaseOperation);
-  }
-
-  private updateStockProduct(order: Order) {
-    var products = [];
-    for (let item of order.items) {
-      var product: Product = item.product;
-      switch (item.size) {
-        case "S":
-          product.stockSizeS = item.product.stockSizeS - item.amount;
-          var index = this.getIndex(products, item);
-
-          if (index != -1) {
-            products[index].stockSizeS = product.stockSizeS;
-          } else {
-            products.push(product);
-          }
-          break;
-        case "M":
-          product.stockSizeM = item.product.stockSizeM - item.amount;
-          var index = this.getIndex(products, item);
-
-          if (index != -1) {
-            products[index].stockSizeM = product.stockSizeM;
-          } else {
-            products.push(product);
-          }
-          break;
-        case "L":
-          product.stockSizeL = item.product.stockSizeL - item.amount;
-          var index = this.getIndex(products, item);
-
-          if (index != -1) {
-            products[index].stockSizeL = product.stockSizeL;
-          } else {
-            products.push(product);
-          }
-          break;
-        case "XL":
-          product.stockSizeXL = item.product.stockSizeXL - item.amount;
-          var index = this.getIndex(products, item);
-
-          if (index != -1) {
-            products[index].stockSizeXL = product.stockSizeXL;
-          } else {
-            products.push(product);
-          }
-          break;
-      }
-    }
-
-    for (let p of products) {
-      let data = {
-        product: p,
-        files: null,
-        client: true,
-      };
-
-      this.productService.updateProduct(data).subscribe((response) => {
-        console.info("Stock modificado");
-      });
-    }
   }
 
   private getIndex(products, item): number {
