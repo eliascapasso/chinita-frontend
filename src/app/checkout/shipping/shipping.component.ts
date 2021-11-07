@@ -17,6 +17,7 @@ export class ShippingComponent implements OnInit {
     method: string;
     time: string;
     fee: number;
+    surcharge: number;
     value: string;
   }[];
   private fee: number = 0;
@@ -30,10 +31,11 @@ export class ShippingComponent implements OnInit {
   ngOnInit() {
     this.shippingMethods = [
       {
-        method: "Retiro en local",
-        time: "en el momento",
+        method: "Coordinar pago y entrega con el vendedor",
+        time: "A coordinar",
         fee: 0,
-        value: "retira",
+        surcharge: 0,
+        value: "coordina",
       },
     ];
 
@@ -51,33 +53,36 @@ export class ShippingComponent implements OnInit {
     this.sharedService.getObject("ENVIO").subscribe((value) => {
       this.shippingMethods = [
         {
-          method: "Coordinar entrega y pago con el vendedor",
-          time: "En el momento",
+          method: "Coordinar pago y entrega con el vendedor",
+          time: "A coordinar",
           fee: 0,
+          surcharge: 0,
           value: "coordina",
         },
         {
-          method: "Entrega a domicilio",
+          method: "Pagar ahora y recibir en domicilio",
           time: value.min_time + " - " + value.max_time + " días hábiles",
           fee: value.valor,
+          surcharge: value.recargo,
           value: "a domicilio",
         },
       ];
     });
   }
 
-  updateFee(sMethod){
+  updateFeeSurcharge(sMethod) {
     this.selectShip = true;
-    if(sMethod == "a domicilio"){
+    if (sMethod == "a domicilio") {
       this.cartService.setShipping(this.shippingMethods[1].fee);
+      this.cartService.setSurcharge(this.shippingMethods[1].surcharge);
       this.checkoutService.setPaymentCost(this.shippingMethods[1].fee);
-    }
-    else if(sMethod == "coordina"){
+    } else if (sMethod == "coordina") {
       this.cartService.setShipping(this.shippingMethods[0].fee);
+      this.cartService.setSurcharge(this.shippingMethods[0].surcharge);
       this.checkoutService.setPaymentCost(this.shippingMethods[0].fee);
-    }
-    else{
+    } else {
       this.cartService.setShipping(0);
+      this.cartService.setSurcharge(0);
       this.checkoutService.setPaymentCost(0);
     }
   }

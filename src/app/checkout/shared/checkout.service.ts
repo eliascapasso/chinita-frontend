@@ -1,13 +1,14 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { Order } from '../../models/order.model';
-import { Customer } from '../../models/customer.model';
-import { CartItem } from '../../models/cart-item.model';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, EventEmitter } from "@angular/core";
+import { Order } from "../../models/order.model";
+import { Customer } from "../../models/customer.model";
+import { CartItem } from "../../models/cart-item.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class CheckoutService {
   private orderInProgress: Order;
-  public orderInProgressChanged: EventEmitter<Order> = new EventEmitter<Order>();
+  public orderInProgressChanged: EventEmitter<Order> =
+    new EventEmitter<Order>();
   public stepChanged: EventEmitter<number> = new EventEmitter<number>();
   public activeStep: number;
 
@@ -54,6 +55,18 @@ export class CheckoutService {
     return this.orderInProgress;
   }
 
+  public setSurcharge(surcharge: number) {
+    this.orderInProgress.surcharge = this.getPercentSurcharge(surcharge);
+    this.orderInProgressChanged.emit(this.orderInProgress);
+  }
+
+  getPercentSurcharge(surcharge) {
+    return (
+      (surcharge / 100) *
+      (this.orderInProgress.shippingCost + this.getSubTotal())
+    );
+  }
+
   public setPaymentCost(cost: number) {
     this.orderInProgress.shippingCost = cost;
     this.orderInProgressChanged.emit(this.orderInProgress);
@@ -62,5 +75,14 @@ export class CheckoutService {
   public setPaymentMethod(paymentMethod: string) {
     this.orderInProgress.paymentMethod = paymentMethod;
     this.orderInProgressChanged.emit(this.orderInProgress);
+  }
+
+  private getSubTotal() {
+    let subTotal = 0;
+    for (let item of this.orderInProgress.items) {
+      subTotal = subTotal + item.amount * item.product.price;
+    }
+
+    return subTotal;
   }
 }

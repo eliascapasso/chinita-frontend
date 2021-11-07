@@ -1,10 +1,8 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Observable, of, from as fromPromise, throwError } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { AngularFireDatabase } from "angularfire2/database";
-
 import { Order } from "../../../models/order.model";
-
 import { MessageService } from "../../../messages/message.service";
 import { AuthService } from "../../shared/auth.service";
 import {
@@ -13,9 +11,6 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { environment } from "../../../../environments/environment.prod";
-import { ProductService } from "../../../products/shared/product.service";
-import { Product } from "../../../models/product.model";
-import { isNgTemplate } from "@angular/compiler";
 
 @Injectable()
 export class OrderService {
@@ -28,8 +23,7 @@ export class OrderService {
     private authService: AuthService,
     private store: AngularFireDatabase,
     private http: HttpClient,
-    private angularFireDatabase: AngularFireDatabase,
-    private productService: ProductService
+    private angularFireDatabase: AngularFireDatabase
   ) {}
 
   public getOrder(id: any): Observable<Order | null> {
@@ -193,18 +187,6 @@ export class OrderService {
       );
 
     return fromPromise(databaseOperation);
-  }
-
-  private getIndex(products, item): number {
-    var index = -1;
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].id === item.product.id) {
-        index = i;
-        return i;
-      }
-    }
-
-    return -1;
   }
 
   public updateOrder(order: Order): Promise<void> {

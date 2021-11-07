@@ -42,11 +42,13 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public increaseAmount(item: CartItem) {
     this.cartService.updateItemAmount(item, item.amount + 1);
+    this.cartService.setSurcharge(this.cartService.getSurcharge());
   }
 
   public decreaseAmount(item: CartItem) {
     const newAmount = item.amount === 1 ? 1 : item.amount - 1;
     this.cartService.updateItemAmount(item, newAmount);
+    this.cartService.getSurcharge();
   }
 
   public checkAmount(item: CartItem) {

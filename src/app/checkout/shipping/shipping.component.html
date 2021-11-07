@@ -20,7 +20,7 @@
           <td class="align-middle">{{shippingMethod.fee | currency}}</td>
           <td class="align-middle">
             <label class="custom-control custom-radio">
-              <input class="form-control-radio" type="radio" name="shippingMethod" value="{{shippingMethod.value}}" formControlName="shippingMethod" (click)="updateFee(shippingMethod.value)">
+              <input class="form-control-radio" type="radio" name="shippingMethod" value="{{shippingMethod.value}}" formControlName="shippingMethod" (click)="updateFeeSurcharge(shippingMethod.value)">
               <span class="custom-control-indicator"></span>
             </label>
           </td>

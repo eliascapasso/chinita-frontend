@@ -1,4 +1,3 @@
-
 <aside class="sidebar">
   <div class="padding-top-2x hidden-lg-up"></div>
   <!-- Order Summary Widget-->
@@ -7,17 +6,20 @@
     <table class="table">
       <tr>
         <td>Subtotal del carrito:</td>
-        <td class="text-medium">{{cartSubtotal | currency}}</td>
+        <td class="text-medium">{{ cartSubtotal | currency }}</td>
       </tr>
       <tr *ngIf="shipping != 0">
         <td>Envío:</td>
-        <td class="text-medium">{{shipping | currency}}</td>
+        <td class="text-medium">{{ shipping | currency }}</td>
+      </tr>
+      <tr *ngIf="shipping != 0">
+        <td>Recargo del servicio ({{ percent }}%):</td>
+        <td class="text-medium">{{ surcharge | currency }}</td>
       </tr>
       <tr>
         <td>Total de la orden:</td>
-        <td class="text-lg text-medium">{{orderTotal | currency}}</td>
+        <td class="text-lg text-medium">{{ orderTotal | currency }}</td>
       </tr>
     </table>
   </section>
 </aside>
-

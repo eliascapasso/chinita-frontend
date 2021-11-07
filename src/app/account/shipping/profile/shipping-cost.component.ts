@@ -11,6 +11,7 @@ export class ShippingCostComponent implements OnInit {
   public cost: number;
   public min: number;
   public max: number;
+  public surcharge: number;
 
   constructor(
     private sharedService: SharedService,
@@ -19,6 +20,7 @@ export class ShippingCostComponent implements OnInit {
 
   ngOnInit() {
     this.sharedService.getObject("ENVIO").subscribe((envio) => {
+      this.surcharge = envio.recargo;
       this.cost = envio.valor;
       this.min = envio.min_time;
       this.max = envio.max_time;
@@ -28,6 +30,7 @@ export class ShippingCostComponent implements OnInit {
   updateShipping() {
     let object = {
       valor: this.cost,
+      recargo: this.surcharge,
       min_time: this.min,
       max_time: this.max,
     };
@@ -35,7 +38,7 @@ export class ShippingCostComponent implements OnInit {
     this.sharedService
       .updateObject({ type: "shared/ENVIO", object: object })
       .then(() => {
-        this.log.add("Configuración de envío modificada");
+        this.log.add("Configuración de pago y envío modificada");
       })
       .catch((error) => {
         this.log.addError("No pudo modificarse la configuración de envío");

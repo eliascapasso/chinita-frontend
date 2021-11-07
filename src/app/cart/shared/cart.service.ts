@@ -8,14 +8,17 @@ export class CartService {
   // Init and generate some fixtures
   private cartItems: CartItem[];
   private shipping: number = 0;
+  private surcharge: number = 0;
   public itemsChanged: EventEmitter<CartItem[]> = new EventEmitter<
     CartItem[]
   >();
   @Output() shippingChanged: EventEmitter<number> = new EventEmitter<number>();
+  @Output() surchargeChanged: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private messageService: MessageService) {
     this.cartItems = [];
     this.shipping = 0;
+    this.surcharge = 0;
   }
 
   public getShipping(): number {
@@ -25,6 +28,20 @@ export class CartService {
   public setShipping(value: number) {
     this.shipping = value;
     this.shippingChanged.emit(this.shipping);
+  }
+
+  public getSurcharge(): number {
+    return this.surcharge;
+  }
+
+  public setSurcharge(value: number) {
+    this.surcharge = value;
+    this.getPercentSurcharge();
+  }
+
+  getPercentSurcharge(){
+    this.surchargeChanged.emit((this.getSurcharge() / 100) * (this.getShipping() + this.getTotal()));
+    return (this.getSurcharge() / 100) * (this.getShipping() + this.getTotal());
   }
 
   public getItems() {
@@ -74,7 +91,10 @@ export class CartService {
 
   public updateItemAmount(item: CartItem, newAmount: number) {
     this.cartItems.forEach((cartItem) => {
-      if (cartItem.product.id === item.product.id && cartItem.size === item.size) {
+      if (
+        cartItem.product.id === item.product.id &&
+        cartItem.size === item.size
+      ) {
         cartItem.amount = newAmount;
       }
     });
@@ -85,8 +105,10 @@ export class CartService {
   public clearCart() {
     this.cartItems = [];
     this.shipping = 0;
+    this.surcharge = 0;
     this.itemsChanged.emit(this.cartItems.slice());
     this.shippingChanged.emit(this.shipping);
+    this.surchargeChanged.emit(this.surcharge);
     this.messageService.add("Carrito limpiado");
   }
 
