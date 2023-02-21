@@ -17,7 +17,7 @@ export class MainSliderComponent implements OnInit, OnDestroy {
   @Input() public items: any[];
   public currentSlide: number;
   public imagesLoaded: string[];
-  public backgroundImage: string;
+  public backgroundImage: string = "";
   private userSubscription: Subscription;
   public user: User;
 
@@ -49,7 +49,6 @@ export class MainSliderComponent implements OnInit, OnDestroy {
     this.imagesLoaded = [];
     this.sharedService.getObject("FONDO").subscribe((result) => {
       this.backgroundImage = result.imageURLs;
-      console.log(this.items);
     });
 
     this.userSubscription = this.authService.user.subscribe((user) => {
